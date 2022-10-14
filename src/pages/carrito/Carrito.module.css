@@ -1,0 +1,21 @@
+.Carrito {
+    width: 100%;
+    height: calc(100% - 10vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Imagen, .Texto{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.Texto span{
+    padding: 10px;
+}
+

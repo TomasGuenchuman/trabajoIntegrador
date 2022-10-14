@@ -1,0 +1,71 @@
+.Contacto {
+    width: 100%;
+    height: calc(100% - 10vh);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.Form {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    margin-left: 200px;
+    margin-top: 10px;
+}
+
+.Form textarea {
+    height: 200px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    padding: 10px 5px;
+    width: 70%;
+}
+
+.Form input {
+    height: 50px;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 10px 5px;
+    width: 50%;
+}
+
+.InfoContacto {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+}
+
+.Redes {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.Redes img {
+    width: 50px;
+    margin: 10px;
+    
+}
+
+.Direcciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.Direcciones span,a {
+    margin-bottom: 5px;
+}
+
+.Contactos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Contactos span,a {
+    margin-bottom: 5px;
+}

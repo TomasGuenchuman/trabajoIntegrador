@@ -1,0 +1,92 @@
+.ContenedorLogIn {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    display: flex;
+    justify-content: center;  
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.LogIn {
+    position: absolute;
+    top: 20vh;
+    opacity: 1;
+    background-color: whitesmoke;
+    width: 580px;
+    height: 400px;
+    z-index: 1001;
+}
+
+.Eliminar{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    color: white;
+    font-weight:bolder;
+    right: 0;
+    margin: 10px 10px 0 0;
+    padding: 10px;
+    background-color: rgb(63, 63, 63);
+    border-radius: 50%;
+    user-select: none;
+    cursor: pointer;
+}
+
+.Division {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Texto {
+    flex: 0.7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Form input {
+    width: 80%;
+    height: 25%;
+    margin: 5px;
+    font-size: 15px;
+    padding: 10px 5px;
+}
+
+.Botones {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.Botones div {
+    margin: 5px;
+}
+
+.Form input {
+    background: none;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid;
+}
+.Form input,textarea:focus {
+    outline: none;
+}

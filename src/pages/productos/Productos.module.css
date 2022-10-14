@@ -1,0 +1,16 @@
+.ContenedorProductos {
+    height: 100%;
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    background-color: aqua;
+}
+
+.Titulo {
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: azure;
+}
