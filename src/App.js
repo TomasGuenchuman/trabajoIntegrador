@@ -8,7 +8,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import LogIn from "./components/LogIn/LogIn";
+import LogIn from "./pages/LogIn/LogIn";
 import Carrito from "./pages/carrito/Carrito";
 export default class App extends React.Component {
   constructor(props) {

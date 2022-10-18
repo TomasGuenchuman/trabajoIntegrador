@@ -24,7 +24,7 @@ export default class Contacto extends React.Component {
             <input type="email" />
             <span style={{ marginBottom: 10 }}><b>Mensaje</b></span>
             <textarea />
-            <Boton texto="enviar" color="lightgray" width="10%" height="50px" />
+            <Boton texto="enviar" color="lightgray" width="80px" height="50px" />
           </form>
           <div className={styles.InfoContacto}>
             <div className={styles.Redes}>

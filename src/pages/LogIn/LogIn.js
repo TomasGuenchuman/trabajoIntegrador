@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./LogIn.module.css";
-import Boton from "../comun/Boton";
+import Boton from "../../components/comun/Boton";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export default  class LogIn extends React.Component {
@@ -100,7 +100,7 @@ class Register extends React.Component {
               <input type="text" placeholder="Apellido" />
               <input type="email" placeholder="Email" />
               <input type="password" placeholder="Contraseña" />
-              <input type="password" placeholder="Contraseña" />
+              <input type="password" placeholder="Repetir contraseña" />
             </form>
             <div className={styles.Botones} style={{ flex: 0.8 }}>
               <Boton
