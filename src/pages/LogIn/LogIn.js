@@ -81,7 +81,9 @@ class IniciarSesion extends React.Component {
 class Register extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      type: "password"
+    };
   }
   render() {
     return (

@@ -18,7 +18,7 @@ export default class Productos extends React.Component {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "lightgray",
-          userSelect: "none"
+          userSelect: "none",
         }}
       >
         <div className={styles.ContenedorProductos}>
@@ -66,7 +66,6 @@ export default class Productos extends React.Component {
                   <CategoriasElegidas />
                   <CategoriasElegidas />
                   <CategoriasElegidas />
-
                 </div>
                 <Card />
                 <Card />
