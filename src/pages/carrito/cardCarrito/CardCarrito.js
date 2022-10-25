@@ -1,13 +1,26 @@
 import React from "react";
 import styles from "./CardCarrito.module.css";
+import Boton from "../../../components/comun/Boton"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export default class CardCarrito extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      editar: ""
+    };
+  }
+
+  mostrarEdicion(seleccion) {
+    const {editar} = this.state;
+    this.setState({editar: seleccion})
   }
   render() {
+    const editarPrecio = <div style={{display: "flex",flexDirection: "row",marginRight: 10}}>
+      <input type="number" style={{marginRight: 10,width: 70,height: 25,fontSize: 20}}/>
+      <Boton texto="actualizar" color="#FFD814" height="25px"/>
+    </div>;
+    const {editar} = this.state;
     return (
       <div
         style={{
@@ -55,7 +68,7 @@ export default class CardCarrito extends React.Component {
           </div>
 
           <div className={styles.OpcionesCarrito}>
-            <select style={{marginRight: 10}}>
+            <select style={{marginRight: 10,display: editar === "10+"? "none" : ""}} onChange={(e) =>this.mostrarEdicion(e.target.value)}>
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -65,7 +78,9 @@ export default class CardCarrito extends React.Component {
               <option>7</option>
               <option>8</option>
               <option>9</option>
+              <option>10+</option>
             </select>
+            {editar === "10+"? editarPrecio: ""}
             <span>Eliminar</span>
           </div>
         </div>

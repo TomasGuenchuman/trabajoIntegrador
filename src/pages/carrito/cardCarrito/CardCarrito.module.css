@@ -1,3 +1,8 @@
+.OpcionesCarrito {
+    display: flex;
+    flex-direction: row;
+}
+
 .OpcionesCarrito select{
     width: 50px;
     height: 25px;
