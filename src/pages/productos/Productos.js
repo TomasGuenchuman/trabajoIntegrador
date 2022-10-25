@@ -17,7 +17,7 @@ export default class Productos extends React.Component {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "lightgray",
+          backgroundColor: "#EAEDED",
           userSelect: "none",
         }}
       >

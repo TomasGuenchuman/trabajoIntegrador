@@ -24,8 +24,8 @@
 
 .ContenedorCarrito {
     flex: 3;
-    background-color: pink;
     display: flex;
+    background-color: #EAEDED;
     justify-content: center;
     align-items: center;
 }
@@ -35,11 +35,11 @@
     width: 95%;
     height: 75%;
     margin-bottom: 100px;
+    box-shadow: 2px 9px 18px -8px rgba(0,0,0,0.28);
 }
 
 .Pago {
     flex: 1;
-    background-color: lightsalmon;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,4 +52,5 @@
     margin-bottom: 200px;
     display: flex;
     flex-direction: column;
+    box-shadow: 2px 9px 18px -8px rgba(0,0,0,0.28);
 }

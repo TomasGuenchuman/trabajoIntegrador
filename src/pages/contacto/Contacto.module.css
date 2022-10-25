@@ -20,6 +20,7 @@
     margin-bottom: 10px;
     padding: 10px 5px;
     width: 70%;
+    border: 1px solid gray;
 }
 
 .Form input {
@@ -29,6 +30,7 @@
     margin-bottom: 5px;
     padding: 10px 5px;
     width: 50%;
+    border: 1px solid gray;
 }
 
 .InfoContacto {

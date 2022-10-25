@@ -1,12 +1,16 @@
 import React from "react";
 import styles from "./LogIn.module.css";
 import Boton from "../../components/comun/Boton";
+import mostrar from "../../assets/showPassword.png";
+import ocultar from "../../assets/hiddenPassword.png"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export default  class LogIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      a: mostrar
+    };
   }
   render() {
     return (
@@ -21,9 +25,21 @@ export default  class LogIn extends React.Component {
 class IniciarSesion extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      password: "password"
+    };
   }
+mostrarContraseña(){
+    let {password} = this.state;
+    if(password === "password"){
+      password = "text";
+    }else {
+      password = "password";
+    }
+    this.setState({password});
+}
   render() {
+    const {password} = this.state;
     return (
       <div className={styles.ContenedorLogIn} style={{ display: "flex" }}>
         <div className={styles.LogIn}>
@@ -40,12 +56,15 @@ class IniciarSesion extends React.Component {
                 style={{ height: 50 }}
                 type="email"
                 placeholder="Ingrese su email"
+                required
               />
               <input
                 style={{ height: 50 }}
-                type="password"
+                type={password}
                 placeholder="Ingrese su contraseña"
+                required
               />
+              <img src={password === "password"? mostrar : ocultar} style={{position: "absolute",width: 35,height: 35,right: 80,bottom: 185,}} onClick={() => this.mostrarContraseña()}/>
             </form>
             <div className={styles.Botones}>
               <Boton
@@ -82,10 +101,31 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: "password"
+      password: "password",
+      rePassword: "password"
     };
   }
+mostrarContraseña(){
+    let {password} = this.state;
+    if(password === "password"){
+      password = "text";
+    }else {
+      password = "password";
+    }
+    this.setState({password});
+}
+
+mostrarReContraseña(){
+  let {rePassword} = this.state;
+  if(rePassword === "password"){
+    rePassword = "text";
+  }else {
+    rePassword = "password";
+  }
+  this.setState({rePassword});
+}
   render() {
+    const {password,rePassword} = this.state;
     return (
       <div className={styles.ContenedorLogIn} style={{ display: "flex" }}>
         <div className={styles.LogIn} style={{ height: 650 }}>
@@ -98,11 +138,13 @@ class Register extends React.Component {
               <h4>Porfavor ingrese sus datos para crear la cuenta</h4>
             </div>
             <form className={styles.Form} style={{ flex: 2 }}>
-              <input type="text" placeholder="Nombre" />
-              <input type="text" placeholder="Apellido" />
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Contraseña" />
-              <input type="password" placeholder="Repetir contraseña" />
+              <input type="text" placeholder="Nombre" required/>
+              <input type="text" placeholder="Apellido" required/>
+              <input type="email" placeholder="Email" required/>
+              <input type={password} placeholder="Contraseña" required/>
+              <img src={password === "password"? mostrar : ocultar} style={{position: "absolute",width: 35,height: 35,right: 80,bottom: 240,}} onClick={() => this.mostrarContraseña()}/>
+              <input type={rePassword} placeholder="Repetir contraseña" required/>
+              <img src={rePassword === "password"? mostrar : ocultar} style={{position: "absolute",width: 35,height: 35,right: 80,bottom: 170,}} onClick={() => this.mostrarReContraseña()}/>
             </form>
             <div className={styles.Botones} style={{ flex: 0.8 }}>
               <Boton

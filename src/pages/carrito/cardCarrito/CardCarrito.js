@@ -12,7 +12,7 @@ export default class CardCarrito extends React.Component {
       <div
         style={{
           height: "35%",
-          borderTop: "1px solid red",
+          borderTop: "1px solid lightgray",
           display: "flex",
           flexDirection: "row",
         }}
@@ -54,8 +54,18 @@ export default class CardCarrito extends React.Component {
             </div>
           </div>
 
-          <div>
-            <input type="number"/>
+          <div className={styles.OpcionesCarrito}>
+            <select style={{marginRight: 10}}>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+            </select>
             <span>Eliminar</span>
           </div>
         </div>

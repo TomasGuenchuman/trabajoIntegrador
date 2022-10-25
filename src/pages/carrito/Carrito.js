@@ -65,6 +65,7 @@ export default class Carrito extends React.Component {
           display: "flex",
           flexDirection: "row",
           borderRadius: 10,
+          backgroundColor: "#EAEDED"
         }}
       >
         <div className={styles.ContenedorCarrito}>
@@ -73,14 +74,15 @@ export default class Carrito extends React.Component {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                margin: 15,
+                alignItems: "flex-end",
+                margin: "5px 15px",
                 height: 40
               }}
             >
               <h1>carrito</h1>
               <h2>precio</h2>
             </div>
-            <div style={{height: 600,backgroundColor: "lightgray",overflow: "scroll",overflowX: "hidden"}}>
+            <div style={{height: 600,overflow: "scroll",overflowX: "hidden"}}>
               <CardCarrito />
               <CardCarrito />
               <CardCarrito />
