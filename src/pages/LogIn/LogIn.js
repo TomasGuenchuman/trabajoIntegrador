@@ -64,7 +64,7 @@ mostrarContraseña(){
                 placeholder="Ingrese su contraseña"
                 required
               />
-              <img src={password === "password"? mostrar : ocultar} style={{position: "absolute",width: 35,height: 35,right: 80,bottom: 185,}} onClick={() => this.mostrarContraseña()}/>
+              <img src={password === "password"? ocultar : mostrar} style={{position: "absolute",width: 35,height: 35,right: 80,bottom: 185,}} onClick={() => this.mostrarContraseña()}/>
             </form>
             <div className={styles.Botones}>
               <Boton
@@ -142,9 +142,9 @@ mostrarReContraseña(){
               <input type="text" placeholder="Apellido" required/>
               <input type="email" placeholder="Email" required/>
               <input type={password} placeholder="Contraseña" required/>
-              <img src={password === "password"? mostrar : ocultar} style={{position: "absolute",width: 35,height: 35,right: 80,bottom: 240,}} onClick={() => this.mostrarContraseña()}/>
+              <img src={password === "password"? ocultar : mostrar} style={{position: "absolute",width: 35,height: 35,right: 80,bottom: 240,}} onClick={() => this.mostrarContraseña()}/>
               <input type={rePassword} placeholder="Repetir contraseña" required/>
-              <img src={rePassword === "password"? mostrar : ocultar} style={{position: "absolute",width: 35,height: 35,right: 80,bottom: 170,}} onClick={() => this.mostrarReContraseña()}/>
+              <img src={rePassword === "password"? ocultar : mostrar} style={{position: "absolute",width: 35,height: 35,right: 80,bottom: 170,}} onClick={() => this.mostrarReContraseña()}/>
             </form>
             <div className={styles.Botones} style={{ flex: 0.8 }}>
               <Boton

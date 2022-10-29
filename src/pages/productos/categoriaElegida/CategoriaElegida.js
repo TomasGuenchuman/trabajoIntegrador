@@ -8,6 +8,7 @@ export default class CategoriasElegidas extends React.Component {
   }
 
   render() {
+    const {categoria,index,eliminarCategoria} = this.props;
     return (
       <div
         style={{
@@ -18,10 +19,10 @@ export default class CategoriasElegidas extends React.Component {
           borderRadius: 5,
         }}
       >
-        <div className={styles.Eliminar}>
+        <div className={styles.Eliminar} onClick={() => eliminarCategoria(index)}>
           <span>x</span>
         </div>
-        <span>componentes</span>
+        <span>{categoria}</span>
       </div>
     );
   }

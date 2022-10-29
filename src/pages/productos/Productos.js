@@ -10,6 +10,7 @@ export default class Productos extends React.Component {
   }
 
   render() {
+    const {categoria,eliminarCategoria} = this.props;
     return (
       <div
         style={{
@@ -62,10 +63,11 @@ export default class Productos extends React.Component {
 
               <div className={styles.ContenedorCards}>
                 <div className={styles.CategoriasElegidas}>
-                  <CategoriasElegidas />
-                  <CategoriasElegidas />
-                  <CategoriasElegidas />
-                  <CategoriasElegidas />
+                  {categoria.map((element,index) => {
+                    return(
+                      <CategoriasElegidas index={index} categoria={element.categoria} eliminarCategoria={(index) => eliminarCategoria(index)}/>
+                    );
+                  })}
                 </div>
                 <Card />
                 <Card />
