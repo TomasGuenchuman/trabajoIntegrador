@@ -1,0 +1,75 @@
+[
+  {
+    "nombre": "Notebook Gamer Asus TUF FX516 15.6 FHD Core I5 11300H",
+    "precio": "315000",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_32597_Notebook_Gamer_Asus_TUF_FX516_15.6__FHD_Core_I5_11300H_16GB_512GB_SSD_NVMe_RTX_3050_Freedos_144hz_989a9dde-grn.jpg",
+    "categoria": "notebook"
+  },
+  {
+    "nombre": "Mother ASUS PRIME H610M-E D4 S1700",
+    "precio": "21850",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_30440_Mother_ASUS_PRIME_H610M-E_D4_S1700_3402c168-grn.jpg",
+    "categoria": "mother"
+  },
+  {
+    "nombre": "Placa de Video Zotac GeForce RTX 4090 24GB",
+    "precio": "810360",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_34744_Placa_de_Video_Zotac_GeForce_RTX_4090_24GB_GDDR6X_Trinity_86a78923-grn.jpg",
+    "categoria": "placa de video"
+  },
+
+  {
+    "nombre": "Procesador AMD Ryzen 5 1600 AF Zen+ 12nm AM4",
+    "precio": "31500",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_17898_Procesador_AMD_Ryzen_5_1600_AF_Zen__12nm_AM4_Wraith_Stealth_Cooler_187bb9ab-grn.jpg",
+    "categoria": "procesador amd"
+  },
+  {
+    "nombre": "Memoria GeiL DDR4 16GB 3000MHz Super Luce RGB Black",
+    "precio": "22700",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_31776_Memoria_GeiL_DDR4_16GB_3000MHz_Super_Luce_RGB_Black_646b61f7-grn.jpg",
+    "categoria": "memoria ram"
+  },
+  {
+    "nombre": "Auriculares HyperX Cloud Flight Black Wireless ",
+    "precio": "22000",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_30990_Auriculares_HyperX_Cloud_Flight_Black_Wireless_ee2bc8f7-grn.jpg",
+    "categoria": "audio"
+  },
+  {
+    "nombre": "Notebook Gamer AORUS KD 15.6 Core I7 11800H",
+    "precio": "455500",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_30650_Notebook_Gamer_AORUS_KD_15.6__Core_I7_11800H_16GB__2x8GB__512GB_SSD_NVMe_RTX_3060_240Hz_W11_02c902ce-grn.jpg",
+    "categoria": "notebook"
+  },
+  {
+    "nombre": "Gabinete Kolink Inspire K3 RGB M-ATX Vidrio Templado ",
+    "precio": "13299",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_34567_Gabinete_Kolink_Inspire_K3_RGB__M-ATX_Vidrio_Templado_7306ef99-grn.jpg",
+    "categoria": "gabinete"
+  },
+  {
+    "nombre": "Gabinete ASUS ROG STRIX Helios Aluminum Black RGB",
+    "precio": "89160",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_21594_Gabinete_ASUS_ROG_STRIX_Helios_Aluminum_Black_RGB_81c9ec14-grn.jpg",
+    "categoria": "gabinete"
+  },
+  {
+    "nombre": "Fuente ASUS ROG THOR 850W 80 Plus Platinum 850P",
+    "precio": "54150",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_23295_Fuente_ASUS_ROG_THOR_850W_80_Plus_Platinum_850P_Full_modular_4de04ae6-grn.jpg",
+    "categoria": "fuente de alimentacion"
+  },
+  {
+    "nombre": "Mother ASUS PRIME A520M-K AM4",
+    "precio": "17350",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_20551_Mother_ASUS_PRIME_A520M-K_AM4_f5d89e00-grn.jpg",
+    "categoria": "mother"
+  },
+  {
+    "nombre": "Consola Microsoft XBOX Series S 512GB Digital",
+    "precio": "128900",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_25495_Consola_Microsoft_XBOX_Series_S_512GB_Digital_f5fc94c4-grn.jpg",
+    "categoria": "consola"
+  }
+]

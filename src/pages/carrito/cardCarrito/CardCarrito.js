@@ -7,20 +7,36 @@ export default class CardCarrito extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editar: ""
+      editar: "",
+      cantidad:""
     };
   }
-
+  // no funciona que se actualize el precio con el boton ACTUALIZAR solo con el selection
   mostrarEdicion(seleccion) {
-    const {editar} = this.state;
+    if(seleccion !== "10+"){
+      this.actualizarPrecio(this.props.index,seleccion)
+    }
     this.setState({editar: seleccion})
   }
+  cantidad(cantidadSeleccion){
+    this.setState({cantidad: cantidadSeleccion})
+  }
+  actualizarPrecio(index,cantidad){
+    let {editar} = this.state;
+    editar = ""
+    
+    this.setState({editar})
+    if(cantidad !== "10+"){
+      this.props.actualizarPrecio(index,Number(cantidad))
+    }
+  }
   render() {
-    const editarPrecio = <div style={{display: "flex",flexDirection: "row",marginRight: 10}}>
-      <input type="number" style={{marginRight: 10,width: 70,height: 25,fontSize: 20}}/>
-      <Boton texto="actualizar" color="#FFD814" height="25px"/>
+    const editarPrecio = <div  style={{display: "flex",flexDirection: "row",marginRight: 10}}>
+      <input type="number" style={{marginRight: 10,width: 70,height: 25,fontSize: 20}} onChange={(e) =>this.cantidad(e.target.value)}/>
+      <Boton texto="actualizar" color="#FFD814" height="25px" funcion={() => this.actualizarPrecio(this.props.index,this.props.cantidad)}/>
     </div>;
-    const {editar} = this.state;
+    let {editar} = this.state;
+    const {nombre,precio,imagen,categoria,cantidad,index,eliminarDelCarrito} = this.props;
     return (
       <div
         style={{
@@ -39,7 +55,7 @@ export default class CardCarrito extends React.Component {
           }}
         >
           <img
-            src="https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_20551_Mother_ASUS_PRIME_A520M-K_AM4_f5d89e00-grn.jpg"
+            src={imagen}
             alt="imagen"
             width="80%"
             height="80%"
@@ -57,12 +73,15 @@ export default class CardCarrito extends React.Component {
             <div style={{ flex: 4 }}>
               {" "}
               <span>
-                Mother ASUS PRIME A520M-KAM4
+                {nombre}
               </span>
             </div>
-            <div style={{ flex: 1,display:"flex",justifyContent: "flex-end" }}>
+            <div style={{ flex: 1,display:"flex",alignItems: "flex-end",flexDirection:"column"}}>
               <span>
-                <b>$ 17.350</b>
+                <b>$ {precio}</b>
+              </span>
+              <span>
+                <b>({cantidad})</b>
               </span>
             </div>
           </div>
@@ -81,7 +100,7 @@ export default class CardCarrito extends React.Component {
               <option>10+</option>
             </select>
             {editar === "10+"? editarPrecio: ""}
-            <span>Eliminar</span>
+            <span onClick={() => eliminarDelCarrito(index)}>Eliminar</span>
           </div>
         </div>
       </div>

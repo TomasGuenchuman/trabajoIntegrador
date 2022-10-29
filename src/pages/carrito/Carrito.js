@@ -5,29 +5,18 @@ import Boton from "../../components/comun/Boton";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import CardCarrito from "./cardCarrito/CardCarrito";
 
-// routes del carrito
-/*export default  class Carrito extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-        <Routes>
-          <Route path="/logIn" element={<IniciarSesion />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-    );
-  }
-}*/
 
 // CARRITO CON PRODUCTO
 export default class Carrito extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      borrar: 0
+    };
   }
+  
   render() {
+    const {carrito,eliminarDelCarrito,precioFinal,borrar,actualizarPrecio,total} = this.props;
     return (
       <div
         style={{
@@ -53,13 +42,23 @@ export default class Carrito extends React.Component {
               <h2>precio</h2>
             </div>
             <div style={{height: 600,overflow: "scroll",overflowX: "hidden"}}>
-              <CardCarrito />
-              <CardCarrito />
-              <CardCarrito />
-              <CardCarrito />
+            {carrito.map((producto, index) => {
+                  return (
+                    <CardCarrito
+                      index={index}
+                      nombre={producto.nombre}
+                      imagen={producto.imagen}
+                      precio={producto.precio}
+                      categoria={producto.categoria}
+                      cantidad={producto.cantidad}
+                      eliminarDelCarrito={(index) => eliminarDelCarrito(index)}
+                      actualizarPrecio={(index,cantidad) => actualizarPrecio(index,cantidad)}
+                    />
+                  );
+                })}
             </div>
             <div style={{width: "100%",height: 40,display:"flex",justifyContent:"flex-end"}}>
-              <span style={{fontSize: "1.8rem",marginTop: 10}}>Subtotal (* productos): <b>$100</b></span>
+              <span style={{fontSize: "1.8rem",marginTop: 10}}>Subtotal (* productos): <b>$ {total}</b></span>
             </div>
           </div>
         </div>
@@ -75,7 +74,7 @@ export default class Carrito extends React.Component {
               }}
             >
               <span style={{ fontSize: "3rem", textAlign: "center" }}>
-                subtotal (* productos): <b>$100</b>
+                subtotal (* productos): <b>$ {total}</b>
               </span>
             </div>
             <div style={{ display: "flex", flex: 1 }}>

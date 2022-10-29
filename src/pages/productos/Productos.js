@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Productos.module.css";
 import Card from "./card/Card";
 import CategoriasElegidas from "./categoriaElegida/CategoriaElegida";
+import productos from "./productos.json";
 
 export default class Productos extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export default class Productos extends React.Component {
   }
 
   render() {
-    const {categoria,eliminarCategoria} = this.props;
+    const { categoria, eliminarCategoria, añadirAlCarrito } = this.props;
     return (
       <div
         style={{
@@ -63,25 +64,30 @@ export default class Productos extends React.Component {
 
               <div className={styles.ContenedorCards}>
                 <div className={styles.CategoriasElegidas}>
-                  {categoria.map((element,index) => {
-                    return(
-                      <CategoriasElegidas index={index} categoria={element.categoria} eliminarCategoria={(index) => eliminarCategoria(index)}/>
+                  {categoria.map((element, index) => {
+                    return (
+                      <CategoriasElegidas
+                        index={index}
+                        categoria={element.categoria}
+                        eliminarCategoria={(index) => eliminarCategoria(index)}
+                      />
                     );
                   })}
                 </div>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {productos.map((producto, index) => {
+                  return (
+                    <Card
+                      index={index}
+                      nombre={producto.nombre}
+                      imagen={producto.imagen}
+                      precio={producto.precio}
+                      categoria={producto.categoria}
+                      añadirAlCarrito={({nombre, precio, imagen, categoria,cantidad}) =>
+                        añadirAlCarrito({nombre, precio, imagen, categoria,cantidad})
+                      }
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

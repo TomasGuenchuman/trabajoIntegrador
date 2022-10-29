@@ -1,5 +1,5 @@
 import React from "react";
-
+import styles from "./Boton.module.css"
 export default class Boton extends React.Component {
   constructor(props) {
     super(props);
@@ -7,7 +7,7 @@ export default class Boton extends React.Component {
   }
   render() {
     return (
-      <div style={{
+      <div className={styles.Boton} style={{
         width: this.props.width? this.props.width : "a",cursor: "pointer",
         height: this.props.height? this.props.height : "a",  
         backgroundColor: this.props.color? this.props.color : "white",
@@ -16,6 +16,8 @@ export default class Boton extends React.Component {
         borderRadius: this.props.border? this.props.border : "5px",
         display: "flex",justifyContent: "center",alignItems: "center",
       }}
+      onClick={this.props.funcion}
+      
       >
         <span
         style={{
