@@ -8,15 +8,20 @@ export default class CardCarrito extends React.Component {
     super(props);
     this.state = {
       editar: "",
-      cantidad:""
+      cantidad:"",
+      cantidadEditada: ""
     };
   }
   // no funciona que se actualize el precio con el boton ACTUALIZAR solo con el selection
   mostrarEdicion(seleccion) {
     if(seleccion !== "10+"){
       this.actualizarPrecio(this.props.index,seleccion)
+      this.setState({editar: seleccion})
     }
-    this.setState({editar: seleccion})
+    else if(seleccion === "10+"){
+      this.actualizarPrecio(this.props.index,seleccion)
+      this.setState({editar: seleccion})
+    }
   }
   cantidad(cantidadSeleccion){
     this.setState({cantidad: cantidadSeleccion})
@@ -30,10 +35,14 @@ export default class CardCarrito extends React.Component {
       this.props.actualizarPrecio(index,Number(cantidad))
     }
   }
+  cantidadPersonalizada(valor){
+    this.state.cantidadEditada = valor;
+    this.setState(this.state.cantidadEditada)
+  }
   render() {
     const editarPrecio = <div  style={{display: "flex",flexDirection: "row",marginRight: 10}}>
-      <input type="number" style={{marginRight: 10,width: 70,height: 25,fontSize: 20}} onChange={(e) =>this.cantidad(e.target.value)}/>
-      <Boton texto="actualizar" color="#FFD814" height="25px" funcion={() => this.actualizarPrecio(this.props.index,this.props.cantidad)}/>
+      <input type="number" style={{marginRight: 10,width: 70,height: 25,fontSize: 20}} onChange={(e) =>this.cantidadPersonalizada(e.target.value)}/>
+      <Boton texto="actualizar" color="#FFD814" height="25px" funcion={() =>this.mostrarEdicion(this.state.cantidadEditada)}/>
     </div>;
     let {editar} = this.state;
     const {nombre,precio,imagen,categoria,cantidad,index,eliminarDelCarrito} = this.props;

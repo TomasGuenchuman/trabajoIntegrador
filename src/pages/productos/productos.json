@@ -22,7 +22,7 @@
     "nombre": "Procesador AMD Ryzen 5 1600 AF Zen+ 12nm AM4",
     "precio": "31500",
     "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_17898_Procesador_AMD_Ryzen_5_1600_AF_Zen__12nm_AM4_Wraith_Stealth_Cooler_187bb9ab-grn.jpg",
-    "categoria": "procesador amd"
+    "categoria": "procesador"
   },
   {
     "nombre": "Memoria GeiL DDR4 16GB 3000MHz Super Luce RGB Black",
@@ -71,5 +71,47 @@
     "precio": "128900",
     "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_25495_Consola_Microsoft_XBOX_Series_S_512GB_Digital_f5fc94c4-grn.jpg",
     "categoria": "consola"
+  },
+  {
+    "nombre": "Monitor LG LED 19'' 19M38A-B VGA",
+    "precio": "35820",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_8683_Monitor_LG_LED_19___19M38A-B_VGA_4607eba4-grn.jpg",
+    "categoria": "monitor"
+  },
+  {
+    "nombre": "Monitor Hikvision 22'' DS-D5022QE-E VGA HDMI",
+    "precio": "40850",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_33977_Monitor_Hikvision_22___DS-D5022QE-E_VGA_HDMI_18808596-grn.jpg",
+    "categoria": "monitor"
+  },
+  {
+    "nombre": "Monitor LG LCD 49 49WL95C Curvo Ultra Wide",
+    "precio": "477450",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_30683_Monitor_LG_LCD_49__49WL95C_Curvo_Ultra_Wide_DUAL_QHD_b4c30ae3-grn.jpg",
+    "categoria": "monitor"
+  },
+  {
+    "nombre": "Monitor Gamer LG 32 IPS QHD 32GP850-B 165Hz",
+    "precio": "262630",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_32424_Monitor_Gamer_LG_32__IPS_QHD_32GP850-B_165Hz_da5d14a6-grn.jpg",
+    "categoria": "monitor"
+  },
+  {
+    "nombre": "Disco Rígido WD 1TB BLUE 64MB SATA 6.0GB/s",
+    "precio": "8699",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_9018_Disco_R__gido_WD_1TB_BLUE_64MB_SATA_6.0GB_s__ca74d162-grn.jpg",
+    "categoria": "almacenamiento"
+  },
+  {
+    "nombre": "Disco Solido SSD M.2 WD 1TB Green SN350 3200MB/s",
+    "precio": "19690",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_31382_Disco_Solido_SSD_M.2_WD_1TB_Green_SN350_3200MB_s_NVMe_PCI-E_Gen3_x4_b02bfa23-grn.jpg",
+    "categoria": "almacenamiento"
+  },
+  {
+    "nombre": "Disco Rigido Externo Seagate Expansion 4TB",
+    "precio": "19199",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_33030_Disco_Rigido_Externo_Seagate_Expansion_4TB_USB_3.0_46aaa6a1-grn.jpg",
+    "categoria": "almacenamiento"
   }
 ]

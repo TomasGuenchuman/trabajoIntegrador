@@ -7,11 +7,26 @@ import productos from "./productos.json";
 export default class Productos extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+    };
   }
-
+  agregarCategoria(nombreCategoria){
+    let {ocultarCategoria} = this.state
+    this.props.agregarCategoria(nombreCategoria)
+    ocultarCategoria = true
+    this.setState(ocultarCategoria)
+  }
   render() {
     const { categoria, eliminarCategoria, añadirAlCarrito } = this.props;
+    let {agregarCategoria} = this.state;
+    //categorias en un array distinto
+    let arrayCategorias = productos.map((categoriaElegida) => {
+      return(categoriaElegida.categoria);
+    })
+    // filtrando categorias repetidas (ya que no hay db)
+    let categorias = arrayCategorias.filter((item,index)=>{
+      return arrayCategorias.indexOf(item) === index;
+    })
     return (
       <div
         style={{
@@ -41,11 +56,13 @@ export default class Productos extends React.Component {
               >
                 categorias
               </h2>
-              <span>Componentes</span>
-              <span>Perifericos</span>
-              <span>Monitores</span>
-              <span>Celulares</span>
-            </div>
+              {categorias.map((categoriaElegida) => {
+                return(
+                  <span onClick={()=> this.agregarCategoria(categoriaElegida)} >{categoriaElegida}</span>
+                );
+                
+              })}
+              </div>
             <div
               style={{
                 flex: 2,

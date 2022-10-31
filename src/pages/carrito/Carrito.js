@@ -11,10 +11,18 @@ export default class Carrito extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      borrar: 0
     };
   }
   
+  cantidadDeProductos(){
+    let {carrito} = this.props;
+    let cantidadToTal = 0;
+    carrito.map((producto)=>{
+      cantidadToTal += producto.cantidad;
+      return(cantidadToTal)
+    });
+    return(cantidadToTal);
+  }
   render() {
     const {carrito,eliminarDelCarrito,precioFinal,borrar,actualizarPrecio,total} = this.props;
     return (
@@ -58,7 +66,7 @@ export default class Carrito extends React.Component {
                 })}
             </div>
             <div style={{width: "100%",height: 40,display:"flex",justifyContent:"flex-end"}}>
-              <span style={{fontSize: "1.8rem",marginTop: 10}}>Subtotal (* productos): <b>$ {total}</b></span>
+              <span style={{fontSize: "1.8rem",marginTop: 10}}>Subtotal ({this.cantidadDeProductos()} productos): <b>$ {total}</b></span>
             </div>
           </div>
         </div>
@@ -74,7 +82,7 @@ export default class Carrito extends React.Component {
               }}
             >
               <span style={{ fontSize: "3rem", textAlign: "center" }}>
-                subtotal (* productos): <b>$ {total}</b>
+                subtotal ({this.cantidadDeProductos()} productos): <b>$ {total}</b>
               </span>
             </div>
             <div style={{ display: "flex", flex: 1 }}>
