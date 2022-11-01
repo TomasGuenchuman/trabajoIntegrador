@@ -17,12 +17,12 @@ export default class App extends React.Component {
       precioFinal: [],
       total: 0,
       precioTotal: "",
+      acumuladorCarrito: 0,
     };
   }
-
   agregarCategoria(nombreCategoria) {
     let { categoria } = this.state;
-    categoria.push({ categoria: nombreCategoria});
+    categoria.push({ categoria: nombreCategoria });
     this.setState({ categoria });
   }
   eliminarCategoria(index) {
@@ -38,18 +38,25 @@ export default class App extends React.Component {
     this.setState({ carrito });
   }
   añadirAlCarrito(producto) {
-    const { carrito } = this.state;
+    let { carrito, acumuladorCarrito } = this.state;
     carrito.push(producto);
+    acumuladorCarrito += 1;
     this.precioTotal(producto.precio);
-    carrito.map((productoElegido,index)=>{
-      if(productoElegido.nombre === producto.nombre && carrito.indexOf(productoElegido) != carrito.indexOf(producto)){    
-        this.actualizarPrecio(carrito.indexOf(productoElegido), productoElegido.cantidad += 1)
-        this.eliminarDelCarrito(carrito.indexOf(producto))
+    carrito.map((productoElegido, index) => {
+      if (
+        productoElegido.nombre === producto.nombre &&
+        carrito.indexOf(productoElegido) != carrito.indexOf(producto)
+      ) {
+        this.actualizarPrecio(
+          carrito.indexOf(productoElegido),
+          (productoElegido.cantidad += 1)
+        );
+        this.eliminarDelCarrito(carrito.indexOf(producto));
       }
     });
     this.sumarPrecioFinal();
 
-    this.setState({ carrito });
+    this.setState({ carrito, acumuladorCarrito });
   }
   precioTotal(precio) {
     let { precioFinal } = this.state;
@@ -71,13 +78,21 @@ export default class App extends React.Component {
     }, 0);
     this.setState({ total });
   }
+  resetContadorcarrito() {
+    const { acumuladorCarrito } = this.state;
+    this.setState({ acumuladorCarrito: 0 });
+  }
   render() {
-    const { categoria, carrito, precioFinal, total } = this.state;
+    const { categoria, carrito, precioFinal, total, acumuladorCarrito } =
+      this.state;
     return (
       <Router>
         <div className={styles.App}>
           <LogIn />
-          <Navbar />
+          <Navbar
+            acumuladorCarrito={acumuladorCarrito}
+            resetContadorcarrito={() => this.resetContadorcarrito()}
+          />
           <Routes>
             <Route
               path="/"

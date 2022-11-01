@@ -42,7 +42,8 @@ export default class CardCarrito extends React.Component {
 
   render() {
     const editarPrecio = <div  style={{display: "flex",flexDirection: "row",marginRight: 10}}>
-      <input type="number" style={{marginRight: 10,width: 70,height: 25,fontSize: 20}} onChange={(e) =>this.cantidadPersonalizada(e.target.value)}/>
+      <input type="number" style={{marginRight: 10,width: 70,height: 25,fontSize: 20,border: "1px solid",
+    borderRadius: 5}} onChange={(e) =>this.cantidadPersonalizada(e.target.value)}/>
       <Boton texto="actualizar" color="#FFD814" height="25px" funcion={() =>this.mostrarEdicion(this.state.cantidadEditada)}/>
     </div>;
     const formatter = new Intl.NumberFormat('en-US', {

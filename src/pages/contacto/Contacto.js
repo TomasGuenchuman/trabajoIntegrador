@@ -18,12 +18,11 @@ export default class Contacto extends React.Component {
         </h1>
         <div className={styles.Contacto}>
           <form className={styles.Form}>
-            <span><b>Nombre</b></span>
-            <input type="text" />
-            <span><b>Email</b></span>
-            <input type="email" />
-            <span style={{ marginBottom: 10 }}><b>Mensaje</b></span>
-            <textarea />
+            <input type="text" placeholder="Nombre" required/>
+            <input type="email" placeholder="Email" required/>
+            <input type="text" placeholder="Asunto" required/>
+            <span style={{ marginBottom: 10,marginTop: 15,fontSize: 21 }}>Mensaje</span>
+            <textarea required/>
             <Boton texto="enviar" color="lightgray" width="80px" height="50px" />
           </form>
           <div className={styles.InfoContacto}>

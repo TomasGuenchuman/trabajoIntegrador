@@ -17,7 +17,7 @@ export default class Productos extends React.Component {
     this.setState(ocultarCategoria)
   }
   render() {
-    const { categoria, eliminarCategoria, añadirAlCarrito } = this.props;
+    const { categoria, eliminarCategoria, añadirAlCarrito, } = this.props;
     let {agregarCategoria} = this.state;
     //categorias en un array distinto cuando alla DB solo se necesita el MAP
     let arrayCategorias = productos.map((categoriaElegida) => {
@@ -40,7 +40,7 @@ export default class Productos extends React.Component {
       >
         <div className={styles.ContenedorProductos}>
           <div
-            style={{ height: "100%", display: "flex", flexDirection: "row",boxShadow: "10px 9px 18px -8px rgb(0 0 0 / 28%)" }}
+            style={{ height: "100%", display: "flex", flexDirection: "row",boxShadow: "10px 9px 18px -8px rgb(0 0 0 / 28%)",border: "1px solid lightgray"          }}
           >
             <div className={styles.Categorias}>
               <h2

@@ -12,6 +12,7 @@
     flex-direction: column;
     margin-left: 200px;
     margin-top: 10px;
+    font-size: 20px;
 }
 
 .Form textarea {
@@ -20,19 +21,39 @@
     margin-bottom: 10px;
     padding: 10px 5px;
     width: 70%;
-    border: 1px solid gray;
+    border: 1px solid;
+    border-radius: 5px;
 }
 
-.Form input {
+/*.Form input {
     height: 50px;
     font-size: 15px;
     margin-top: 10px;
     margin-bottom: 5px;
     padding: 10px 5px;
     width: 50%;
-    border: 1px solid gray;
-}
+    border: 1px solid;
+    border-radius: 5px;
+}*/
 
+.Form input {
+    background: none;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    width: 60%;
+}
+input::placeholder {
+    font-size: 21px;
+}
+.Form input,textarea:focus {
+    outline: none;
+}
 .InfoContacto {
     flex: 1.2;
     display: flex;
@@ -56,6 +77,7 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 30px;
+    font-size: 20px;
 }
 
 .Direcciones span,a {
@@ -66,6 +88,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 20px;
 }
 
 .Contactos span,a {

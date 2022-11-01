@@ -15,6 +15,7 @@ export default class Boton extends React.Component {
         padding: this.props.width? "0" : this.props.padding? this.props.padding : "10px",
         borderRadius: this.props.border? this.props.border : "5px",
         display: "flex",justifyContent: "center",alignItems: "center",
+        border: "1px solid gray"
       }}
       onClick={this.props.funcion}
       

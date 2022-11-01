@@ -69,7 +69,7 @@ export default class Carrito extends React.Component {
                   );
                 })}
             </div>
-            <div style={{width: "100%",height: 40,display:"flex",justifyContent:"flex-end"}}>
+            <div style={{width: "100%",height: 40,display:"flex",justifyContent:"flex-end",borderTop: "1px solid lightgray"}}>
               <span style={{fontSize: "1.8rem",marginTop: 10}}>Subtotal ({this.cantidadDeProductos()} productos): <b>{formatter.format(total)}</b></span>
             </div>
           </div>
