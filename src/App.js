@@ -41,16 +41,12 @@ export default class App extends React.Component {
     const { carrito } = this.state;
     carrito.push(producto);
     this.precioTotal(producto.precio);
-    // SI UN PRODUCTO ESTA REPETIDO, SE ELIMINA Y SUMA 1 A LA CANTIDAD DEL PRODUCTO (NO FUNCIONA)
-    /*carrito.map((productoCarrito,index) => {
-      if (productoCarrito.nombre === producto.nombre && carrito.indexOf(productoCarrito) !== carrito.indexOf(producto)){
-        carrito[index].cantidad +=1
-        if(productoCarrito.nombre === producto.nombre && carrito.indexOf(productoCarrito) === carrito.indexOf(producto)){
-          this.eliminarDelCarrito(carrito.indexOf(producto))
-        }
+    carrito.map((productoElegido,index)=>{
+      if(productoElegido.nombre === producto.nombre && carrito.indexOf(productoElegido) != carrito.indexOf(producto)){    
+        this.actualizarPrecio(carrito.indexOf(productoElegido), productoElegido.cantidad += 1)
+        this.eliminarDelCarrito(carrito.indexOf(producto))
       }
-      
-    });*/
+    });
     this.sumarPrecioFinal();
 
     this.setState({ carrito });
