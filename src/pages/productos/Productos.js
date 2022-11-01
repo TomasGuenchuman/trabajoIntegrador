@@ -19,7 +19,7 @@ export default class Productos extends React.Component {
   render() {
     const { categoria, eliminarCategoria, añadirAlCarrito } = this.props;
     let {agregarCategoria} = this.state;
-    //categorias en un array distinto
+    //categorias en un array distinto cuando alla DB solo se necesita el MAP
     let arrayCategorias = productos.map((categoriaElegida) => {
       return(categoriaElegida.categoria);
     })
@@ -58,7 +58,7 @@ export default class Productos extends React.Component {
               </h2>
               {categorias.map((categoriaElegida) => {
                 return(
-                  <span onClick={()=> this.agregarCategoria(categoriaElegida)} >{categoriaElegida}</span>
+                  <span onClick={()=> this.agregarCategoria(categoriaElegida)} style={{display: categoria.some((element) => element.categoria === categoriaElegida)? "none" : "flex"}}>{categoriaElegida}</span>
                 );
                 
               })}

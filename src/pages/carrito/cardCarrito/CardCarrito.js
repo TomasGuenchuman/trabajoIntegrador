@@ -114,7 +114,7 @@ export default class CardCarrito extends React.Component {
               <option>10+</option>
             </select>
             {editar === "10+"? editarPrecio: ""}
-            <span onClick={() => eliminarDelCarrito(index)}>Eliminar</span>
+            <span onClick={() => eliminarDelCarrito(index)} style={{fontSize: 20}}>Eliminar</span>
           </div>
         </div>
       </div>
