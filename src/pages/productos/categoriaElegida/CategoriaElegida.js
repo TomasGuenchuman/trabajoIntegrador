@@ -17,6 +17,7 @@ export default class CategoriasElegidas extends React.Component {
           position: "relative",
           margin: 5,
           borderRadius: 5,
+          border: "1px solid gray"
         }}
       >
         <div className={styles.Eliminar} onClick={() => eliminarCategoria(index)}>

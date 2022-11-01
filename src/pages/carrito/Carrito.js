@@ -50,7 +50,7 @@ export default class Carrito extends React.Component {
                 height: 40
               }}
             >
-              <h1>carrito</h1>
+              <h2>carrito</h2>
               <h2>precio</h2>
             </div>
             <div style={{height: 600,overflow: "scroll",overflowX: "hidden"}}>

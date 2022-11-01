@@ -7,26 +7,25 @@ import productos from "./productos.json";
 export default class Productos extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
-  agregarCategoria(nombreCategoria){
-    let {ocultarCategoria} = this.state
-    this.props.agregarCategoria(nombreCategoria)
-    ocultarCategoria = true
-    this.setState(ocultarCategoria)
+  agregarCategoria(nombreCategoria) {
+    let { ocultarCategoria } = this.state;
+    this.props.agregarCategoria(nombreCategoria);
+    ocultarCategoria = true;
+    this.setState(ocultarCategoria);
   }
   render() {
-    const { categoria, eliminarCategoria, añadirAlCarrito, } = this.props;
-    let {agregarCategoria} = this.state;
+    const { categoria, eliminarCategoria, añadirAlCarrito } = this.props;
+    let { agregarCategoria } = this.state;
     //categorias en un array distinto cuando alla DB solo se necesita el MAP
     let arrayCategorias = productos.map((categoriaElegida) => {
-      return(categoriaElegida.categoria);
-    })
+      return categoriaElegida.categoria;
+    });
     // filtrando categorias repetidas (ya que no hay db)
-    let categorias = arrayCategorias.filter((item,index)=>{
+    let categorias = arrayCategorias.filter((item, index) => {
       return arrayCategorias.indexOf(item) === index;
-    })
+    });
     return (
       <div
         style={{
@@ -40,7 +39,13 @@ export default class Productos extends React.Component {
       >
         <div className={styles.ContenedorProductos}>
           <div
-            style={{ height: "100%", display: "flex", flexDirection: "row",boxShadow: "10px 9px 18px -8px rgb(0 0 0 / 28%)",border: "1px solid lightgray"          }}
+            style={{
+              height: "100%",
+              display: "flex",
+              flexDirection: "row",
+              boxShadow: "10px 9px 18px -8px rgb(0 0 0 / 28%)",
+              border: "1px solid lightgray",
+            }}
           >
             <div className={styles.Categorias}>
               <h2
@@ -52,15 +57,25 @@ export default class Productos extends React.Component {
               >
                 CATEGORIAS
               </h2>
-              <div style={{overflowY: "scroll"}}>
+              <div style={{ overflowY: "scroll" }}>
                 {categorias.map((categoriaElegida) => {
-                  return(
-                    <span onClick={()=> this.agregarCategoria(categoriaElegida)} style={{display: categoria.some((element) => element.categoria === categoriaElegida)? "none" : "flex"}}>{categoriaElegida}</span>
+                  return (
+                    <span
+                      onClick={() => this.agregarCategoria(categoriaElegida)}
+                      style={{
+                        display: categoria.some(
+                          (element) => element.categoria === categoriaElegida
+                        )
+                          ? "none"
+                          : "flex",
+                      }}
+                    >
+                      {categoriaElegida}
+                    </span>
                   );
-                  
                 })}
               </div>
-              </div>
+            </div>
             <div
               style={{
                 flex: 2,
@@ -97,8 +112,20 @@ export default class Productos extends React.Component {
                       imagen={producto.imagen}
                       precio={producto.precio}
                       categoria={producto.categoria}
-                      añadirAlCarrito={({nombre, precio, imagen, categoria,cantidad}) =>
-                        añadirAlCarrito({nombre, precio, imagen, categoria,cantidad})
+                      añadirAlCarrito={({
+                        nombre,
+                        precio,
+                        imagen,
+                        categoria,
+                        cantidad,
+                      }) =>
+                        añadirAlCarrito({
+                          nombre,
+                          precio,
+                          imagen,
+                          categoria,
+                          cantidad,
+                        })
                       }
                     />
                   );

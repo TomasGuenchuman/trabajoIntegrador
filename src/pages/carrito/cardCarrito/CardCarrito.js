@@ -72,8 +72,10 @@ export default class CardCarrito extends React.Component {
           <img
             src={imagen}
             alt="imagen"
-            width="80%"
+            width="240"
             height="80%"
+            style={{
+              margin: 5}}
           />
         </div>
         <div style={{ flex: 3,display: "flex",flexDirection: "column",justifyContent: "space-around"}}>
