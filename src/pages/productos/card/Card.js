@@ -14,6 +14,10 @@ export default class Productos extends React.Component {
   render() {
     const {nombre,imagen,precio,categoria,añadirAlCarrito} = this.props;
     const {cantidad} = this.state;
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
     return (
       <div className={styles.Card}>
         <div style={{flex: 1,display: "flex",justifyContent: "center"}}>
@@ -26,7 +30,7 @@ export default class Productos extends React.Component {
         </div>   
         <div className={styles.InfoProducto}>
             <span><b>{nombre}</b></span>
-            <span><b>$ {precio}</b></span>
+            <span><b>{formatter.format(precio)}</b></span>
             <Boton texto="sumar al carrito" color="#fd611a" funcion={() => añadirAlCarrito({nombre,precio,imagen,categoria,cantidad})}/>
         </div>
       </div>

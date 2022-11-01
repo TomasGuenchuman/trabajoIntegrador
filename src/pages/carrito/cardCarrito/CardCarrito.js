@@ -39,11 +39,16 @@ export default class CardCarrito extends React.Component {
     this.state.cantidadEditada = valor;
     this.setState(this.state.cantidadEditada)
   }
+
   render() {
     const editarPrecio = <div  style={{display: "flex",flexDirection: "row",marginRight: 10}}>
       <input type="number" style={{marginRight: 10,width: 70,height: 25,fontSize: 20}} onChange={(e) =>this.cantidadPersonalizada(e.target.value)}/>
       <Boton texto="actualizar" color="#FFD814" height="25px" funcion={() =>this.mostrarEdicion(this.state.cantidadEditada)}/>
     </div>;
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
     let {editar} = this.state;
     const {nombre,precio,imagen,categoria,cantidad,index,eliminarDelCarrito} = this.props;
     return (
@@ -87,7 +92,7 @@ export default class CardCarrito extends React.Component {
             </div>
             <div style={{ flex: 1,display:"flex",alignItems: "flex-end",flexDirection:"column"}}>
               <span>
-                <b>$ {precio}</b>
+                <b>{formatter.format(precio)}</b>
               </span>
               <span>
                 <b>({cantidad})</b>
