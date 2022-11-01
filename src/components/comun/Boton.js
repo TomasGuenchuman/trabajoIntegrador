@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Boton.module.css"
+import styles from "./Boton.module.css";
 export default class Boton extends React.Component {
   constructor(props) {
     super(props);
@@ -7,29 +7,37 @@ export default class Boton extends React.Component {
   }
   render() {
     return (
-      <div className={styles.Boton} style={{
-        width: this.props.width? this.props.width : "a",cursor: "pointer",
-        height: this.props.height? this.props.height : "a",  
-        backgroundColor: this.props.color? this.props.color : "white",
-        textAlign: "center",
-        padding: this.props.width? "0" : this.props.padding? this.props.padding : "10px",
-        borderRadius: this.props.border? this.props.border : "5px",
-        display: "flex",justifyContent: "center",alignItems: "center",
-        border: "1px solid gray"
-      }}
-      onClick={this.props.funcion}
-      
+      <div
+        className={styles.Boton}
+        style={{
+          width: this.props.width ? this.props.width : "a",
+          cursor: "pointer",
+          height: this.props.height ? this.props.height : "a",
+          backgroundColor: this.props.color ? this.props.color : "white",
+          textAlign: "center",
+          padding: this.props.width
+            ? "0"
+            : this.props.padding
+            ? this.props.padding
+            : "10px",
+          borderRadius: this.props.border ? this.props.border : "5px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          border: "1px solid gray",
+        }}
+        onClick={this.props.funcion}
       >
         <span
-        style={{
-        textTransform: "uppercase",
-        fontSize: "0.875rem",
-        letterSpacing: "0.02857em",
-        userSelect: "none",
-        fontWeight: "bold"
-      }}
+          style={{
+            textTransform: "uppercase",
+            fontSize: "0.875rem",
+            letterSpacing: "0.02857em",
+            userSelect: "none",
+            fontWeight: "bold",
+          }}
         >
-            {this.props.texto}
+          {this.props.texto}
         </span>
       </div>
     );

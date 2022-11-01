@@ -22,6 +22,7 @@ export default class App extends React.Component {
   }
   agregarCategoria(nombreCategoria) {
     let { categoria } = this.state;
+    categoria = [];
     categoria.push({ categoria: nombreCategoria });
     this.setState({ categoria });
   }

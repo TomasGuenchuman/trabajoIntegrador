@@ -27,26 +27,9 @@ export default class Productos extends React.Component {
       return arrayCategorias.indexOf(item) === index;
     });
     return (
-      <div
-        style={{
-          height: "calc(100% - 10vh)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#EAEDED",
-          userSelect: "none",
-        }}
-      >
+      <div className={styles.Contenedor}>
         <div className={styles.ContenedorProductos}>
-          <div
-            style={{
-              height: "100%",
-              display: "flex",
-              flexDirection: "row",
-              boxShadow: "10px 9px 18px -8px rgb(0 0 0 / 28%)",
-              border: "1px solid lightgray",
-            }}
-          >
+          <div className={styles.ProductosContenedor}>
             <div className={styles.Categorias}>
               <h2
                 style={{

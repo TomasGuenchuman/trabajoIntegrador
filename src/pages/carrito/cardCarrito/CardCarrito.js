@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CardCarrito.module.css";
-import Boton from "../../../components/comun/Boton"
+import Boton from "../../../components/comun/Boton";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export default class CardCarrito extends React.Component {
@@ -8,92 +8,83 @@ export default class CardCarrito extends React.Component {
     super(props);
     this.state = {
       editar: "",
-      cantidad:"",
-      cantidadEditada: ""
+      cantidad: "",
+      cantidadEditada: "",
     };
   }
-  // no funciona que se actualize el precio con el boton ACTUALIZAR solo con el selection
   mostrarEdicion(seleccion) {
-    if(seleccion !== "10+"){
-      this.actualizarPrecio(this.props.index,seleccion)
-      this.setState({editar: seleccion})
-    }
-    else if(seleccion === "10+"){
-      this.actualizarPrecio(this.props.index,seleccion)
-      this.setState({editar: seleccion})
-    }
-  }
-  cantidad(cantidadSeleccion){
-    this.setState({cantidad: cantidadSeleccion})
-  }
-  actualizarPrecio(index,cantidad){
-    let {editar} = this.state;
-    editar = ""
-    
-    this.setState({editar})
-    if(cantidad !== "10+"){
-      this.props.actualizarPrecio(index,Number(cantidad))
+    if (seleccion !== "10+") {
+      this.actualizarPrecio(this.props.index, seleccion);
+      this.setState({ editar: seleccion });
+    } else if (seleccion === "10+") {
+      this.actualizarPrecio(this.props.index, seleccion);
+      this.setState({ editar: seleccion });
     }
   }
-  cantidadPersonalizada(valor){
+  actualizarPrecio(index, cantidad) {
+    let { editar } = this.state;
+    editar = "";
+
+    this.setState({ editar });
+    if (cantidad !== "10+") {
+      this.props.actualizarPrecio(index, Number(cantidad));
+    }
+  }
+  cantidadPersonalizada(valor) {
     this.state.cantidadEditada = valor;
-    this.setState(this.state.cantidadEditada)
+    this.setState(this.state.cantidadEditada);
   }
 
   render() {
-    const editarPrecio = <div  style={{display: "flex",flexDirection: "row",marginRight: 10}}>
-      <input type="number" style={{marginRight: 10,width: 70,height: 25,fontSize: 20,border: "1px solid",
-    borderRadius: 5}} onChange={(e) =>this.cantidadPersonalizada(e.target.value)}/>
-      <Boton texto="actualizar" color="#FFD814" height="25px" funcion={() =>this.mostrarEdicion(this.state.cantidadEditada)}/>
-    </div>;
-    const formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    const editarPrecio = (
+      <div style={{ display: "flex", flexDirection: "row", marginRight: 10 }}>
+        <input
+          type="number"
+          className={styles.InputActualizarPrecio}
+          onChange={(e) => this.cantidadPersonalizada(e.target.value)}
+        />
+        <Boton
+          texto="actualizar"
+          color="#FFD814"
+          height="25px"
+          funcion={() => this.mostrarEdicion(this.state.cantidadEditada)}
+        />
+      </div>
+    );
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
     });
-    let {editar} = this.state;
-    const {nombre,precio,imagen,categoria,cantidad,index,eliminarDelCarrito} = this.props;
+    let { editar } = this.state;
+    const { nombre, precio, imagen, cantidad, index, eliminarDelCarrito } =
+      this.props;
     return (
-      <div
-        style={{
-          height: "35%",
-          borderTop: "1px solid lightgray",
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+      <div className={styles.ContenedorCard}>
+        <div className={styles.ContenedorImagen}>
           <img
             src={imagen}
             alt="imagen"
             width="240"
             height="80%"
             style={{
-              margin: 5}}
+              margin: 5,
+            }}
           />
         </div>
-        <div style={{ flex: 3,display: "flex",flexDirection: "column",justifyContent: "space-around"}}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              margin: 20,
-              fontSize: "1.3rem",
-            }}
-          >
+        <div className={styles.ContenedorInfo}>
+          <div className={styles.Info}>
             <div style={{ flex: 4 }}>
               {" "}
-              <span>
-                {nombre}
-              </span>
+              <span>{nombre}</span>
             </div>
-            <div style={{ flex: 1,display:"flex",alignItems: "flex-end",flexDirection:"column"}}>
+            <div
+              style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "flex-end",
+                flexDirection: "column",
+              }}
+            >
               <span>
                 <b>{formatter.format(precio)}</b>
               </span>
@@ -104,7 +95,13 @@ export default class CardCarrito extends React.Component {
           </div>
 
           <div className={styles.OpcionesCarrito}>
-            <select style={{marginRight: 10,display: editar === "10+"? "none" : ""}} onChange={(e) =>this.mostrarEdicion(e.target.value)}>
+            <select
+              style={{
+                marginRight: 10,
+                display: editar === "10+" ? "none" : "",
+              }}
+              onChange={(e) => this.mostrarEdicion(e.target.value)}
+            >
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -116,8 +113,13 @@ export default class CardCarrito extends React.Component {
               <option>9</option>
               <option>10+</option>
             </select>
-            {editar === "10+"? editarPrecio: ""}
-            <span onClick={() => eliminarDelCarrito(index)} style={{fontSize: 20}}>Eliminar</span>
+            {editar === "10+" ? editarPrecio : ""}
+            <span
+              onClick={() => eliminarDelCarrito(index)}
+              style={{ fontSize: 20 }}
+            >
+              Eliminar
+            </span>
           </div>
         </div>
       </div>

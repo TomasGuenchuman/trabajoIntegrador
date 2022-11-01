@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Carrito.module.css";
 import carritovacio from "../../assets/emptyCart.png";
 import Boton from "../../components/comun/Boton";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //carrito vacio
 export default class CarritoVacio extends React.Component {

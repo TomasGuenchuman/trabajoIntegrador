@@ -1,3 +1,30 @@
+
+.ContenedorCard {
+    height: 35%;
+    border-top: 1px solid lightgray;
+    display: flex;
+    flex-direction: row;
+}
+
+.ContenedorImagen {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ContenedorInfo {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.Info {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    font-size: 1.3rem;
+}
 .OpcionesCarrito {
     display: flex;
     flex-direction: row;
@@ -10,3 +37,14 @@
     border: 1px solid;
     border-radius: 5px;
 }
+
+.InputActualizarPrecio {
+    
+    margin-right: 10px;
+    width: 70px;
+    height: 25px;
+    font-size: 20px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+

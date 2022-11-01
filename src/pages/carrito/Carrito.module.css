@@ -1,4 +1,12 @@
 /*CARRITO VACIO */
+.Contenedor {
+    height: calc(100% - 10vh);
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    background-color: #EAEDED;
+}
+
 .Carrito {
     width: 100%;
     height: calc(100% - 10vh);
@@ -20,7 +28,6 @@
     padding: 10px;
 }
 
-/*CARRITO CON PRODUCTO*/
 
 .ContenedorCarrito {
     flex: 3;
@@ -39,6 +46,20 @@
     border: 1px solid lightgray;
 }
 
+.ContenedorCard {
+    height: 600px;
+    overflow: scroll;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.ContenedorSubtotal {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid lightgray;
+}
 .Pago {
     flex: 1;
     display: flex;
@@ -55,4 +76,11 @@
     flex-direction: column;
     box-shadow: 2px 9px 18px -8px rgba(0,0,0,0.28);
     border: 1px solid lightgray;
+}
+
+.ContenedorSubtotalPago {
+    display: flex;
+    flex: 3;
+    justify-content: center;
+    align-items: center;
 }

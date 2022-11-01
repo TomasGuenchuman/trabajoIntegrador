@@ -8,7 +8,7 @@ export default class CategoriasElegidas extends React.Component {
   }
 
   render() {
-    const {categoria,index,eliminarCategoria} = this.props;
+    const { categoria, index, eliminarCategoria } = this.props;
     return (
       <div
         style={{
@@ -17,10 +17,13 @@ export default class CategoriasElegidas extends React.Component {
           position: "relative",
           margin: 5,
           borderRadius: 5,
-          border: "1px solid gray"
+          border: "1px solid gray",
         }}
       >
-        <div className={styles.Eliminar} onClick={() => eliminarCategoria(index)}>
+        <div
+          className={styles.Eliminar}
+          onClick={() => eliminarCategoria(index)}
+        >
           <span>x</span>
         </div>
         <span>{categoria}</span>

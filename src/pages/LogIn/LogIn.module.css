@@ -16,6 +16,7 @@
     width: 580px;
     height: 400px;
     z-index: 1001;
+    box-shadow: 23px 23px 18px -8px rgb(0 0 0 / 28%);
 }
 
 .Eliminar{

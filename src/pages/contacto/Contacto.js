@@ -9,7 +9,7 @@ export default class Contacto extends React.Component {
     super(props);
     this.state = {};
   }
-  
+
   render() {
     return (
       <div>
@@ -18,32 +18,38 @@ export default class Contacto extends React.Component {
         </h1>
         <div className={styles.Contacto}>
           <form className={styles.Form}>
-            <input type="text" placeholder="Nombre" required/>
-            <input type="email" placeholder="Email" required/>
-            <input type="text" placeholder="Asunto" required/>
-            <span style={{ marginBottom: 10,marginTop: 15,fontSize: 21 }}>Mensaje</span>
-            <textarea required/>
-            <Boton texto="enviar" color="lightgray" width="80px" height="50px" />
+            <input type="text" placeholder="Nombre" required />
+            <input type="email" placeholder="Email" required />
+            <input type="text" placeholder="Asunto" required />
+            <span style={{ marginBottom: 10, marginTop: 15, fontSize: 21 }}>
+              Mensaje
+            </span>
+            <textarea required />
+            <Boton
+              texto="enviar"
+              color="lightgray"
+              width="80px"
+              height="50px"
+            />
           </form>
           <div className={styles.InfoContacto}>
             <div className={styles.Redes}>
-              <a href="https://www.instagram.com/" rel="noreferrer" target="_blank">
-                <img
-                  src={instagram}
-                  alt="Instagram"
-                />
+              <a
+                href="https://www.instagram.com/"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img src={instagram} alt="Instagram" />
               </a>
-              <a href="https://twitter.com/"  rel="noreferrer" target="_blank">
-                <img
-                  src={twitter}
-                  alt="Twitter"
-                />
+              <a href="https://twitter.com/" rel="noreferrer" target="_blank">
+                <img src={twitter} alt="Twitter" />
               </a>
-              <a href="https://www.facebook.com/" rel="noreferrer" target="_blank">
-                <img
-                  src={facebook}
-                  alt="Facebook"
-                />
+              <a
+                href="https://www.facebook.com/"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img src={facebook} alt="Facebook" />
               </a>
             </div>
             <div className={styles.Direcciones}>

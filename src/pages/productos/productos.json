@@ -17,12 +17,17 @@
     "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_34744_Placa_de_Video_Zotac_GeForce_RTX_4090_24GB_GDDR6X_Trinity_86a78923-grn.jpg",
     "categoria": "placa de video"
   },
-
   {
     "nombre": "Procesador AMD Ryzen 5 1600 AF Zen+ 12nm AM4",
     "precio": "31500",
     "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_17898_Procesador_AMD_Ryzen_5_1600_AF_Zen__12nm_AM4_Wraith_Stealth_Cooler_187bb9ab-grn.jpg",
     "categoria": "procesador"
+  },
+  {
+    "nombre": "Smartwatch Samsung Galaxy Watch5",
+    "precio": "57650",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_34507_Smartwatch_Samsung_Galaxy_Watch5_Bluetooth_40mm_Pink_Gold_-_SM-R900_1c777f15-grn.jpg",
+    "categoria": "smartwatch"
   },
   {
     "nombre": "Memoria GeiL DDR4 16GB 3000MHz Super Luce RGB Black",
@@ -113,5 +118,11 @@
     "precio": "19199",
     "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_33030_Disco_Rigido_Externo_Seagate_Expansion_4TB_USB_3.0_46aaa6a1-grn.jpg",
     "categoria": "almacenamiento"
+  },
+  {
+    "nombre": "Webcam Redragon GW600 FOBOS 720p",
+    "precio": "5000",
+    "imagen": "https://compragamer.net/pga/imagenes_publicadas/compragamer_Imganen_general_20302_Webcam_Redragon_GW600_FOBOS_720p_5546388f-grn.jpg",
+    "categoria": "webcam"
   }
 ]
