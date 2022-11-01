@@ -8,28 +8,20 @@
     box-shadow: 2px 9px 18px -8px rgba(0,0,0,0.28);
 }
 
-.Titulo {
-    background-color: lightpink;
-    height: 10vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .Categorias {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(142, 156, 161);
-    overflow: scroll;
+    background-color: whitesmoke;
     overflow-x: hidden;
 }
 
 .Categorias span {
   font-size: 1.5rem;
   padding: 20px;
+  border-top: 1px solid lightgray;
+  width: 100%;
 }
 .Filtros {
     height: 10vh;
@@ -42,6 +34,8 @@
 .Filtros select {
     height: 50px;
     width: 120px;
+    border: 1px solid;
+    border-radius: 5px;
 }
 .Filtros select:focus {
   height: 50px;

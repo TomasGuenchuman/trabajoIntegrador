@@ -25,7 +25,7 @@ export default class Productos extends React.Component {
             src={imagen}
             alt={nombre}
             width="150px"
-            height="160px"
+            height="100%"
           />
         </div>   
         <div className={styles.InfoProducto}>

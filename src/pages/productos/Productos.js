@@ -39,34 +39,32 @@ export default class Productos extends React.Component {
         }}
       >
         <div className={styles.ContenedorProductos}>
-          <div className={styles.Titulo}>
-            <h1>Productos</h1>
-          </div>
           <div
-            style={{ height: "100%", display: "flex", flexDirection: "row" }}
+            style={{ height: "100%", display: "flex", flexDirection: "row",boxShadow: "10px 9px 18px -8px rgb(0 0 0 / 28%)" }}
           >
             <div className={styles.Categorias}>
               <h2
                 style={{
-                  borderBottom: "1px solid",
                   width: "100%",
                   textAlign: "center",
                   padding: 20,
                 }}
               >
-                categorias
+                CATEGORIAS
               </h2>
-              {categorias.map((categoriaElegida) => {
-                return(
-                  <span onClick={()=> this.agregarCategoria(categoriaElegida)} style={{display: categoria.some((element) => element.categoria === categoriaElegida)? "none" : "flex"}}>{categoriaElegida}</span>
-                );
-                
-              })}
+              <div style={{overflowY: "scroll"}}>
+                {categorias.map((categoriaElegida) => {
+                  return(
+                    <span onClick={()=> this.agregarCategoria(categoriaElegida)} style={{display: categoria.some((element) => element.categoria === categoriaElegida)? "none" : "flex"}}>{categoriaElegida}</span>
+                  );
+                  
+                })}
+              </div>
               </div>
             <div
               style={{
                 flex: 2,
-                backgroundColor: "lightblue",
+                backgroundColor: "whitesmoke",
                 display: "flex",
                 flexDirection: "column",
               }}
