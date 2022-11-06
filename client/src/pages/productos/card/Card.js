@@ -12,7 +12,7 @@ export default class Productos extends React.Component {
     alert("a");
   }
   render() {
-    const { nombre, imagen, precio, categoria, añadirAlCarrito } = this.props;
+    const { nombre, imagen, precio, categoria,id, añadirAlCarrito } = this.props;
     const { cantidad } = this.state;
     const formatter = new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -34,7 +34,7 @@ export default class Productos extends React.Component {
             texto="sumar al carrito"
             color="#fd611a"
             funcion={() =>
-              añadirAlCarrito({ nombre, precio, imagen, categoria, cantidad })
+              añadirAlCarrito(Number(this.props.id))
             }
           />
         </div>

@@ -2,12 +2,29 @@ import React from "react";
 import styles from "./Productos.module.css";
 import Card from "./card/Card";
 import CategoriasElegidas from "./categoriaElegida/CategoriaElegida";
-import productos from "./productos.json";
-
+//import productos from "./productos.json"; JSON
+import axios from "axios";
 export default class Productos extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      categorias: [],
+      productos: [],
+    };
+  }
+  componentDidMount() {
+    this.getCategorias();
+    this.getProductos();
+  }
+  getCategorias() {
+    axios.get("http://localhost:5000/api/categorias").then((res) => {
+      this.setState({ categorias: res.data });
+    });
+  }
+  getProductos() {
+    axios.get("http://localhost:5000/api/productos").then((res) => {
+      this.setState({ productos: res.data });
+    });
   }
   agregarCategoria(nombreCategoria) {
     let { ocultarCategoria } = this.state;
@@ -17,15 +34,7 @@ export default class Productos extends React.Component {
   }
   render() {
     const { categoria, eliminarCategoria, añadirAlCarrito } = this.props;
-    let { agregarCategoria } = this.state;
-    //categorias en un array distinto cuando alla DB solo se necesita el MAP
-    let arrayCategorias = productos.map((categoriaElegida) => {
-      return categoriaElegida.categoria;
-    });
-    // filtrando categorias repetidas (ya que no hay db)
-    let categorias = arrayCategorias.filter((item, index) => {
-      return arrayCategorias.indexOf(item) === index;
-    });
+    const { categorias,productos } = this.state;
     return (
       <div className={styles.Contenedor}>
         <div className={styles.ContenedorProductos}>
@@ -53,7 +62,7 @@ export default class Productos extends React.Component {
                           : "flex",
                       }}
                     >
-                      {categoriaElegida}
+                      {categoriaElegida.descripcion}
                     </span>
                   );
                 })}
@@ -91,24 +100,13 @@ export default class Productos extends React.Component {
                   return (
                     <Card
                       index={index}
+                      id={producto.id}
                       nombre={producto.nombre}
                       imagen={producto.imagen}
                       precio={producto.precio}
                       categoria={producto.categoria}
-                      añadirAlCarrito={({
-                        nombre,
-                        precio,
-                        imagen,
-                        categoria,
-                        cantidad,
-                      }) =>
-                        añadirAlCarrito({
-                          nombre,
-                          precio,
-                          imagen,
-                          categoria,
-                          cantidad,
-                        })
+                      añadirAlCarrito={(productoId) =>
+                        añadirAlCarrito(productoId)
                       }
                     />
                   );

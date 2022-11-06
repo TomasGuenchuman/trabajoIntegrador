@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LogIn from "./pages/LogIn/LogIn";
 import Carrito from "./pages/carrito/Carrito";
 import CarritoVacio from "./pages/carrito/CarritoVacio";
-
+import axios from "axios";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +20,7 @@ export default class App extends React.Component {
       acumuladorCarrito: 0,
     };
   }
-  agregarCategoria(nombreCategoria) {
+  Categoria(nombreCategoria) {
     let { categoria } = this.state;
     categoria = [];
     categoria.push({ categoria: nombreCategoria });
@@ -38,21 +38,33 @@ export default class App extends React.Component {
     this.sumarPrecioFinal();
     this.setState({ carrito });
   }
-  añadirAlCarrito(producto) {
-    let { carrito, acumuladorCarrito } = this.state;
-    carrito.push(producto);
+  getProducto(productoId){
+    return new Promise((resolve, reject) => {
+      axios
+      .get("http://localhost:5000/api/productos/productoElegido/?id=" + productoId)
+      .then((res) => {
+        let productoCarrito = res.data[0];
+        productoCarrito.cantidad = 1;
+        resolve(productoCarrito);
+      });
+   });
+  }
+  async añadirAlCarrito(productoId) {
+    let { carrito, acumuladorCarrito, } = this.state;
+    let productoCarrito = await this.getProducto(productoId);
+    carrito.push(productoCarrito);
     acumuladorCarrito += 1;
-    this.precioTotal(producto.precio);
+    this.precioTotal(productoCarrito.precio);
     carrito.map((productoElegido, index) => {
       if (
-        productoElegido.nombre === producto.nombre &&
-        carrito.indexOf(productoElegido) != carrito.indexOf(producto)
+        productoElegido.nombre === productoCarrito.nombre &&
+        carrito.indexOf(productoElegido) != carrito.indexOf(productoCarrito)
       ) {
         this.actualizarPrecio(
           carrito.indexOf(productoElegido),
           (productoElegido.cantidad += 1)
         );
-        this.eliminarDelCarrito(carrito.indexOf(producto));
+        this.eliminarDelCarrito(carrito.indexOf(productoCarrito));
       }
     });
     this.sumarPrecioFinal();
@@ -104,20 +116,8 @@ export default class App extends React.Component {
                     this.agregarCategoria(nombreCategoria)
                   }
                   eliminarCategoria={(index) => this.eliminarCategoria(index)}
-                  añadirAlCarrito={({
-                    nombre,
-                    precio,
-                    imagen,
-                    categoria,
-                    cantidad,
-                  }) =>
-                    this.añadirAlCarrito({
-                      nombre,
-                      precio,
-                      imagen,
-                      categoria,
-                      cantidad,
-                    })
+                  añadirAlCarrito={(productoId) =>
+                    this.añadirAlCarrito(productoId)
                   }
                 />
               }
