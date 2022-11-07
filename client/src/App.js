@@ -20,10 +20,10 @@ export default class App extends React.Component {
       acumuladorCarrito: 0,
     };
   }
-  Categoria(nombreCategoria) {
+  agregarCategoria(categoriaElegida) {
     let { categoria } = this.state;
     categoria = [];
-    categoria.push({ categoria: nombreCategoria });
+    categoria.push(categoriaElegida);
     this.setState({ categoria });
   }
   eliminarCategoria(index) {
@@ -112,8 +112,8 @@ export default class App extends React.Component {
               element={
                 <Productos
                   categoria={categoria}
-                  agregarCategoria={(nombreCategoria) =>
-                    this.agregarCategoria(nombreCategoria)
+                  agregarCategoria={(categoriaElegida) =>
+                    this.agregarCategoria(categoriaElegida)
                   }
                   eliminarCategoria={(index) => this.eliminarCategoria(index)}
                   añadirAlCarrito={(productoId) =>

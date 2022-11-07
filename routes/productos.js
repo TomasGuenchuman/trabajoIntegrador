@@ -27,6 +27,19 @@ router.get("/productoElegido", function (req, res, next) {
   });
 });
 
+router.get("/categoriaElegida", function (req, res, next) {
+  const {categoriaId} = req.query;
+  const sql = "SELECT * FROM productos WHERE categoria = "+ categoriaId;
+  db.query(sql, function (error, resul) {
+    if (error) {
+      console.log(error);
+      res.send("ocurrio un error");
+    } else {
+      res.send(resul);
+    }
+  });
+});
+
 router.post("/", function (req, res, next) {
   const { nombre, precio, imagen, categoria } = req.body;
   const sql =
