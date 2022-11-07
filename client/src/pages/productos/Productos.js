@@ -15,7 +15,7 @@ export default class Productos extends React.Component {
   componentDidMount() {
     this.getCategorias();
     this.getProductos();
-    
+    this.eliminarCategoria(0);
   }
   getCategorias() {
     return new Promise((resolve, reject) => {
@@ -53,6 +53,10 @@ export default class Productos extends React.Component {
     this.setState({productos: dataCategoria});
     ocultarCategoria = true;
     this.setState({ocultarCategoria});
+  }
+  eliminarCategoria(index){
+    this.props.eliminarCategoria(index);
+    this.getProductos()
   }
   render() {
     const { categoria, eliminarCategoria, añadirAlCarrito } = this.props;
@@ -113,7 +117,7 @@ export default class Productos extends React.Component {
                       <CategoriasElegidas
                         index={index}
                         categoria={element.descripcion}
-                        eliminarCategoria={(index) => eliminarCategoria(index)}
+                        eliminarCategoria={(index) => this.eliminarCategoria(index)}
                       />
                     );
                   })}
