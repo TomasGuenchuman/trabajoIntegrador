@@ -40,6 +40,30 @@ router.get("/categoriaElegida", function (req, res, next) {
   });
 });
 
+router.get("/filtro", function (req, res, next) {
+  const {categoriaId,orden} = req.query;
+  let sql;
+  if (categoriaId) {
+    sql = "SELECT * FROM productos WHERE categoria = "+ categoriaId;
+  }else{
+    sql = "SELECT *  FROM productos";
+  }
+  db.query(sql, function (error, resul) {
+    if (error) {
+      console.log(error);
+      res.send("ocurrio un error");
+    } else {
+      /**/
+      let arrayPrecios = []
+      resul.map((producto,index) =>{
+        arrayPrecios.push({precio: producto.precio,index:index})
+      })
+      //res.send(resul.sort((a, b) => a.precio - b.precio)); // orden de menor a mayor
+      res.send(resul.sort((a, b) => b.precio - a.precio)); // orden de mayor a menor
+    }
+  });
+});
+
 router.post("/", function (req, res, next) {
   const { nombre, precio, imagen, categoria } = req.body;
   const sql =
