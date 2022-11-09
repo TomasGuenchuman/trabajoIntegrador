@@ -15,8 +15,8 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/productoElegido", function (req, res, next) {
-  const {id} = req.query;
-  const sql = "SELECT * FROM productos WHERE id = "+ id;
+  const { id } = req.query;
+  const sql = "SELECT * FROM productos WHERE id = " + id;
   db.query(sql, function (error, resul) {
     if (error) {
       console.log(error);
@@ -28,8 +28,8 @@ router.get("/productoElegido", function (req, res, next) {
 });
 
 router.get("/categoriaElegida", function (req, res, next) {
-  const {categoriaId} = req.query;
-  const sql = "SELECT * FROM productos WHERE categoria = "+ categoriaId;
+  const { categoriaId } = req.query;
+  const sql = "SELECT * FROM productos WHERE categoria = " + categoriaId;
   db.query(sql, function (error, resul) {
     if (error) {
       console.log(error);
@@ -41,11 +41,11 @@ router.get("/categoriaElegida", function (req, res, next) {
 });
 
 router.get("/filtro", function (req, res, next) {
-  const {categoriaId,orden} = req.query;
+  const { categoriaId, orden } = req.query;
   let sql;
   if (categoriaId) {
-    sql = "SELECT * FROM productos WHERE categoria = "+ categoriaId;
-  }else{
+    sql = "SELECT * FROM productos WHERE categoria = " + categoriaId;
+  } else {
     sql = "SELECT *  FROM productos";
   }
   db.query(sql, function (error, resul) {
@@ -53,13 +53,11 @@ router.get("/filtro", function (req, res, next) {
       console.log(error);
       res.send("ocurrio un error");
     } else {
-      /**/
-      let arrayPrecios = []
-      resul.map((producto,index) =>{
-        arrayPrecios.push({precio: producto.precio,index:index})
-      })
-      //res.send(resul.sort((a, b) => a.precio - b.precio)); // orden de menor a mayor
-      res.send(resul.sort((a, b) => b.precio - a.precio)); // orden de mayor a menor
+      if (orden === "mayor") {
+        res.send(resul.sort((a, b) => b.precio - a.precio)); // orden de mayor a menor
+      } else if (orden === "menor") {
+        res.send(resul.sort((a, b) => a.precio - b.precio)); // orden de menor a mayor
+      }
     }
   });
 });
