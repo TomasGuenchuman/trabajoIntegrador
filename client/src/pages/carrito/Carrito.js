@@ -54,12 +54,9 @@ export default class Carrito extends React.Component {
               {carrito.map((producto, index) => {
                 return (
                   <CardCarrito
-                    index={index}
-                    nombre={producto.nombre}
-                    imagen={producto.imagen}
-                    precio={producto.precio}
-                    categoria={producto.categoria}
+                    id={producto.id}
                     cantidad={producto.cantidad}
+                    index={index}
                     eliminarDelCarrito={(index) => eliminarDelCarrito(index)}
                     actualizarPrecio={(index, cantidad) =>
                       actualizarPrecio(index, cantidad)

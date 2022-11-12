@@ -18,6 +18,7 @@ export default class App extends React.Component {
       total: 0,
       precioTotal: "",
       acumuladorCarrito: 0,
+      setPost: null,
     };
   }
   agregarCategoria(categoriaElegida) {
@@ -38,36 +39,91 @@ export default class App extends React.Component {
     this.sumarPrecioFinal();
     this.setState({ carrito });
   }
-  getProducto(productoId){
+  getProducto(productoId) {
     return new Promise((resolve, reject) => {
       axios
-      .get("http://localhost:5000/api/productos/productoElegido/?id=" + productoId)
-      .then((res) => {
-        let productoCarrito = res.data[0];
-        productoCarrito.cantidad = 1;
-        resolve(productoCarrito);
-      });
-   });
+        .get(
+          "http://localhost:5000/api/productos/productoElegido/?id=" +
+            productoId
+        )
+        .then((res) => {
+          let productoCarrito = res.data[0];
+          resolve(productoCarrito);
+        });
+    });
+  }
+  getProductoCarrito(id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(
+          "http://localhost:5000/api/carrito/productoElegido?producto_id=" + id
+        )
+        .then((res) => {
+          let producto = res.data[0];
+          resolve(producto);
+        });
+    });
+  }
+
+  putDataCarrito(id, cantidad) {
+    return new Promise((resolve, reject) => {
+      axios
+        .put("http://localhost:5000/api/carrito", {
+          
+          id: id,
+          cantidad: cantidad
+        }) 
+        .then((response) => {
+          resolve(this.state.setPost(response.data));
+        });
+    });
+  }
+  postDataCarrito(id, cantidad) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post("http://localhost:5000/api/carrito", {
+          producto_id: id,
+          cantidad: cantidad,
+        })
+        .then((response) => {
+          resolve(this.state.setPost(response.data));
+        });
+    });
+  }
+  deleteDataCarrito() {
+    axios.delete("http://localhost:5000/api/carrito").then(() => {
+      alert("Post deleted!");
+      this.setPost(null);
+    });
   }
   async añadirAlCarrito(productoId) {
-    let { carrito, acumuladorCarrito, } = this.state;
-    let productoCarrito = await this.getProducto(productoId);
+    let { carrito, acumuladorCarrito } = this.state;
+    let actualizado = false
+    let promiseProducto = await this.getProducto(productoId);
+    let idCarrito = await this.getProductoCarrito(productoId);
+    let productoCarrito = { id: productoId, cantidad: 1 };
     carrito.push(productoCarrito);
     acumuladorCarrito += 1;
-    this.precioTotal(productoCarrito.precio);
+    this.precioTotal(promiseProducto.precio);
     carrito.map((productoElegido, index) => {
       if (
-        productoElegido.nombre === productoCarrito.nombre &&
+        productoElegido.id === productoCarrito.id &&
         carrito.indexOf(productoElegido) != carrito.indexOf(productoCarrito)
       ) {
-        this.actualizarPrecio(
+        /*this.actualizarPrecio(
           carrito.indexOf(productoElegido),
           (productoElegido.cantidad += 1)
-        );
+        );*/
         this.eliminarDelCarrito(carrito.indexOf(productoCarrito));
+        this.putDataCarrito(Number(idCarrito.id), Number(idCarrito.cantidad + 1));
+        actualizado = true
       }
     });
+    if (actualizado === false) {
+      this.postDataCarrito(productoCarrito.id, productoCarrito.cantidad);
+    }
     this.sumarPrecioFinal();
+    
 
     this.setState({ carrito, acumuladorCarrito });
   }

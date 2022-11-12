@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./CardCarrito.module.css";
 import Boton from "../../../components/comun/Boton";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
+import axios from "axios";
 export default class CardCarrito extends React.Component {
   constructor(props) {
     super(props);
@@ -10,7 +10,11 @@ export default class CardCarrito extends React.Component {
       editar: "",
       cantidad: "",
       cantidadEditada: "",
+      productoInfo: {}
     };
+  }
+  componentDidMount(){
+    this.getProducto(this.props.id)
   }
   mostrarEdicion(seleccion) {
     if (seleccion !== "10+") {
@@ -35,6 +39,17 @@ export default class CardCarrito extends React.Component {
     this.setState(this.state.cantidadEditada);
   }
 
+  getProducto(productoId){
+    return new Promise((resolve, reject) => {
+      axios
+      .get("http://localhost:5000/api/productos/productoElegido/?id=" + productoId)
+      .then((res) => {
+        let productoCarrito = res.data[0];
+
+        resolve(this.setState({productoInfo: productoCarrito}));
+      });
+   });
+  }
   render() {
     const editarPrecio = (
       <div style={{ display: "flex", flexDirection: "row", marginRight: 10 }}>
@@ -55,14 +70,14 @@ export default class CardCarrito extends React.Component {
       style: "currency",
       currency: "USD",
     });
-    let { editar } = this.state;
+    let { editar,productoInfo } = this.state;
     const { nombre, precio, imagen, cantidad, index, eliminarDelCarrito } =
       this.props;
     return (
       <div className={styles.ContenedorCard}>
         <div className={styles.ContenedorImagen}>
           <img
-            src={imagen}
+            src={productoInfo.imagen}
             alt="imagen"
             width="240"
             height="80%"
@@ -75,7 +90,7 @@ export default class CardCarrito extends React.Component {
           <div className={styles.Info}>
             <div style={{ flex: 4 }}>
               {" "}
-              <span>{nombre}</span>
+              <span>{productoInfo.nombre}</span>
             </div>
             <div
               style={{
@@ -86,7 +101,7 @@ export default class CardCarrito extends React.Component {
               }}
             >
               <span>
-                <b>{formatter.format(precio)}</b>
+                <b>{formatter.format(productoInfo.precio)}</b>
               </span>
               <span>
                 <b>({cantidad})</b>
