@@ -4,13 +4,14 @@ import carritovacio from "../../assets/emptyCart.png";
 import Boton from "../../components/comun/Boton";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import CardCarrito from "./cardCarrito/CardCarrito";
-
 // CARRITO CON PRODUCTO
 export default class Carrito extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+    };
   }
+
 
   cantidadDeProductos() {
     let { carrito } = this.props;
@@ -54,7 +55,7 @@ export default class Carrito extends React.Component {
               {carrito.map((producto, index) => {
                 return (
                   <CardCarrito
-                    id={producto.id}
+                    id={producto.producto_id}
                     cantidad={producto.cantidad}
                     index={index}
                     eliminarDelCarrito={(index) => eliminarDelCarrito(index)}

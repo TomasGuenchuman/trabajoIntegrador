@@ -24,7 +24,7 @@ export default class Boton extends React.Component {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          border: "1px solid gray",
+          border: this.props.borde ? this.props.borde : "1px solid gray",
         }}
         onClick={this.props.funcion}
       >

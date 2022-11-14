@@ -8,6 +8,8 @@ import LogIn from "./pages/LogIn/LogIn";
 import Carrito from "./pages/carrito/Carrito";
 import CarritoVacio from "./pages/carrito/CarritoVacio";
 import axios from "axios";
+import Admin from "./pages/admin/Admin";
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +22,16 @@ export default class App extends React.Component {
       acumuladorCarrito: 0,
       setPost: null,
     };
+  }
+  componentDidMount() {
+    this.getCarrito();
+  }
+  getCarrito() {
+    return new Promise((resolve, reject) => {
+      axios.get("http://localhost:5000/api/carrito").then((res) => {
+        resolve(this.setState({ carrito: res.data }));
+      });
+    });
   }
   agregarCategoria(categoriaElegida) {
     let { categoria } = this.state;
@@ -52,6 +64,7 @@ export default class App extends React.Component {
         });
     });
   }
+ 
   getProductoCarrito(id) {
     return new Promise((resolve, reject) => {
       axios
@@ -97,6 +110,7 @@ export default class App extends React.Component {
     });
   }
   async añadirAlCarrito(productoId) {
+    //funciona mal la parte del carrito ARREGLAR
     let { carrito, acumuladorCarrito } = this.state;
     let actualizado = false
     let promiseProducto = await this.getProducto(productoId);
@@ -110,10 +124,10 @@ export default class App extends React.Component {
         productoElegido.id === productoCarrito.id &&
         carrito.indexOf(productoElegido) != carrito.indexOf(productoCarrito)
       ) {
-        /*this.actualizarPrecio(
+        this.actualizarPrecio(
           carrito.indexOf(productoElegido),
           (productoElegido.cantidad += 1)
-        );*/
+        );
         this.eliminarDelCarrito(carrito.indexOf(productoCarrito));
         this.putDataCarrito(Number(idCarrito.id), Number(idCarrito.cantidad + 1));
         actualizado = true
@@ -155,7 +169,6 @@ export default class App extends React.Component {
     const { categoria, carrito, precioFinal, total, acumuladorCarrito } =
       this.state;
     return (
-      <Router>
         <div className={styles.App}>
           <LogIn />
           <Navbar
@@ -199,10 +212,12 @@ export default class App extends React.Component {
                 )
               }
             />
+            <Route path="/admin" element={<Admin />} >
+              <Route path="/admin/usuarios"/>
+            </Route>
             <Route path="*" element={<span>Eror 404</span>} />
           </Routes>
         </div>
-      </Router>
     );
   }
 }

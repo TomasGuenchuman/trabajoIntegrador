@@ -1,0 +1,62 @@
+.ContenedorAdmin {
+    width: 100%;
+    height: calc(100% - 10vh);
+    display: flex;
+}
+
+.Navbar {
+    width: 20vw;
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.ContenedorInfoUser {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 5px;
+    align-items: center;
+    height: 15%;
+    margin-bottom: 20px;
+}
+
+.NombreUsuario {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    width: 14vw;
+}
+
+.NombreUsuario span {
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.02857em;
+    user-select: none;
+    font-weight: bold;
+}
+
+.FotoUsuario {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 4vw;
+    margin-right: 2px;
+}
+
+.FotoUsuario img{
+    width: 4vw;
+    border-radius: 50%;
+}
+
+.ContenedorOpciones {
+    height: 100%;
+}
+
+.ContenedorRoutes {
+    width: calc(100% - 20vw);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -20,6 +20,9 @@ export default class Navbar extends React.Component {
           </div>
         </Link>
         <div className={styles.Opciones}>
+          <Link to="/admin">
+            <Boton texto="admin" color="lightgrey" />
+          </Link>
           <Link to="/contacto">
             <Boton texto="Contactanos" color="lightgrey" />
           </Link>
