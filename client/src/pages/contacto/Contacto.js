@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Contacto.module.css";
-import Boton from "../../components/comun/Boton";
+import Boton from "../../components/comun/boton/Boton";
 import instagram from "../../assets/instagram.png";
 import twitter from "../../assets/twitter.png";
 import facebook from "../../assets/facebook.png";

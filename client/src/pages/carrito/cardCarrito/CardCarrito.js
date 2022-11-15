@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CardCarrito.module.css";
-import Boton from "../../../components/comun/Boton";
+import Boton from "../../../components/comun/boton/Boton";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
 export default class CardCarrito extends React.Component {

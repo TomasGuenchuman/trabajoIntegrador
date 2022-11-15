@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Card.module.css";
-import Boton from "../../../components/comun/Boton";
+import Boton from "../../../components/comun/boton/Boton";
 export default class Productos extends React.Component {
   constructor(props) {
     super(props);

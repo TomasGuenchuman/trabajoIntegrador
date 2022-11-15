@@ -14,6 +14,18 @@ router.get("/", function (req, res, next) {
   });
 });
 
+router.get("/categoriaElegida", function (req, res, next) {
+  const {id}= req.query;
+  const sql = "SELECT *  FROM categorias where id="+id;
+  db.query(sql, function (error, resul) {
+    if (error) {
+      console.log(error);
+      res.send("ocurrio un error");
+    } else {
+      res.send(resul);
+    }
+  });
+});
 router.post("/", function (req, res, next) {
   const { descripcion } = req.body;
   const sql = "INSERT INTO categorias (descripcion) VALUES (?)";

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./LogIn.module.css";
-import Boton from "../../components/comun/Boton";
+import Boton from "../../components/comun/boton/Boton";
 import mostrar from "../../assets/showPassword.png";
 import ocultar from "../../assets/hiddenPassword.png";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";

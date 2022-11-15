@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Carrito.module.css";
 import carritovacio from "../../assets/emptyCart.png";
-import Boton from "../../components/comun/Boton";
+import Boton from "../../components/comun/boton/Boton";
 import { Link } from "react-router-dom";
 
 //carrito vacio

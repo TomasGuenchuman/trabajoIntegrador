@@ -213,7 +213,10 @@ export default class App extends React.Component {
               }
             />
             <Route path="/admin" element={<Admin />} >
+              <Route path="/admin/productos"/>
               <Route path="/admin/usuarios"/>
+              <Route path="/admin/stock"/>
+              <Route path="/admin/ultimosIngresos"/>
             </Route>
             <Route path="*" element={<span>Eror 404</span>} />
           </Routes>

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Navbar.module.css";
-import Boton from "../comun/Boton";
+import Boton from "../comun/boton/Boton";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 export default class Navbar extends React.Component {
   constructor(props) {
