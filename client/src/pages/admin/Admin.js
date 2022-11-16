@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Link,  } from "react-router-dom
 import Productos from "./productos/productos"
 import Usuarios from "./usuarios/usuarios"
 import UltimosIngresos from "./ultimosIngresos/ultimosIngresos";
+import Stock from "./stock/stock";
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -77,7 +78,7 @@ export default class Admin extends React.Component {
           <Routes>
             <Route path="/productos" element={<Productos />} />
             <Route path="/usuarios" element={<Usuarios />} />
-            <Route path="/stock" element={<span>stock</span>} />
+            <Route path="/stock" element={<Stock />} />
             <Route path="/ultimosIngresos" element={<UltimosIngresos />} />
           </Routes>
         </div>

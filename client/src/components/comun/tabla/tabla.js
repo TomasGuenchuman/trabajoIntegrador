@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import AdminProductos from "./productos/tablaProductos";
 import AdminUsuarios from "./usuarios/tablaUsuarios";
 import AdminUltimosIngresos from "./ultimosIngresos/tablaUltimosIngresos";
+import AdminStock from "./stock/tablaStock";
 
 export default class BasicTable extends React.Component {
   //let tablaHead = this.props;
@@ -17,7 +18,7 @@ export default class BasicTable extends React.Component {
     this.state = {};
   }
   render() {
-    const { productos, tipo, usuarios, ultimosIngresos } = this.props;
+    const { productos, tipo, usuarios, ultimosIngresos,stock } = this.props;
     const formatter = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
@@ -48,6 +49,8 @@ export default class BasicTable extends React.Component {
               <AdminUsuarios usuarios={usuarios} />
             ) : tipo === "ultimosIngresos" ? (
               <AdminUltimosIngresos ultimosIngresos={ultimosIngresos} />
+            ) : tipo === "stock" ? (
+              <AdminStock stock={stock} />
             ) : (
               ""
             )}

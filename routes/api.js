@@ -6,6 +6,7 @@ var lista_productosRouter = require('./lista_productos');
 var carritoRouter = require('./carrito');
 var usuariosRouter = require('./usuarios');
 var ultimosIngresosRouter = require('./ultimos_ingresos');
+var stockRouter = require('./stock');
 
 router.use('/productos', productosRouter);
 router.use('/categorias', categoriasRouter);
@@ -13,5 +14,6 @@ router.use('/listaProductos', lista_productosRouter);
 router.use('/carrito', carritoRouter);
 router.use('/usuarios', usuariosRouter);
 router.use('/ultimosIngresos', ultimosIngresosRouter);
+router.use('/stock', stockRouter);
 
 module.exports = router;
