@@ -41,7 +41,7 @@ export default class AdminProductos extends React.Component {
   }
   async mostrarCard(id,nombre,imagen,precio,categoria) {
     let categoriaDescripcion = await this.categoriaElegida(Number(categoria))
-    let productInfo = {id:id,nombre:nombre,imagen:imagen,precio: precio,categoria: categoriaDescripcion}
+    let productInfo = {id:id,nombre:nombre,imagen:imagen,precio: precio,categoria: categoriaDescripcion,categoriaId: Number(categoria)}
     this.setState({infoProducto: productInfo})
     this.setState({ mostrarCard: true });
   }
@@ -123,9 +123,37 @@ class CardProducto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      setPost: null,
+      categoria: this.props.infoProducto.categoriaId,
+      nombre: this.props.infoProducto.nombre,
+      precio: this.props.infoProducto.precio
     };
   }
-
+  putProducto(id) {
+    const {nombre,precio,categoria} = this.state;
+      axios
+        .put("http://localhost:5000/api/productos", {
+          
+          id: id,
+          nombre: nombre,
+          precio: precio,
+          imagen: this.props.infoProducto.imagen,
+          categoria: categoria
+        }) 
+        .then((response) => {
+          this.state.setPost(response.data);
+        });
+    this.props.esconderCard()
+  }
+  getCategoria(categoriaElegida) {
+    this.setState({categoria: Number(categoriaElegida)})
+  }
+  getNombre(e) {
+    this.setState({nombre: e})
+  }
+  getPrecio(e) {
+    this.setState({precio: e})
+  }
   render() {
     const {infoProducto, esconderCard,categorias} = this.props;
 
@@ -134,15 +162,15 @@ class CardProducto extends React.Component {
         <div style={{width: "100%",height: "80%",display: "flex", flexDirection: "column", justifyContent: "center",alignItems: "center"}}>
             <img alt={infoProducto.nombre} src={infoProducto.imagen}/>
             <label>Nombre</label>
-            <input type="text" value={infoProducto.nombre}/>
+            <input type="text" placeholder={infoProducto.nombre} value={this.state.nombre} onChange={(e) => this.getNombre(e.target.value)}/>
             <label>Precio</label>
-            <input type="number" value={infoProducto.precio}/>
+            <input type="number" placeholder={infoProducto.precio} value={this.state.precio} onChange={(e) => this.getPrecio(e.target.value)}/>
             <label>Categoria: {infoProducto.categoria}</label>
-            <input list="categorias" placeholder="Cambiar categoria"/>
-            <datalist id="categorias" value="1">
+            <input list="categorias" placeholder="Cambiar categoria" onChange={(e) => this.getCategoria(e.target.value)}/>
+            <datalist id="categorias" value="1" >
                 {categorias.map((categoria) => {
                   return(
-                    <option value={categoria.descripcion}> {categoria.id}</option>
+                    <option value= {categoria.id}>{categoria.descripcion}</option>
                   );
                 })}
             </datalist>
@@ -153,6 +181,7 @@ class CardProducto extends React.Component {
                   color="lightgreen"
                   width="100px"
                   height="50px"
+                  funcion={() => this.putProducto(infoProducto.id)}
                 />
                 <Boton
                   texto="cancelar"
