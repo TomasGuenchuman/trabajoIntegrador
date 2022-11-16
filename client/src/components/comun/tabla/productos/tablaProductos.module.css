@@ -38,3 +38,17 @@
     letter-spacing: 0.02857em;
 }
 
+/* ESTILOS ALERT DELETE*/
+
+.ContenedorAlert {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    width: 600px;
+    height: 150px;
+    left: 35%;
+    top: 30%; 
+    background-color: rgba(51, 29, 29, 0.05);
+}
