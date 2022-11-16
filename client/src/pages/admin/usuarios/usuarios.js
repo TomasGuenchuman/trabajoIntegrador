@@ -2,26 +2,27 @@ import React from "react";
 import BasicTable from "../../../components/comun/tabla/tabla";
 import Boton from "../../../components/comun/boton/Boton";
 import axios from "axios";
-export default class Productos extends React.Component {
+export default class Usuarios extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       tablaHead: [
+        { head: "Avatar" },
         { head: "Nombre" },
-        { head: "Imagen" },
-        { head: "Precio" },
+        { head: "Email" },
+        { head: "Permiso" },
         { head: "Action" },
       ],
-      productos: [],
+      usuarios: [],
     };
   }
   componentDidMount() {
-    this.getProductos();
+    this.getUsuarios();
   }
-  getProductos() {
+  getUsuarios() {
     return new Promise((resolve, reject) => {
-      axios.get("http://localhost:5000/api/productos").then((res) => {
-        resolve(this.setState({ productos: res.data }));
+      axios.get("http://localhost:5000/api/usuarios").then((res) => {
+        resolve(this.setState({ usuarios: res.data }));
       });
     });
   }
@@ -46,13 +47,13 @@ export default class Productos extends React.Component {
           }}
         >
           <div>
-            <h1>Productos</h1>
+            <h1>Usuarios</h1>
           </div>
           <div>
-            <Boton texto="+ añadir producto" color="lightgreen" />
+            <Boton texto="+ añadir usuario" color="lightgreen" />
           </div>
         </div>
-        <BasicTable tablaHead={this.state.tablaHead} productos={this.state.productos} tipo="productos"/>
+        <BasicTable tablaHead={this.state.tablaHead} usuarios={this.state.usuarios} tipo="usuarios"/>
       </div>
     );
   }

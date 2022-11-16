@@ -2,46 +2,22 @@ import React from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import Boton from "../../boton/Boton";
-import styles from "./tablaProductos.module.css";
+import styles from "./tablaUsuarios.module.css";
 import axios from "axios";
-export default class AdminProductos extends React.Component {
+export default class AdminUsuarios extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       mostrarCard: false,
       infoProducto: {},
-      categorias: [],
     };
   }
-  componentDidMount() {
-    this.getCategorias();
+  createData(id, avatar, nombre, email,permiso) {
+    return { id, avatar, nombre, email,permiso};
   }
-
-  getCategorias() {
-    return new Promise((resolve, reject) => {
-      axios.get("http://localhost:5000/api/categorias").then((res) => {
-        resolve(this.setState({ categorias: res.data }));
-      });
-    });
-  }
-  createData(id, nombre, imagen, precio,categoria) {
-    return { id, nombre, imagen, precio,categoria};
-  }
-  categoriaElegida(categoriaId) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(
-          "http://localhost:5000/api/categorias/categoriaElegida?id=" +
-            categoriaId
-        )
-        .then((res) => {
-          resolve(res.data[0].descripcion);
-        });
-    });
-  }
-  async mostrarCard(id,nombre,imagen,precio,categoria) {
-    let categoriaDescripcion = await this.categoriaElegida(Number(categoria))
-    let productInfo = {id:id,nombre:nombre,imagen:imagen,precio: precio,categoria: categoriaDescripcion}
+ 
+  mostrarCard(id, avatar, nombre, email,permiso) {
+    let productInfo = {id, avatar, nombre, email,permiso}
     this.setState({infoProducto: productInfo})
     this.setState({ mostrarCard: true });
   }
@@ -50,19 +26,19 @@ export default class AdminProductos extends React.Component {
     this.setState({ mostrarCard: false });
   }
   render() {
-    const { productos } = this.props;
+    const { usuarios } = this.props;
     const { mostrarCard,infoProducto } = this.state;
     const formatter = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
     });
-    const rows = productos.map((producto) => {
+    const rows = usuarios.map((usuario) => {
       return this.createData(
-        producto.id,
-        producto.nombre,
-        producto.imagen,
-        producto.precio,
-        producto.categoria
+        usuario.id,
+        usuario.avatar,
+        usuario.nombre,
+        usuario.email,
+        usuario.permiso
       );
     });
     return (
@@ -78,11 +54,12 @@ export default class AdminProductos extends React.Component {
             <TableCell component="th" scope="row" style={{ fontWeight: "bolder" }}>
               {row.id}
             </TableCell>
-            <TableCell align="center" style={{ fontWeight: "bolder" }}>{row.nombre}</TableCell>
-            <TableCell align="center">
-              <img alt={row.nombre} src={row.imagen} width="100px" />
+            <TableCell align="center" >
+              <img alt={row.nombre} src={row.avatar} width="80px" style={{borderRadius: "50%"}}/>
             </TableCell>
-            <TableCell align="center" style={{ fontWeight: "bolder" }}>{formatter.format(row.precio)}</TableCell>
+            <TableCell align="center" style={{ fontWeight: "bolder" }}>{row.nombre}</TableCell>
+            <TableCell align="center" style={{ fontWeight: "bolder" }}>{row.email}</TableCell>
+            <TableCell align="center" style={{ fontWeight: "bolder" }}>{row.permiso}</TableCell>
             <TableCell align="center">
               <div
                 style={{
@@ -98,7 +75,7 @@ export default class AdminProductos extends React.Component {
                   padding="0"
                   width="50px"
                   height="35px"
-                  funcion={() => this.mostrarCard(row.id,row.nombre,row.imagen,row.precio,row.categoria)}
+                  funcion={() => this.mostrarCard(row.id,row.avatar,row.nombre,row.email,row.permiso)}
                 />
                 <Boton
                   texto="del"
@@ -111,7 +88,7 @@ export default class AdminProductos extends React.Component {
               </div>
               
             </TableCell>
-            {mostrarCard === true ? <CardProducto infoProducto={infoProducto}  esconderCard={() => this.esconderCard()} categorias={this.state.categorias}/> : ""}
+            {mostrarCard === true ? <CardProducto infoProducto={infoProducto}  esconderCard={() => this.esconderCard()} /> : ""}
           </TableRow>
         ))}
       </>
@@ -127,24 +104,21 @@ class CardProducto extends React.Component {
   }
 
   render() {
-    const {infoProducto, esconderCard,categorias} = this.props;
+    const {infoProducto, esconderCard} = this.props;
 
     return (
       <div className={styles.ContenedorCard}>
         <div style={{width: "100%",height: "80%",display: "flex", flexDirection: "column", justifyContent: "center",alignItems: "center"}}>
-            <img alt={infoProducto.nombre} src={infoProducto.imagen}/>
+            <img alt={infoProducto.nombre} src={infoProducto.avatar}/>
             <label>Nombre</label>
             <input type="text" value={infoProducto.nombre}/>
-            <label>Precio</label>
-            <input type="number" value={infoProducto.precio}/>
-            <label>Categoria: {infoProducto.categoria}</label>
-            <input list="categorias" placeholder="Cambiar categoria"/>
-            <datalist id="categorias" value="1">
-                {categorias.map((categoria) => {
-                  return(
-                    <option value={categoria.descripcion}> {categoria.id}</option>
-                  );
-                })}
+            <label>email</label>
+            <input type="email" value={infoProducto.email}/>
+            <label>Permiso: {infoProducto.permiso}</label>
+            <input list="permisos" placeholder="Cambiar categoria"/>
+            <datalist id="permisos" value="1">
+                <option value="Admin" />
+                <option value="User" />
             </datalist>
         </div>
         <div style={{height: "20%",width: "50%",display: "flex", flexDirection: "row",justifyContent: "space-evenly", alignItems: "center"}}>

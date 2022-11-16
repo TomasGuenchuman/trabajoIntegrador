@@ -2,26 +2,27 @@ import React from "react";
 import BasicTable from "../../../components/comun/tabla/tabla";
 import Boton from "../../../components/comun/boton/Boton";
 import axios from "axios";
-export default class Productos extends React.Component {
+export default class UltimosIngresos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       tablaHead: [
         { head: "Nombre" },
+        { head: "Producto Id" },
         { head: "Imagen" },
-        { head: "Precio" },
+        { head: "Cantidad" },
         { head: "Action" },
       ],
-      productos: [],
+      ultimosIngresos: [],
     };
   }
   componentDidMount() {
-    this.getProductos();
+    this.getUltimosIngresos();
   }
-  getProductos() {
+  getUltimosIngresos() {
     return new Promise((resolve, reject) => {
-      axios.get("http://localhost:5000/api/productos").then((res) => {
-        resolve(this.setState({ productos: res.data }));
+      axios.get("http://localhost:5000/api/ultimosIngresos").then((res) => {
+        resolve(this.setState({ ultimosIngresos: res.data }));
       });
     });
   }
@@ -46,13 +47,13 @@ export default class Productos extends React.Component {
           }}
         >
           <div>
-            <h1>Productos</h1>
+            <h1>Ultimos ingresos</h1>
           </div>
           <div>
-            <Boton texto="+ añadir producto" color="lightgreen" />
+            <Boton texto="+ añadir nuevo ingreso" color="lightgreen" />
           </div>
         </div>
-        <BasicTable tablaHead={this.state.tablaHead} productos={this.state.productos} tipo="productos"/>
+        <BasicTable tablaHead={this.state.tablaHead} ultimosIngresos={this.state.ultimosIngresos} tipo="ultimosIngresos"/>
       </div>
     );
   }

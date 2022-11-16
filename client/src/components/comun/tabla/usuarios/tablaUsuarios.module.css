@@ -1,0 +1,40 @@
+/* ESTILOS CARD PRODUCTOS*/
+
+.ContenedorCard {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    left: 35%;
+    top: 30%; 
+    background-color: rgba(0,0,0,0.5);
+}
+
+.ContenedorCard img {
+    width: 200px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    margin-top: 40px;
+}
+
+.ContenedorCard input {
+    width: 80%;
+    text-align: center;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.ContenedorCard label {
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.02857em;
+}
+

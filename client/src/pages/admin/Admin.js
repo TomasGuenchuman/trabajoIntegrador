@@ -3,6 +3,9 @@ import Boton from "../../components/comun/boton/Boton";
 import styles from "./Admin.module.css";
 import { BrowserRouter as Router, Routes, Route, Link,  } from "react-router-dom";
 import Productos from "./productos/productos"
+import Usuarios from "./usuarios/usuarios"
+import UltimosIngresos from "./ultimosIngresos/ultimosIngresos";
+
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
@@ -73,9 +76,9 @@ export default class Admin extends React.Component {
         <div className={styles.ContenedorRoutes}>
           <Routes>
             <Route path="/productos" element={<Productos />} />
-            <Route path="/usuarios" element={<span>usuarios</span>} />
+            <Route path="/usuarios" element={<Usuarios />} />
             <Route path="/stock" element={<span>stock</span>} />
-            <Route path="/ultimosIngresos" element={<span>Ultimos ingresos</span>} />
+            <Route path="/ultimosIngresos" element={<UltimosIngresos />} />
           </Routes>
         </div>
       </div>
