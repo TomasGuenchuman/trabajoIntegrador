@@ -25,7 +25,8 @@ export default class UltimosIngresos extends React.Component {
         resolve(this.setState({ ultimosIngresos: res.data }));
       });
     });
-  }
+  }  
+ 
   render() {
     return (
       <div

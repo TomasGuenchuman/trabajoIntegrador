@@ -3,7 +3,8 @@ var router = express.Router();
 var db = require("./conexion.js");
 
 router.get("/", function (req, res, next) {
-  const sql = "SELECT *  FROM ultimos_ingresos";
+  const sql =
+    "SELECT ultimos_ingresos.*, productos.nombre,productos.imagen FROM ultimos_ingresos LEFT JOIN productos ON ultimos_ingresos.id_producto = productos.id";
   db.query(sql, function (error, resul) {
     if (error) {
       console.log(error);
@@ -14,23 +15,10 @@ router.get("/", function (req, res, next) {
   });
 });
 
-router.get('/detalles', function(req, res, next) {
-	const {id_producto} = req.query;
-    const sql = 'SELECT nombre,imagen FROM productos WHERE id = '+ id_producto;
-	db.query(sql, function(error,resul){
-		if (error) {
-			console.log(error);
-			res.send("ocurrio un error");
-		}else {
-			res.send(resul);
-		}
-	});
-});
-
 router.post("/", function (req, res, next) {
-  const { cantidad,id_producto } = req.body;
+  const { cantidad, id_producto } = req.body;
   const sql = "INSERT INTO ultimos_ingresos (cantidad,id_producto) VALUES (?)";
-  db.query(sql, [[cantidad,id_producto]], function (error, resul) {
+  db.query(sql, [[cantidad, id_producto]], function (error, resul) {
     if (error) {
       console.log(error);
       res.send("ocurrio un error");

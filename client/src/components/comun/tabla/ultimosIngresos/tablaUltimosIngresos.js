@@ -12,27 +12,38 @@ export default class AdminUltimosIngresos extends React.Component {
       infoProducto: {},
     };
   }
-  createData(id, cantidad,id_producto) {
-    return { id, cantidad,id_producto};
+  createData(id, nombre, id_producto, imagen, cantidad) {
+    return { id, nombre, id_producto, imagen, cantidad };
   }
-  /*async mostrarCard(id,nombre,imagen,precio,categoria) {
-    let categoriaDescripcion = await this.categoriaElegida(Number(categoria))
-    let productInfo = {id:id,nombre:nombre,imagen:imagen,precio: precio,categoria: categoriaDescripcion}
-    this.setState({infoProducto: productInfo})
+  mostrarCard(id, nombre, id_producto,imagen, cantidad) {
+    let productInfo = {
+      id: id,
+      nombre: nombre,
+      id_producto: id_producto,
+      imagen: imagen,
+      cantidad: cantidad
+    };
+    this.setState({ infoProducto: productInfo });
     this.setState({ mostrarCard: true });
   }
   esconderCard() {
-    this.setState({infoProducto: {}})
+    this.setState({ infoProducto: {} });
     this.setState({ mostrarCard: false });
-  }*/
+  }
   a(a) {
-    console.log(a)
+    console.log(a);
   }
   render() {
     const { ultimosIngresos } = this.props;
     const { mostrarCard, infoProducto } = this.state;
     const rows = ultimosIngresos.map((ingreso) => {
-      return  this.createData(ingreso.id, ingreso.cantidad, ingreso.id_producto);
+      return this.createData(
+        ingreso.id,
+        ingreso.nombre,
+        ingreso.id_producto,
+        ingreso.imagen,
+        ingreso.cantidad
+      );
     });
     return (
       <>
@@ -55,12 +66,7 @@ export default class AdminUltimosIngresos extends React.Component {
               {row.id_producto}
             </TableCell>
             <TableCell align="center">
-              <img
-                alt={row.nombre}
-                src={row.imagen}
-                width="80px"
-                
-              />
+              <img alt={row.nombre} src={row.imagen} width="80px" />
             </TableCell>
             <TableCell align="center" style={{ fontWeight: "bolder" }}>
               {row.cantidad}
@@ -80,6 +86,15 @@ export default class AdminUltimosIngresos extends React.Component {
                   padding="0"
                   width="50px"
                   height="35px"
+                  funcion={() =>
+                    this.mostrarCard(
+                      row.id,
+                      row.nombre,
+                      row.id_producto,
+                      row.imagen,
+                      row.cantidad
+                    )
+                  }
                 />
                 <Boton
                   texto="del"
@@ -110,11 +125,23 @@ export default class AdminUltimosIngresos extends React.Component {
 class CardProducto extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      productos: []
+    };
   }
-
+  componentDidMount() {
+    this.getProductos();
+  }
+  getProductos() {
+    return new Promise((resolve, reject) => {
+      axios.get("http://localhost:5000/api/productos").then((res) => {
+        resolve(this.setState({ productos: res.data }));
+      });
+    });
+  }
   render() {
-    const { infoProducto, esconderCard, categorias } = this.props;
+    const { infoProducto, esconderCard } = this.props;
+    const { productos } = this.state;
 
     return (
       <div className={styles.ContenedorCard}>
@@ -129,16 +156,13 @@ class CardProducto extends React.Component {
           }}
         >
           <img alt={infoProducto.nombre} src={infoProducto.imagen} />
-          <label>Nombre</label>
-          <input type="text" value={infoProducto.nombre} />
-          <label>Precio</label>
-          <input type="number" value={infoProducto.precio} />
-          <label>Categoria: {infoProducto.categoria}</label>
-          <input list="categorias" placeholder="Cambiar categoria" />
-          <datalist id="categorias" value="1">
-            {categorias.map((categoria) => {
-              return (
-                <option value={categoria.descripcion}> {categoria.id}</option>
+          <label>Cantidad</label>
+          <input type="number" value={infoProducto.cantidad} />
+          <input list="productos" placeholder="Cambiar producto" />
+          <datalist id="productos" value="1">
+            {productos.map((producto) => {
+              return(
+                <option value={producto.nombre}> {producto.id}</option>
               );
             })}
           </datalist>
