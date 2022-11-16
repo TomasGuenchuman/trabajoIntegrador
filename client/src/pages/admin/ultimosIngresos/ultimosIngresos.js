@@ -54,7 +54,7 @@ export default class UltimosIngresos extends React.Component {
             <Boton texto="+ añadir nuevo ingreso" color="lightgreen" />
           </div>
         </div>
-        <BasicTable tablaHead={this.state.tablaHead} ultimosIngresos={this.state.ultimosIngresos} tipo="ultimosIngresos"/>
+        <BasicTable tablaHead={this.state.tablaHead} ultimosIngresos={this.state.ultimosIngresos} tipo="ultimosIngresos" getUltimosIngresos={() => this.getUltimosIngresos()}/>
       </div>
     );
   }

@@ -18,7 +18,7 @@ export default class BasicTable extends React.Component {
     this.state = {};
   }
   render() {
-    const { productos, tipo, usuarios, ultimosIngresos,stock,getProductos } = this.props;
+    const { productos, tipo, usuarios, ultimosIngresos,stock,getProductos,getUltimosIngresos } = this.props;
     const formatter = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
@@ -48,7 +48,7 @@ export default class BasicTable extends React.Component {
             ) : tipo === "usuarios" ? (
               <AdminUsuarios usuarios={usuarios} />
             ) : tipo === "ultimosIngresos" ? (
-              <AdminUltimosIngresos ultimosIngresos={ultimosIngresos} />
+              <AdminUltimosIngresos ultimosIngresos={ultimosIngresos} getUltimosIngresos={() => getUltimosIngresos()}/>
             ) : tipo === "stock" ? (
               <AdminStock stock={stock} />
             ) : (

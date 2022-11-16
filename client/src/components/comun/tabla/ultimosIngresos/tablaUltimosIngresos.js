@@ -29,9 +29,18 @@ export default class AdminUltimosIngresos extends React.Component {
   esconderCard() {
     this.setState({ infoProducto: {} });
     this.setState({ mostrarCard: false });
+    setTimeout(() => {
+      this.props.getUltimosIngresos();
+    }, 300);
   }
-  a(a) {
-    console.log(a);
+  deleteIngreso(id) {
+
+    axios
+      .delete("http://localhost:5000/api/ultimosIngresos?id="+id)
+    setTimeout(() => {
+      this.props.getUltimosIngresos();
+      alert("Producto Eliminado");
+    }, 300);
   }
   render() {
     const { ultimosIngresos } = this.props;
@@ -103,6 +112,7 @@ export default class AdminUltimosIngresos extends React.Component {
                   padding="0"
                   width="50px"
                   height="35px"
+                  funcion={() => this.deleteIngreso(row.id)}
                 />
               </div>
             </TableCell>
@@ -126,7 +136,10 @@ class CardProducto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productos: []
+      setPost: null,
+      productos: [],
+      id_producto: this.props.infoProducto.id_producto,
+      cantidad: this.props.infoProducto.cantidad,
     };
   }
   componentDidMount() {
@@ -138,6 +151,25 @@ class CardProducto extends React.Component {
         resolve(this.setState({ productos: res.data }));
       });
     });
+  }
+  putIngreso(id) {
+    const { id_producto,cantidad } = this.state;
+    axios
+      .put("http://localhost:5000/api/ultimosIngresos", {
+        id: id,
+        id_producto: id_producto,
+        cantidad: cantidad,
+      })
+      .then((response) => {
+        this.state.setPost(response.data);
+      });
+    this.props.esconderCard();
+  }
+  getIdProducto(e){
+    this.setState({id_producto: Number(e)})
+  }
+  getCantidad(e){
+    this.setState({cantidad: Number(e)})
   }
   render() {
     const { infoProducto, esconderCard } = this.props;
@@ -157,12 +189,12 @@ class CardProducto extends React.Component {
         >
           <img alt={infoProducto.nombre} src={infoProducto.imagen} />
           <label>Cantidad</label>
-          <input type="number" value={infoProducto.cantidad} />
-          <input list="productos" placeholder="Cambiar producto" />
+          <input type="number" value={this.state.cantidad} placeholder={infoProducto.cantidad}  onChange={(e) => this.getCantidad(e.target.value)}/>
+          <input list="productos" placeholder="Cambiar producto" onChange={(e) => this.getIdProducto(e.target.value)}/>
           <datalist id="productos" value="1">
             {productos.map((producto) => {
               return(
-                <option value={producto.nombre}> {producto.id}</option>
+                <option value={producto.id}> {producto.nombre}</option>
               );
             })}
           </datalist>
@@ -182,6 +214,7 @@ class CardProducto extends React.Component {
             color="lightgreen"
             width="100px"
             height="50px"
+            funcion={() => this.putIngreso(infoProducto.id)}
           />
           <Boton
             texto="cancelar"
