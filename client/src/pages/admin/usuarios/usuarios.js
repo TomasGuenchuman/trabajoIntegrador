@@ -53,7 +53,7 @@ export default class Usuarios extends React.Component {
             <Boton texto="+ añadir usuario" color="lightgreen" />
           </div>
         </div>
-        <BasicTable tablaHead={this.state.tablaHead} usuarios={this.state.usuarios} tipo="usuarios"/>
+        <BasicTable tablaHead={this.state.tablaHead} usuarios={this.state.usuarios} tipo="usuarios" getUsuarios={() => this.getUsuarios()}/>
       </div>
     );
   }

@@ -51,7 +51,7 @@ router.put("/", function (req, res, next) {
 });
 
 router.delete("/", function (req, res, next) {
-  const { id } = req.body;
+  const { id } = req.query;
   const sql = "DELETE FROM usuarios WHERE id = " + id;
   db.query(sql, function (error, resul) {
     if (error) {

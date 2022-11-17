@@ -24,6 +24,18 @@ export default class AdminUsuarios extends React.Component {
   esconderCard() {
     this.setState({infoProducto: {}})
     this.setState({ mostrarCard: false });
+    setTimeout(() => {
+      this.props.getUsuarios();
+    }, 300);
+  }
+  deleteIngreso(id) {
+
+    axios
+      .delete("http://localhost:5000/api/usuarios?id="+id)
+    setTimeout(() => {
+      this.props.getUsuarios();
+      alert("Usuario Eliminado");
+    }, 300);
   }
   render() {
     const { usuarios } = this.props;
@@ -84,11 +96,12 @@ export default class AdminUsuarios extends React.Component {
                   padding="0"
                   width="50px"
                   height="35px"
+                  funcion={() => this.deleteIngreso(row.id)}
                 />
               </div>
               
             </TableCell>
-            {mostrarCard === true ? <CardProducto infoProducto={infoProducto}  esconderCard={() => this.esconderCard()} /> : ""}
+            {mostrarCard === true ? <CardUsuario infoProducto={infoProducto}  esconderCard={() => this.esconderCard()} /> : ""}
           </TableRow>
         ))}
       </>
@@ -96,13 +109,44 @@ export default class AdminUsuarios extends React.Component {
   }
 }
 
-class CardProducto extends React.Component {
+class CardUsuario extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      avatar: this.props.infoProducto.avatar,
+      nombre:this.props.infoProducto.nombre,
+      email:this.props.infoProducto.email,
+      permiso:this.props.infoProducto.permiso,
     };
   }
+  getAvatar(e){
+    this.setState({avatar: e})
+  }
+  getNombre(e){
+    this.setState({nombre: e})
+  }
+  getEmail(e){
+    this.setState({email: e})
+  }
+  getPermiso(e){
+    this.setState({permiso: e})
+  }
 
+  putUsuario(id) {
+    const { avatar,nombre,email,permiso } = this.state;
+    axios
+      .put("http://localhost:5000/api/usuarios", {
+        id: id,
+        avatar: avatar,
+        nombre:nombre,
+        email:email,
+        permiso:permiso,
+      })
+      .then((response) => {
+        this.state.setPost(response.data);
+      });
+    this.props.esconderCard();
+  }
   render() {
     const {infoProducto, esconderCard} = this.props;
 
@@ -111,14 +155,14 @@ class CardProducto extends React.Component {
         <div style={{width: "100%",height: "80%",display: "flex", flexDirection: "column", justifyContent: "center",alignItems: "center"}}>
             <img alt={infoProducto.nombre} src={infoProducto.avatar}/>
             <label>Nombre</label>
-            <input type="text" value={infoProducto.nombre}/>
+            <input type="text" value={this.state.nombre} placeholder={infoProducto.nombre}  onChange={(e) => this.getNombre(e.target.value)} />
             <label>email</label>
-            <input type="email" value={infoProducto.email}/>
+            <input type="email" value={this.state.email} placeholder={infoProducto.email}  onChange={(e) => this.getEmail(e.target.value)}/>
             <label>Permiso: {infoProducto.permiso}</label>
-            <input list="permisos" placeholder="Cambiar categoria"/>
-            <datalist id="permisos" value="1">
-                <option value="Admin" />
-                <option value="User" />
+            <input list="permisos" placeholder="Cambiar permiso" onChange={(e) => this.getPermiso(e.target.value)}/>
+            <datalist id="permisos" value="1" >
+                <option value="admin">Administrador</option>
+                <option value="user">Usuario</option>
             </datalist>
         </div>
         <div style={{height: "20%",width: "50%",display: "flex", flexDirection: "row",justifyContent: "space-evenly", alignItems: "center"}}>
@@ -127,6 +171,7 @@ class CardProducto extends React.Component {
                   color="lightgreen"
                   width="100px"
                   height="50px"
+                  funcion={() => this.putUsuario(infoProducto.id)}
                 />
                 <Boton
                   texto="cancelar"
