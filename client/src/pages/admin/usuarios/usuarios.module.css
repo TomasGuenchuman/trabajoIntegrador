@@ -1,0 +1,26 @@
+.ContenedorAñadir {
+    position: absolute;
+    background-color: rgba(163, 158, 158, 0.8);
+    width: 700px;
+    height: 620px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ContenedorAñadir input {
+    width: 80%;
+    height: 30px;
+    text-align: center;
+    margin: 10px;
+    font-size: 20px;
+}
+
+.ContenedorAñadir label {
+    display: flex;
+    justify-content: flex-start;
+    width: 80%;
+    font-size: 20px;
+    font-weight: bolder;
+}
