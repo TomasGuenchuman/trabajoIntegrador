@@ -103,7 +103,7 @@ export default class AdminProductos extends React.Component {
               {row.nombre}
             </TableCell>
             <TableCell align="center">
-              <img alt={row.nombre} src={row.imagen} width="100px" />
+              <img alt={row.nombre} src={row.imagen} width="100px" style={{maxHeight: "90px"}}/>
             </TableCell>
             <TableCell align="center" style={{ fontWeight: "bolder" }}>
               {formatter.format(row.precio)}
@@ -168,7 +168,6 @@ class CardProducto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      setPost: null,
       categoria: this.props.infoProducto.categoriaId,
       nombre: this.props.infoProducto.nombre,
       precio: this.props.infoProducto.precio,
@@ -184,9 +183,6 @@ class CardProducto extends React.Component {
         imagen: this.props.infoProducto.imagen,
         categoria: categoria,
       })
-      .then((response) => {
-        this.state.setPost(response.data);
-      });
     this.props.esconderCard();
   }
 

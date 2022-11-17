@@ -67,7 +67,7 @@ export default class AdminUsuarios extends React.Component {
               {row.id}
             </TableCell>
             <TableCell align="center" >
-              <img alt={row.nombre} src={row.avatar} width="80px" style={{borderRadius: "50%"}}/>
+              <img alt={row.nombre} src={row.avatar} width="80px" height="80px" style={{borderRadius: "50%"}}/>
             </TableCell>
             <TableCell align="center" style={{ fontWeight: "bolder" }}>{row.nombre}</TableCell>
             <TableCell align="center" style={{ fontWeight: "bolder" }}>{row.email}</TableCell>
@@ -142,9 +142,6 @@ class CardUsuario extends React.Component {
         email:email,
         permiso:permiso,
       })
-      .then((response) => {
-        this.state.setPost(response.data);
-      });
     this.props.esconderCard();
   }
   render() {

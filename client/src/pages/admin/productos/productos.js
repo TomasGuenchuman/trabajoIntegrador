@@ -90,7 +90,6 @@ class AñadirProducto extends React.Component {
       nombre: "",
       precio: 0,
       categoria: "",
-      setPost: null,
     };
   }
   getLinkImagen(e) {
@@ -114,9 +113,6 @@ class AñadirProducto extends React.Component {
           imagen: this.state.linkImagen,
           categoria: this.state.categoria
         })
-        .then((response) => {
-          resolve(this.state.setPost(response.data));
-        });
       setTimeout(() => {
         this.props.esconderCard();
         alert("Producto añadido");
@@ -128,7 +124,7 @@ class AñadirProducto extends React.Component {
     const {categorias,esconderCard} = this.props;
     return (
       <div className={styles.ContenedorAñadir}>
-        <img alt="Foto de producto" src={this.state.linkImagen} width="200px"/>
+        <img alt="Foto de producto" src={this.state.linkImagen} width="200px" style={{maxHeight: "200px"}}/>
         <label>Imagen:</label>
         <input type="text" placeholder="Link foto del producto" onChange={(e) => this.getLinkImagen(e.target.value)}/>
         <label>Nombre:</label>

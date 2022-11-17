@@ -23,7 +23,7 @@
 
 .NombreUsuario {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     text-align: center;
     width: 14vw;
@@ -51,7 +51,7 @@
 }
 
 .ContenedorOpciones {
-    height: 100%;
+    min-height: 85%;
 }
 
 .ContenedorRoutes {
@@ -59,4 +59,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.CerrarSesion {
+    background-color: #8cc6d9;
+    height: 15%;
 }

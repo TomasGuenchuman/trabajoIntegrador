@@ -75,7 +75,7 @@ export default class AdminUltimosIngresos extends React.Component {
               {row.id_producto}
             </TableCell>
             <TableCell align="center">
-              <img alt={row.nombre} src={row.imagen} width="80px" />
+              <img alt={row.nombre} src={row.imagen} width="100px" style={{maxHeight: "90px"}} />
             </TableCell>
             <TableCell align="center" style={{ fontWeight: "bolder" }}>
               {row.cantidad}
@@ -136,7 +136,6 @@ class CardProducto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      setPost: null,
       productos: [],
       id_producto: this.props.infoProducto.id_producto,
       cantidad: this.props.infoProducto.cantidad,
@@ -160,9 +159,6 @@ class CardProducto extends React.Component {
         id_producto: id_producto,
         cantidad: cantidad,
       })
-      .then((response) => {
-        this.state.setPost(response.data);
-      });
     this.props.esconderCard();
   }
   getIdProducto(e){

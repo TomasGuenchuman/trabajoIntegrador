@@ -40,7 +40,7 @@ export default class AdminStock extends React.Component {
             </TableCell>
             <TableCell align="center" style={{ fontWeight: "bolder" }}>{row.nombre}</TableCell>
             <TableCell align="center">
-              <img alt={row.nombre} src={row.imagen} width="100px" />
+              <img alt={row.nombre} src={row.imagen} width="100px" style={{maxHeight: "90px"}} />
             </TableCell>
             <TableCell align="center" style={{ fontWeight: "bolder" }}>{row.cantidad}</TableCell>
             

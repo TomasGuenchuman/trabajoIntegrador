@@ -21,10 +21,30 @@ export default class App extends React.Component {
       precioTotal: "",
       acumuladorCarrito: 0,
       setPost: null,
+      logInNombre: "",
+      logInPermiso: "",
+      logInAvatar: "",
+      logInEstado: false,
     };
   }
   componentDidMount() {
     this.getCarrito();
+  }
+  ingresoLogIn(nombre,permiso,avatar){
+    this.setState({
+      logInNombre: nombre,
+      logInPermiso: permiso,
+      logInAvatar: avatar,
+      logInEstado: true,
+    })
+  }
+  cerrarSesion(){
+    this.setState({
+      logInNombre: "",
+      logInPermiso: "",
+      logInAvatar: "",
+      logInEstado: false,
+    })
   }
   getCarrito() {
     return new Promise((resolve, reject) => {
@@ -170,10 +190,13 @@ export default class App extends React.Component {
       this.state;
     return (
         <div className={styles.App}>
-          <LogIn />
+          <LogIn ingresoLogIn={(nombre,permiso,avatar) => this.ingresoLogIn(nombre,permiso,avatar)}/>
           <Navbar
             acumuladorCarrito={acumuladorCarrito}
             resetContadorcarrito={() => this.resetContadorcarrito()}
+            logInPermiso={this.state.logInPermiso}
+            logInEstado={this.state.logInEstado}
+            cerrarSesion={() => this.cerrarSesion()}
           />
           <Routes>
             <Route
@@ -212,7 +235,7 @@ export default class App extends React.Component {
                 )
               }
             />
-            <Route path="/admin" element={<Admin />} >
+            <Route path="/admin" element={<Admin logInAvatar={this.state.logInAvatar} logInNombre={this.state.logInNombre} cerrarSesion={() => this.cerrarSesion()}/>} >
               <Route path="/admin/productos"/>
               <Route path="/admin/usuarios"/>
               <Route path="/admin/stock"/>

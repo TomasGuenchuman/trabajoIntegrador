@@ -20,15 +20,31 @@ export default class Navbar extends React.Component {
           </div>
         </Link>
         <div className={styles.Opciones}>
-          <Link to="/admin">
-            <Boton texto="admin" color="lightgrey" />
-          </Link>
+          {this.props.logInPermiso === "admin" ? (
+            <Link to="/admin">
+              <Boton texto="admin" color="lightgrey" />
+            </Link>
+          ) : (
+            ""
+          )}
+
           <Link to="/contacto">
             <Boton texto="Contactanos" color="lightgrey" />
           </Link>
-          <Link to="/logIn">
-            <Boton texto="Iniciar Sesion" color="lightgrey" />
-          </Link>
+
+          {this.props.logInEstado === false ? (
+            <Link to="/logIn">
+              <Boton texto="Iniciar Sesion" color="lightgrey" />
+            </Link>
+          ) : this.props.logInPermiso === "admin" ? (
+            ""
+          ) : (
+            <Boton
+              texto="Cerrar Sesion"
+              color="lightgrey"
+              funcion={() => this.props.cerrarSesion()}
+            />
+          )}
 
           <div>
             <span

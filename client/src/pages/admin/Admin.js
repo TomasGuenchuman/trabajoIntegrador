@@ -19,12 +19,12 @@ export default class Admin extends React.Component {
         <div className={styles.Navbar}>
           <div className={styles.ContenedorInfoUser}>
             <div className={styles.NombreUsuario}>
-              <span>Nombre usuario</span>
+              <h1>{this.props.logInNombre}</h1>
             </div>
             <div className={styles.FotoUsuario}>
               <img
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                alt="foto usuario"
+                src={this.props.logInAvatar}
+                alt={"foto usuario "+this.props.logInNombre}
               />
             </div>
           </div>
@@ -66,13 +66,16 @@ export default class Admin extends React.Component {
               />
             </Link>
           </div>
-          <Boton
-            texto="cerrar sesion"
-            height="15%"
-            border="0"
-            borde="0"
-            color="#8cc6d9"
-          />
+          <Link to="/" className={styles.CerrarSesion}>
+            <Boton
+              texto="cerrar sesion"
+              height="15%"
+              border="0"
+              borde="0"
+              color="#8cc6d9"
+              funcion={() => this.props.cerrarSesion()}
+            />
+          </Link>
         </div>
         <div className={styles.ContenedorRoutes}>
           <Routes>

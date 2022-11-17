@@ -14,10 +14,34 @@ router.get("/", function (req, res, next) {
   });
 });
 
+router.get("/email", function (req, res, next) {
+  const sql = "SELECT email  FROM usuarios";
+  db.query(sql, function (error, resul) {
+    if (error) {
+      console.log(error);
+      res.send("ocurrio un error");
+    } else {
+      res.send(resul);
+    }
+  });
+});
+
+router.get("/login", function (req, res, next) {
+  const sql = "SELECT email,contraseña,permiso,nombre,avatar  FROM usuarios";
+  db.query(sql, function (error, resul) {
+    if (error) {
+      console.log(error);
+      res.send("ocurrio un error");
+    } else {
+      res.send(resul);
+    }
+  });
+});
+
 router.post("/", function (req, res, next) {
-  const { avatar, nombre, email, permiso } = req.body;
-  const sql = "INSERT INTO usuarios (avatar,nombre,email,permiso) VALUES (?)";
-  db.query(sql, [[avatar, nombre, email, permiso]], function (error, resul) {
+  const { avatar, nombre, email, permiso,contraseña } = req.body;
+  const sql = "INSERT INTO usuarios (avatar,nombre,email,permiso,contraseña) VALUES (?)";
+  db.query(sql, [[avatar, nombre, email, permiso,contraseña]], function (error, resul) {
     if (error) {
       console.log(error);
       res.send("ocurrio un error");

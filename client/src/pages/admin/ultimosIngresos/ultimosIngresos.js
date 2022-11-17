@@ -76,7 +76,6 @@ class AñadirIngreso extends React.Component {
       id_producto: "",
       cantidad: "",
       imagen: "",
-      setPost: null,
       productos: [],
     };
   }
@@ -116,9 +115,6 @@ class AñadirIngreso extends React.Component {
           id_producto: this.state.id_producto,
           cantidad: this.state.cantidad
         })
-        .then((response) => {
-          resolve(this.state.setPost(response.data));
-        });
       setTimeout(() => {
         this.props.esconderCard();
         alert("Producto añadido");
