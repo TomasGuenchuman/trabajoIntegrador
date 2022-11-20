@@ -48,3 +48,8 @@
     border-radius: 5px;
 }
 
+
+.Eliminar:hover {
+    color: red;
+    font-weight: bold;
+}

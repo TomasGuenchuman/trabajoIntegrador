@@ -140,6 +140,7 @@ export default class CardCarrito extends React.Component {
             <span
               onClick={() => this.deleteProducto()}
               style={{ fontSize: 20 }}
+              className={styles.Eliminar}
             >
               Eliminar
             </span>

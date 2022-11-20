@@ -76,6 +76,7 @@ export default class App extends React.Component {
           resolve(productoCarrito);
         });
     });
+
   }
 
   añadirAlCarrito(productoId){
@@ -86,26 +87,26 @@ export default class App extends React.Component {
     });
     const found = mapCarrito.includes(true);
     const indexCarrito = mapCarrito.indexOf(mapCarrito.includes(true)); console.log(found);console.log(indexCarrito)
-
+    this.contadorcarrito()
     if (found === true) {
+      return new Promise((resolve, reject) => {
         axios.put("http://localhost:5000/api/carrito?id="+ this.state.carrito[indexCarrito].idCarrito, {
           cantidad: (this.state.carrito[indexCarrito].cantidad ) + 1,
         });
     
-        setTimeout(() => {
-          this.getCarrito(this.state.logInId);
-          alert("producto Añadido");
-        }, 300);
-    }else{
-      axios.post("http://localhost:5000/api/carrito", {
-        producto_id: productoId,
-        cantidad: 1,
-        id_usuario: this.state.logInId,
+        resolve(this.getCarrito(this.state.logInId));
+     
       });
-      setTimeout(() => {
-        this.getCarrito(this.state.logInId);
-        alert("Producto añadido");
-      }, 300);
+    }else{
+      return new Promise((resolve, reject) => {
+    
+        axios.post("http://localhost:5000/api/carrito", {
+          producto_id: productoId,
+          cantidad: 1,
+          id_usuario: this.state.logInId,
+        });
+        resolve(this.getCarrito(this.state.logInId));
+      });
 
     }
 
@@ -119,6 +120,9 @@ export default class App extends React.Component {
   }*/
   resetContadorcarrito() {
     this.setState({ acumuladorCarrito: 0 });
+  }
+  contadorcarrito() {
+    this.setState({ acumuladorCarrito: this.state.acumuladorCarrito + 1});
   }
   render() {
     const { categoria, carrito, precioFinal, total, acumuladorCarrito } =

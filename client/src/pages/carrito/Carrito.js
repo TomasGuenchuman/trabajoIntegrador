@@ -24,6 +24,18 @@ export default class Carrito extends React.Component {
     });
     return cantidadToTal;
   }
+  precioCarrito(){
+    let {carrito} = this.props;
+    let arrayPrecioFinal = [];
+    carrito.map((producto,index) => {
+      arrayPrecioFinal.push(producto.cantidad * producto.precio)
+    });
+    console.log(arrayPrecioFinal)
+    let total = arrayPrecioFinal.reduce(function (acc, obj) {
+      return Number(acc) + Number(obj);
+    }, 0);
+    return total
+  }
   render() {
     const {
       carrito,
@@ -50,7 +62,7 @@ export default class Carrito extends React.Component {
                 height: 40,
               }}
             >
-              <h2>carrito</h2>
+              <h2 onClick={() => this.precioCarrito()}>carrito</h2>
               <h2>precio</h2>
             </div>
             <div className={styles.ContenedorCard}>
@@ -73,7 +85,7 @@ export default class Carrito extends React.Component {
             <div className={styles.ContenedorSubtotal}>
               <span style={{ fontSize: "1.8rem", marginTop: 10 }}>
                 Subtotal ({this.cantidadDeProductos()} productos):{" "}
-                <b>{/*formatter.format(total)*/}precio total</b>
+                <b>{formatter.format(this.precioCarrito())}</b>
               </span>
             </div>
           </div>
@@ -84,7 +96,7 @@ export default class Carrito extends React.Component {
             <div className={styles.ContenedorSubtotalPago}>
               <span style={{ fontSize: "3rem", textAlign: "center" }}>
                 subtotal ({this.cantidadDeProductos()} productos):{" "}
-                <b>{/*formatter.format(total)*/}precio total</b>
+                <b>{formatter.format(this.precioCarrito())}</b>
               </span>
             </div>
             <div style={{ display: "flex", flex: 1 }}>
