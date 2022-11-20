@@ -64,4 +64,7 @@
 .CerrarSesion {
     background-color: #8cc6d9;
     height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

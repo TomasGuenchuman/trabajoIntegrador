@@ -1,7 +1,7 @@
 .Card {
     background-color: white;
     width: 430px;
-    min-height: 160px;
+    min-height: 180px;
     display: flex;
     flex-direction: row;
     margin-top: 10px;

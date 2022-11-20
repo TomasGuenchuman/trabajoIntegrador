@@ -39,16 +39,21 @@ router.get("/login", function (req, res, next) {
 });
 
 router.post("/", function (req, res, next) {
-  const { avatar, nombre, email, permiso,contraseña } = req.body;
-  const sql = "INSERT INTO usuarios (avatar,nombre,email,permiso,contraseña) VALUES (?)";
-  db.query(sql, [[avatar, nombre, email, permiso,contraseña]], function (error, resul) {
-    if (error) {
-      console.log(error);
-      res.send("ocurrio un error");
-    } else {
-      res.send("usuario agregado");
+  const { avatar, nombre, email, permiso, contraseña } = req.body;
+  const sql =
+    "INSERT INTO usuarios (avatar,nombre,email,permiso,contraseña) VALUES (?)";
+  db.query(
+    sql,
+    [[avatar, nombre, email, permiso, contraseña]],
+    function (error, resul) {
+      if (error) {
+        console.log(error);
+        res.send("ocurrio un error");
+      } else {
+        res.send("usuario agregado");
+      }
     }
-  });
+  );
 });
 
 router.put("/", function (req, res, next) {

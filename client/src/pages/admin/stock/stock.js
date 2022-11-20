@@ -6,11 +6,7 @@ export default class Stock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tablaHead: [
-        { head: "Nombre" },
-        { head: "Imagen" },
-        { head: "Cantidad" },
-      ],
+      tablaHead: [{ head: "Nombre" }, { head: "Imagen" }, { head: "Cantidad" }],
       stock: [],
     };
   }
@@ -48,7 +44,11 @@ export default class Stock extends React.Component {
             <h1>Stock</h1>
           </div>
         </div>
-        <BasicTable tablaHead={this.state.tablaHead} stock={this.state.stock} tipo="stock"/>
+        <BasicTable
+          tablaHead={this.state.tablaHead}
+          stock={this.state.stock}
+          tipo="stock"
+        />
       </div>
     );
   }

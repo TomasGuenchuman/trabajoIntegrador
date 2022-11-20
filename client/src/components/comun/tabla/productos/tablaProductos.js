@@ -61,9 +61,7 @@ export default class AdminProductos extends React.Component {
     }, 300);
   }
   deleteProducto(id) {
-
-    axios
-      .delete("http://localhost:5000/api/productos?id="+id)
+    axios.delete("http://localhost:5000/api/productos?id=" + id);
     setTimeout(() => {
       this.props.getProductos();
       alert("Producto Eliminado");
@@ -71,7 +69,7 @@ export default class AdminProductos extends React.Component {
   }
   render() {
     const { productos, getProductos } = this.props;
-    const { mostrarCard, infoProducto, } = this.state;
+    const { mostrarCard, infoProducto } = this.state;
     const formatter = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
@@ -103,7 +101,12 @@ export default class AdminProductos extends React.Component {
               {row.nombre}
             </TableCell>
             <TableCell align="center">
-              <img alt={row.nombre} src={row.imagen} width="100px" style={{maxHeight: "90px"}}/>
+              <img
+                alt={row.nombre}
+                src={row.imagen}
+                style={{width: this.props.categoria === "30"? "50px" : "100px"}}
+                style={{maxHeight: "90px"}}
+              />
             </TableCell>
             <TableCell align="center" style={{ fontWeight: "bolder" }}>
               {formatter.format(row.precio)}
@@ -154,15 +157,12 @@ export default class AdminProductos extends React.Component {
             ) : (
               ""
             )}
-            
           </TableRow>
         ))}
       </>
     );
   }
 }
-
-
 
 class CardProducto extends React.Component {
   constructor(props) {
@@ -175,15 +175,15 @@ class CardProducto extends React.Component {
   }
   putProducto(id) {
     const { nombre, precio, categoria } = this.state;
-    axios
-      .put("http://localhost:5000/api/productos", {
-        id: id,
-        nombre: nombre,
-        precio: precio,
-        imagen: this.props.infoProducto.imagen,
-        categoria: categoria,
-      })
+    axios.put("http://localhost:5000/api/productos", {
+      id: id,
+      nombre: nombre,
+      precio: precio,
+      imagen: this.props.infoProducto.imagen,
+      categoria: categoria,
+    });
     this.props.esconderCard();
+    alert("Producto Actualizado")
   }
 
   getCategoria(categoriaElegida) {

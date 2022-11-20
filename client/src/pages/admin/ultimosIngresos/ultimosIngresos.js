@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./productos.module.css"
+import styles from "./productos.module.css";
 import BasicTable from "../../../components/comun/tabla/tabla";
 import Boton from "../../../components/comun/boton/Boton";
 import axios from "axios";
@@ -27,16 +27,15 @@ export default class UltimosIngresos extends React.Component {
         resolve(this.setState({ ultimosIngresos: res.data }));
       });
     });
-  }  
+  }
   mostrarCard() {
-    this.setState({mostrarCard: true})
+    this.setState({ mostrarCard: true });
   }
   esconderCard() {
-    this.setState({mostrarCard: false})
+    this.setState({ mostrarCard: false });
   }
   render() {
     return (
-      
       <div
         style={{
           width: "95%",
@@ -47,7 +46,14 @@ export default class UltimosIngresos extends React.Component {
           flexDirection: "column",
         }}
       >
-        {this.state.mostrarCard === true? <AñadirIngreso esconderCard={() => this.esconderCard()} getUltimosIngresos={() => this.getUltimosIngresos()}/> : ""}
+        {this.state.mostrarCard === true ? (
+          <AñadirIngreso
+            esconderCard={() => this.esconderCard()}
+            getUltimosIngresos={() => this.getUltimosIngresos()}
+          />
+        ) : (
+          ""
+        )}
         <div
           style={{
             display: "flex",
@@ -60,10 +66,19 @@ export default class UltimosIngresos extends React.Component {
             <h1>Ultimos ingresos</h1>
           </div>
           <div>
-            <Boton texto="+ añadir nuevo ingreso" color="lightgreen" funcion={() => this.mostrarCard()}/>
+            <Boton
+              texto="+ añadir nuevo ingreso"
+              color="lightgreen"
+              funcion={() => this.mostrarCard()}
+            />
           </div>
         </div>
-        <BasicTable tablaHead={this.state.tablaHead} ultimosIngresos={this.state.ultimosIngresos} tipo="ultimosIngresos" getUltimosIngresos={() => this.getUltimosIngresos()}/>
+        <BasicTable
+          tablaHead={this.state.tablaHead}
+          ultimosIngresos={this.state.ultimosIngresos}
+          tipo="ultimosIngresos"
+          getUltimosIngresos={() => this.getUltimosIngresos()}
+        />
       </div>
     );
   }
@@ -79,8 +94,8 @@ class AñadirIngreso extends React.Component {
       productos: [],
     };
   }
-  componentDidMount(){
-    this.getProductos()
+  componentDidMount() {
+    this.getProductos();
   }
   getProductos() {
     return new Promise((resolve, reject) => {
@@ -90,31 +105,32 @@ class AñadirIngreso extends React.Component {
     });
   }
   async getId_producto(e) {
-    this.setState({id_producto: Number(e)})
-    this.getProductoElegido(Number(e))
+    this.setState({ id_producto: Number(e) });
+    this.getProductoElegido(Number(e));
   }
   getCantidad(e) {
-    this.setState({cantidad: Number(e)})
+    this.setState({ cantidad: Number(e) });
   }
   /*getImagen() {
     this.setState({imagen: })
   }*/
   getProductoElegido(id) {
     return new Promise((resolve, reject) => {
-      axios.get("http://localhost:5000/api/productos/productoElegido?id="+id).then((res) => {
-        let info = res.data[0];
-        let imagen = info.imagen; 
-        resolve(this.setState({ imagen: imagen }));
-      });
+      axios
+        .get("http://localhost:5000/api/productos/productoElegido?id=" + id)
+        .then((res) => {
+          let info = res.data[0];
+          let imagen = info.imagen;
+          resolve(this.setState({ imagen: imagen }));
+        });
     });
   }
-  postIngreso(){
+  postIngreso() {
     return new Promise((resolve, reject) => {
-      axios
-        .post("http://localhost:5000/api/ultimosIngresos", {
-          id_producto: this.state.id_producto,
-          cantidad: this.state.cantidad
-        })
+      axios.post("http://localhost:5000/api/ultimosIngresos", {
+        id_producto: this.state.id_producto,
+        cantidad: this.state.cantidad,
+      });
       setTimeout(() => {
         this.props.esconderCard();
         alert("Producto añadido");
@@ -123,30 +139,50 @@ class AñadirIngreso extends React.Component {
     });
   }
   render() {
-    const {esconderCard} = this.props;
-    const {productos} = this.state;
+    const { esconderCard } = this.props;
+    const { productos } = this.state;
     return (
       <div className={styles.ContenedorAñadir}>
-        <img alt="Foto de producto" src={this.state.imagen} width="200px"/>
+        <img alt="Foto de producto" src={this.state.imagen} width="200px" />
         <label>Cantidad:</label>
-        <input type="number" placeholder="Cantidad de productos" onChange={(e) => this.getCantidad(e.target.value)}/>
+        <input
+          type="number"
+          placeholder="Cantidad de productos"
+          onChange={(e) => this.getCantidad(e.target.value)}
+        />
         <label>Producto:</label>
         <input
-            list="ingresos"
-            placeholder="Categoria del producto"
-            onChange={(e) => this.getId_producto(e.target.value)}
-            
+          list="ingresos"
+          placeholder="Categoria del producto"
+          onChange={(e) => this.getId_producto(e.target.value)}
+        />
+        <datalist id="ingresos" value="1">
+          {productos.map((producto) => {
+            return <option value={producto.id}>{producto.nombre}</option>;
+          })}
+        </datalist>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "50%",
+            justifyContent: "space-between",
+          }}
+        >
+          <Boton
+            texto="Cancelar"
+            color="red"
+            width="100px"
+            height="50px"
+            funcion={() => esconderCard()}
           />
-          <datalist id="ingresos" value="1">
-            {productos.map((producto) => {
-              return (
-                <option value={producto.id}>{producto.nombre}</option>
-              );
-            })}
-          </datalist>
-        <div style={{display: "flex",flexDirection: "row",width: "50%",justifyContent: "space-between"}}>
-          <Boton texto="Cancelar" color="red" width="100px" height="50px" funcion={() => esconderCard()}/>
-          <Boton texto="Añadir" color="lightgreen" width="100px" height="50px" funcion={() => this.postIngreso()}/>
+          <Boton
+            texto="Añadir"
+            color="lightgreen"
+            width="100px"
+            height="50px"
+            funcion={() => this.postIngreso()}
+          />
         </div>
       </div>
     );

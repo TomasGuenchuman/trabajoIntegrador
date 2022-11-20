@@ -11,9 +11,8 @@ export default class AdminStock extends React.Component {
     };
   }
   createData(id, nombre, imagen, cantidad) {
-    return { id, nombre, imagen, cantidad};
+    return { id, nombre, imagen, cantidad };
   }
-
 
   render() {
     const { stock } = this.props;
@@ -22,32 +21,39 @@ export default class AdminStock extends React.Component {
         stock.id,
         stock.nombre,
         stock.imagen,
-        stock.cantidad,
+        stock.cantidad
       );
     });
     return (
       <>
-        
-        {rows.map((row,index) => (
-          
+        {rows.map((row, index) => (
           <TableRow
             key={row.id}
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
           >
-            
-            <TableCell component="th" scope="row" style={{ fontWeight: "bolder" }}>
+            <TableCell
+              component="th"
+              scope="row"
+              style={{ fontWeight: "bolder" }}
+            >
               {row.id}
             </TableCell>
-            <TableCell align="center" style={{ fontWeight: "bolder" }}>{row.nombre}</TableCell>
-            <TableCell align="center">
-              <img alt={row.nombre} src={row.imagen} width="100px" style={{maxHeight: "90px"}} />
+            <TableCell align="center" style={{ fontWeight: "bolder" }}>
+              {row.nombre}
             </TableCell>
-            <TableCell align="center" style={{ fontWeight: "bolder" }}>{row.cantidad}</TableCell>
-            
+            <TableCell align="center">
+              <img
+                alt={row.nombre}
+                src={row.imagen}
+                style={{ maxHeight: "90px",maxWidth: "100px" }}
+              />
+            </TableCell>
+            <TableCell align="center" style={{ fontWeight: "bolder" }}>
+              {row.cantidad}
+            </TableCell>
           </TableRow>
         ))}
       </>
     );
   }
 }
-

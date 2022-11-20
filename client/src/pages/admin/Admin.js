@@ -1,9 +1,9 @@
 import React from "react";
 import Boton from "../../components/comun/boton/Boton";
 import styles from "./Admin.module.css";
-import { BrowserRouter as Router, Routes, Route, Link,  } from "react-router-dom";
-import Productos from "./productos/productos"
-import Usuarios from "./usuarios/usuarios"
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Productos from "./productos/productos";
+import Usuarios from "./usuarios/usuarios";
 import UltimosIngresos from "./ultimosIngresos/ultimosIngresos";
 import Stock from "./stock/stock";
 
@@ -24,7 +24,7 @@ export default class Admin extends React.Component {
             <div className={styles.FotoUsuario}>
               <img
                 src={this.props.logInAvatar}
-                alt={"foto usuario "+this.props.logInNombre}
+                alt={"foto usuario " + this.props.logInNombre}
               />
             </div>
           </div>
@@ -66,14 +66,13 @@ export default class Admin extends React.Component {
               />
             </Link>
           </div>
-          <Link to="/" className={styles.CerrarSesion}>
+          <Link to="/" className={styles.CerrarSesion} onClick={() => this.props.cerrarSesion()}>
             <Boton
               texto="cerrar sesion"
               height="15%"
               border="0"
               borde="0"
               color="#8cc6d9"
-              funcion={() => this.props.cerrarSesion()}
             />
           </Link>
         </div>

@@ -21,7 +21,7 @@ export default class Productos extends React.Component {
     return (
       <div className={styles.Card}>
         <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-          <img src={imagen} alt={nombre} width="150px" height="100%" />
+          <img src={imagen} alt={nombre} style={{width: this.props.categoria === "30"? "100px" : "150px"}} height="100%" />
         </div>
         <div className={styles.InfoProducto}>
           <span>

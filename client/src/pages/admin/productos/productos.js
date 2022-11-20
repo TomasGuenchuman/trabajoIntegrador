@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./productos.module.css"
+import styles from "./productos.module.css";
 import BasicTable from "../../../components/comun/tabla/tabla";
 import Boton from "../../../components/comun/boton/Boton";
 import axios from "axios";
@@ -17,11 +17,12 @@ export default class Productos extends React.Component {
       productos: [],
       categorias: [],
       mostrarCard: false,
+      mostrarCardCategorias: false,
     };
   }
   componentDidMount() {
     this.getProductos();
-    this.getCategorias()
+    this.getCategorias();
   }
   getProductos() {
     return new Promise((resolve, reject) => {
@@ -31,10 +32,16 @@ export default class Productos extends React.Component {
     });
   }
   mostrarCard() {
-    this.setState({mostrarCard: true})
+    this.setState({ mostrarCard: true });
+  }
+  mostrarCardCategorias() {
+    this.setState({ mostrarCardCategorias: true });
   }
   esconderCard() {
-    this.setState({mostrarCard: false})
+    this.setState({ mostrarCard: false });
+  }
+  esconderCardCategorias() {
+    this.setState({ mostrarCardCategorias: false });
   }
   getCategorias() {
     return new Promise((resolve, reject) => {
@@ -55,7 +62,19 @@ export default class Productos extends React.Component {
           flexDirection: "column",
         }}
       >
-        {this.state.mostrarCard === true? <AñadirProducto categorias={this.state.categorias} esconderCard={() => this.esconderCard()} getProductos={() => this.getProductos()}/> : ""}
+        {this.state.mostrarCard === true ? (
+          <AñadirProducto
+            categorias={this.state.categorias}
+            esconderCard={() => this.esconderCard()}
+            getProductos={() => this.getProductos()}
+          />
+        ) : this.state.mostrarCardCategorias === true ? (
+          <AñadirCategoria
+          mostrarCardCategorias={() => this.mostrarCardCategorias()}
+          esconderCardCategorias={() => this.esconderCardCategorias()}
+          getCategorias={() => this.getCategorias()}
+          />
+        ): ""}
         <div
           style={{
             display: "flex",
@@ -68,7 +87,18 @@ export default class Productos extends React.Component {
             <h1>Productos</h1>
           </div>
           <div>
-            <Boton texto="+ añadir producto" color="lightgreen" funcion={() => this.mostrarCard()}/>
+            <Boton
+              texto="+ añadir categoria"
+              color="lightgreen"
+              funcion={() => this.mostrarCardCategorias()}
+            />
+          </div>
+          <div>
+            <Boton
+              texto="+ añadir producto"
+              color="lightgreen"
+              funcion={() => this.mostrarCard()}
+            />
           </div>
         </div>
         <BasicTable
@@ -82,6 +112,68 @@ export default class Productos extends React.Component {
   }
 }
 
+class AñadirCategoria extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      descripcion: "",
+    };
+  }
+
+  getDescripcion(e) {
+    this.setState({ descripcion: e });
+  }
+
+  postCategoria() {
+    return new Promise((resolve, reject) => {
+      axios.post("http://localhost:5000/api/categorias", {
+        descripcion: this.state.descripcion,
+      });
+      setTimeout(() => {
+        this.props.esconderCardCategorias();
+        alert("Categoria añadida");
+        this.props.getCategorias();
+      }, 300);
+    });
+  }
+  render() {
+    const { esconderCardCategorias,  } = this.props;
+    return (
+      <div className={styles.ContenedorAñadir}>
+        <label>descripcion categoria:</label>
+        <input
+          type="text"
+          placeholder="Nombre de la categoria"
+          onChange={(e) => this.getDescripcion(e.target.value)}
+        />
+        
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "50%",
+            justifyContent: "space-between",
+          }}
+        >
+          <Boton
+            texto="Cancelar"
+            color="red"
+            width="100px"
+            height="50px"
+            funcion={() => esconderCardCategorias()}
+          />
+          <Boton
+            texto="Añadir"
+            color="lightgreen"
+            width="100px"
+            height="50px"
+            funcion={() => this.postCategoria()}
+          />
+        </div>
+      </div>
+    );
+  }
+}
 class AñadirProducto extends React.Component {
   constructor(props) {
     super(props);
@@ -93,26 +185,25 @@ class AñadirProducto extends React.Component {
     };
   }
   getLinkImagen(e) {
-    this.setState({linkImagen: e})
+    this.setState({ linkImagen: e });
   }
   getNombre(e) {
-    this.setState({nombre: e})
+    this.setState({ nombre: e });
   }
   getPrecio(e) {
-    this.setState({precio: Number(e)})
+    this.setState({ precio: Number(e) });
   }
   getCategoria(e) {
-    this.setState({categoria: Number(e)})
+    this.setState({ categoria: Number(e) });
   }
-  postProducto(){
+  postProducto() {
     return new Promise((resolve, reject) => {
-      axios
-        .post("http://localhost:5000/api/productos", {
-          nombre: this.state.nombre,
-          precio: this.state.precio,
-          imagen: this.state.linkImagen,
-          categoria: this.state.categoria
-        })
+      axios.post("http://localhost:5000/api/productos", {
+        nombre: this.state.nombre,
+        precio: this.state.precio,
+        imagen: this.state.linkImagen,
+        categoria: this.state.categoria,
+      });
       setTimeout(() => {
         this.props.esconderCard();
         alert("Producto añadido");
@@ -121,33 +212,68 @@ class AñadirProducto extends React.Component {
     });
   }
   render() {
-    const {categorias,esconderCard} = this.props;
+    const { categorias, esconderCard } = this.props;
     return (
       <div className={styles.ContenedorAñadir}>
-        <img alt="Foto de producto" src={this.state.linkImagen} width="200px" style={{maxHeight: "200px"}}/>
+        <img
+          alt="Foto de producto"
+          src={this.state.linkImagen}
+          width="200px"
+          style={{ maxHeight: "200px" }}
+        />
         <label>Imagen:</label>
-        <input type="text" placeholder="Link foto del producto" onChange={(e) => this.getLinkImagen(e.target.value)}/>
+        <input
+          type="text"
+          placeholder="Link foto del producto"
+          onChange={(e) => this.getLinkImagen(e.target.value)}
+        />
         <label>Nombre:</label>
-        <input type="text" placeholder="Nombre del producto" onChange={(e) => this.getNombre(e.target.value)}/>
+        <input
+          type="text"
+          placeholder="Nombre del producto"
+          onChange={(e) => this.getNombre(e.target.value)}
+        />
         <label>Precio:</label>
-        <input type="number" placeholder="Precio del producto" onChange={(e) => this.getPrecio(e.target.value)}/>
+        <input
+          type="number"
+          placeholder="Precio del producto"
+          onChange={(e) => this.getPrecio(e.target.value)}
+        />
         <label>Categoria:</label>
         <input
-            list="categorias"
-            placeholder="Categoria del producto"
-            onChange={(e) => this.getCategoria(e.target.value)}
-            
+          list="categorias"
+          placeholder="Categoria del producto"
+          onChange={(e) => this.getCategoria(e.target.value)}
+        />
+        <datalist id="categorias" value="1">
+          {categorias.map((categoria) => {
+            return (
+              <option value={categoria.id}>{categoria.descripcion}</option>
+            );
+          })}
+        </datalist>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "50%",
+            justifyContent: "space-between",
+          }}
+        >
+          <Boton
+            texto="Cancelar"
+            color="red"
+            width="100px"
+            height="50px"
+            funcion={() => esconderCard()}
           />
-          <datalist id="categorias" value="1">
-            {categorias.map((categoria) => {
-              return (
-                <option value={categoria.id}>{categoria.descripcion}</option>
-              );
-            })}
-          </datalist>
-        <div style={{display: "flex",flexDirection: "row",width: "50%",justifyContent: "space-between"}}>
-          <Boton texto="Cancelar" color="red" width="100px" height="50px" funcion={() => esconderCard()}/>
-          <Boton texto="Añadir" color="lightgreen" width="100px" height="50px" funcion={() => this.postProducto()}/>
+          <Boton
+            texto="Añadir"
+            color="lightgreen"
+            width="100px"
+            height="50px"
+            funcion={() => this.postProducto()}
+          />
         </div>
       </div>
     );

@@ -30,21 +30,22 @@ export default class App extends React.Component {
   componentDidMount() {
     this.getCarrito();
   }
-  ingresoLogIn(nombre,permiso,avatar){
+  ingresoLogIn(nombre, permiso, avatar) {
     this.setState({
       logInNombre: nombre,
       logInPermiso: permiso,
       logInAvatar: avatar,
       logInEstado: true,
-    })
+    });
   }
-  cerrarSesion(){
+  cerrarSesion() {
+    alert("sesion cerrada");
     this.setState({
       logInNombre: "",
       logInPermiso: "",
       logInAvatar: "",
       logInEstado: false,
-    })
+    });
   }
   getCarrito() {
     return new Promise((resolve, reject) => {
@@ -84,7 +85,7 @@ export default class App extends React.Component {
         });
     });
   }
- 
+
   getProductoCarrito(id) {
     return new Promise((resolve, reject) => {
       axios
@@ -102,10 +103,9 @@ export default class App extends React.Component {
     return new Promise((resolve, reject) => {
       axios
         .put("http://localhost:5000/api/carrito", {
-          
           id: id,
-          cantidad: cantidad
-        }) 
+          cantidad: cantidad,
+        })
         .then((response) => {
           resolve(this.state.setPost(response.data));
         });
@@ -132,7 +132,7 @@ export default class App extends React.Component {
   async añadirAlCarrito(productoId) {
     //funciona mal la parte del carrito ARREGLAR
     let { carrito, acumuladorCarrito } = this.state;
-    let actualizado = false
+    let actualizado = false;
     let promiseProducto = await this.getProducto(productoId);
     let idCarrito = await this.getProductoCarrito(productoId);
     let productoCarrito = { id: productoId, cantidad: 1 };
@@ -149,15 +149,17 @@ export default class App extends React.Component {
           (productoElegido.cantidad += 1)
         );
         this.eliminarDelCarrito(carrito.indexOf(productoCarrito));
-        this.putDataCarrito(Number(idCarrito.id), Number(idCarrito.cantidad + 1));
-        actualizado = true
+        this.putDataCarrito(
+          Number(idCarrito.id),
+          Number(idCarrito.cantidad + 1)
+        );
+        actualizado = true;
       }
     });
     if (actualizado === false) {
       this.postDataCarrito(productoCarrito.id, productoCarrito.cantidad);
     }
     this.sumarPrecioFinal();
-    
 
     this.setState({ carrito, acumuladorCarrito });
   }
@@ -189,61 +191,72 @@ export default class App extends React.Component {
     const { categoria, carrito, precioFinal, total, acumuladorCarrito } =
       this.state;
     return (
-        <div className={styles.App}>
-          <LogIn ingresoLogIn={(nombre,permiso,avatar) => this.ingresoLogIn(nombre,permiso,avatar)}/>
-          <Navbar
-            acumuladorCarrito={acumuladorCarrito}
-            resetContadorcarrito={() => this.resetContadorcarrito()}
-            logInPermiso={this.state.logInPermiso}
-            logInEstado={this.state.logInEstado}
-            cerrarSesion={() => this.cerrarSesion()}
+      <div className={styles.App}>
+        <LogIn
+          ingresoLogIn={(nombre, permiso, avatar) =>
+            this.ingresoLogIn(nombre, permiso, avatar)
+          }
+        />
+        <Navbar
+          acumuladorCarrito={acumuladorCarrito}
+          resetContadorcarrito={() => this.resetContadorcarrito()}
+          logInPermiso={this.state.logInPermiso}
+          logInEstado={this.state.logInEstado}
+          cerrarSesion={() => this.cerrarSesion()}
+        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Productos
+                categoria={categoria}
+                agregarCategoria={(categoriaElegida) =>
+                  this.agregarCategoria(categoriaElegida)
+                }
+                eliminarCategoria={(index) => this.eliminarCategoria(index)}
+                añadirAlCarrito={(productoId) =>
+                  this.añadirAlCarrito(productoId)
+                }
+              />
+            }
           />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Productos
-                  categoria={categoria}
-                  agregarCategoria={(categoriaElegida) =>
-                    this.agregarCategoria(categoriaElegida)
-                  }
-                  eliminarCategoria={(index) => this.eliminarCategoria(index)}
-                  añadirAlCarrito={(productoId) =>
-                    this.añadirAlCarrito(productoId)
+          <Route path="/contacto" element={<Contacto />} />
+          <Route
+            path="/carrito"
+            element={
+              carrito.length >= 1 ? (
+                <Carrito
+                  eliminarDelCarrito={(index) => this.eliminarDelCarrito(index)}
+                  carrito={carrito}
+                  total={total}
+                  precioFinal={precioFinal}
+                  actualizarPrecio={(index, cantidad) =>
+                    this.actualizarPrecio(index, cantidad)
                   }
                 />
-              }
-            />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route
-              path="/carrito"
-              element={
-                carrito.length >= 1 ? (
-                  <Carrito
-                    eliminarDelCarrito={(index) =>
-                      this.eliminarDelCarrito(index)
-                    }
-                    carrito={carrito}
-                    total={total}
-                    precioFinal={precioFinal}
-                    actualizarPrecio={(index, cantidad) =>
-                      this.actualizarPrecio(index, cantidad)
-                    }
-                  />
-                ) : (
-                  <CarritoVacio />
-                )
-              }
-            />
-            <Route path="/admin" element={<Admin logInAvatar={this.state.logInAvatar} logInNombre={this.state.logInNombre} cerrarSesion={() => this.cerrarSesion()}/>} >
-              <Route path="/admin/productos"/>
-              <Route path="/admin/usuarios"/>
-              <Route path="/admin/stock"/>
-              <Route path="/admin/ultimosIngresos"/>
-            </Route>
-            <Route path="*" element={<span>Eror 404</span>} />
-          </Routes>
-        </div>
+              ) : (
+                <CarritoVacio />
+              )
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <Admin
+                logInAvatar={this.state.logInAvatar}
+                logInNombre={this.state.logInNombre}
+                cerrarSesion={() => this.cerrarSesion()}
+              />
+            }
+          >
+            <Route path="/admin/productos" />
+            <Route path="/admin/usuarios" />
+            <Route path="/admin/stock" />
+            <Route path="/admin/ultimosIngresos" />
+          </Route>
+          <Route path="*" element={<span>Eror 404</span>} />
+        </Routes>
+      </div>
     );
   }
 }

@@ -39,11 +39,13 @@ export default class Navbar extends React.Component {
           ) : this.props.logInPermiso === "admin" ? (
             ""
           ) : (
-            <Boton
-              texto="Cerrar Sesion"
-              color="lightgrey"
-              funcion={() => this.props.cerrarSesion()}
-            />
+            <Link to="/" className={styles.CerrarSesion}>
+              <Boton
+                texto="Cerrar Sesion"
+                color="lightgrey"
+                funcion={() => this.props.cerrarSesion()}
+              />
+            </Link>
           )}
 
           <div>

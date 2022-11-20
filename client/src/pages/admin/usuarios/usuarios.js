@@ -66,7 +66,11 @@ export default class Usuarios extends React.Component {
             <h1>Usuarios</h1>
           </div>
           <div>
-            <Boton texto="+ añadir usuario" color="lightgreen" funcion={() => this.mostrarCard()}/>
+            <Boton
+              texto="+ añadir usuario"
+              color="lightgreen"
+              funcion={() => this.mostrarCard()}
+            />
           </div>
         </div>
         <BasicTable
@@ -90,7 +94,7 @@ class AñadirUsuario extends React.Component {
       permiso: "",
       contraseña: "",
       emailValido: false,
-      emails: []
+      emails: [],
     };
   }
   componentDidMount() {
@@ -118,59 +122,66 @@ class AñadirUsuario extends React.Component {
       });
     });
   }
-  verificarEmail(){
+  verificarEmail() {
     return new Promise((resolve, reject) => {
-      const {emails} = this.state;
+      const { emails } = this.state;
       let mapEmails = [];
       mapEmails = emails.map((email) => {
-        if(email.email !== this.state.email) {
-          return(true) //hay undefined si es true
+        if (email.email !== this.state.email) {
+          return true; //hay undefined si es true
         }
       });
-      const found = mapEmails.some(element => element === undefined);
-      if(found === false) {
-        this.setState({emailValido: true});
-        resolve(true)
-      }else {
-        this.setState({emailValido: false});
-        resolve(false)
+      const found = mapEmails.some((element) => element === undefined);
+      if (found === false) {
+        this.setState({ emailValido: true });
+        resolve(true);
+      } else {
+        this.setState({ emailValido: false });
+        resolve(false);
       }
     });
-   
   }
   async postProducto() {
-    let promiseEmail = await this.verificarEmail()
-    const { avatar, nombre, email, permiso, contraseña,emailValido } = this.state;
+    let promiseEmail = await this.verificarEmail();
+    const { avatar, nombre, email, permiso, contraseña, emailValido } =
+      this.state;
     if ((emailValido === true || promiseEmail === true) && email.length !== 0) {
       return new Promise((resolve, reject) => {
-        axios
-          .post("http://localhost:5000/api/usuarios", {
-            avatar: avatar,
-            nombre: nombre,
-            email: email,
-            permiso: permiso,
-            contraseña: contraseña,
-          })
+        axios.post("http://localhost:5000/api/usuarios", {
+          avatar: avatar,
+          nombre: nombre,
+          email: email,
+          permiso: permiso,
+          contraseña: contraseña,
+        });
         setTimeout(() => {
           this.props.esconderCard();
           alert("Usuario añadido");
           this.props.getUsuarios();
         }, 300);
       });
-    }else if (emailValido === false || email.search('@') === -1 || email.search('.') === -1) {
-      alert("Mail Invalido")
+    } else if (
+      emailValido === false ||
+      email.search("@") === -1 ||
+      email.search(".") === -1
+    ) {
+      alert("Mail Invalido");
       this.getEmails();
+    } else {
+      alert("error");
     }
-    else {
-      alert("error")
-    }
-    
   }
   render() {
     const { categorias, esconderCard } = this.props;
     return (
       <div className={styles.ContenedorAñadir}>
-        <img alt="Foto de usuario" src={this.state.avatar} width="200px" height="150px" style={{borderRadius: "2%"}}/>
+        <img
+          alt="Foto de usuario"
+          src={this.state.avatar}
+          width="200px"
+          height="150px"
+          style={{ borderRadius: "2%" }}
+        />
         <label>Imagen:</label>
         <input
           type="text"
