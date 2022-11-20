@@ -27,7 +27,7 @@ router.get("/email", function (req, res, next) {
 });
 
 router.get("/login", function (req, res, next) {
-  const sql = "SELECT email,contraseña,permiso,nombre,avatar  FROM usuarios";
+  const sql = "SELECT email,contraseña,permiso,nombre,avatar,id  FROM usuarios";
   db.query(sql, function (error, resul) {
     if (error) {
       console.log(error);

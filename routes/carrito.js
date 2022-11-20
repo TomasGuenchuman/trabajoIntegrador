@@ -14,9 +14,9 @@ router.get("/", function (req, res, next) {
   });
 });
 
-router.get("/productoElegido", function (req, res, next) {
-  const {producto_id} = req.query;
-  const sql = "SELECT *  FROM carrito where producto_id = "+producto_id;
+router.get("/carritoUSuario", function (req, res, next) {
+  const { id } = req.query;
+  const sql = "SELECT SUM(carrito.cantidad) as cantidad,carrito.id_usuario,productos.imagen,productos.precio,productos.nombre,productos.id,carrito.idCarrito  FROM carrito LEFT JOIN productos ON carrito.producto_id = productos.id WHERE id_usuario = "+id+" group by producto_id";
   db.query(sql, function (error, resul) {
     if (error) {
       console.log(error);
@@ -28,9 +28,9 @@ router.get("/productoElegido", function (req, res, next) {
 });
 
 router.post("/", function (req, res, next) {
-  const { producto_id,cantidad } = req.body;
-  const sql = "INSERT INTO carrito (producto_id,cantidad) VALUES (?)";
-  db.query(sql, [[producto_id,cantidad]], function (error, resul) {
+  const { producto_id,cantidad,id_usuario } = req.body;
+  const sql = "INSERT INTO carrito (producto_id,cantidad,id_usuario) VALUES (?)";
+  db.query(sql, [[producto_id,cantidad,id_usuario]], function (error, resul) {
     if (error) {
       console.log(error);
       res.send("ocurrio un error");
@@ -41,11 +41,12 @@ router.post("/", function (req, res, next) {
 });
 
 router.put("/", function (req, res, next) {
-  const { cantidad, id } = req.body;
+  const { id } = req.query;
+  const {cantidad} = req.body;
   const sql =
     "UPDATE carrito SET cantidad = '" +
     cantidad +
-    "' WHERE id = " +
+    "' WHERE idCarrito = " +
     id;
   db.query(sql, function (error, resul) {
     if (error) {
@@ -58,8 +59,8 @@ router.put("/", function (req, res, next) {
 });
 
 router.delete("/", function (req, res, next) {
-    const { id } = req.body;
-    const sql = "DELETE FROM carrito WHERE id = " + id;
+    const { id } = req.query;
+    const sql = "DELETE FROM carrito WHERE idCarrito = " + id;
     db.query(sql, function (error, resul) {
       if (error) {
         console.log(error);

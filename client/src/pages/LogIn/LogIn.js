@@ -16,7 +16,7 @@ export default class LogIn extends React.Component {
   render() {
     return (
       <Routes>
-        <Route path="/logIn" element={<IniciarSesion ingresoLogIn={(nombre,permiso,avatar) => this.props.ingresoLogIn(nombre,permiso,avatar)}/>} />
+        <Route path="/logIn" element={<IniciarSesion ingresoLogIn={(nombre,permiso,avatar,id) => this.props.ingresoLogIn(nombre,permiso,avatar,id)}  getCarrito={(id) => this.props.getCarrito(id)}/>} />
         <Route path="/register" element={<Register />} />
       </Routes>
     );
@@ -63,7 +63,8 @@ class IniciarSesion extends React.Component {
     const found = mapEmails.includes(true);
     const indexEmail = mapEmails.indexOf(mapEmails.includes(true));
     if(found === true) {
-      this.props.ingresoLogIn(emails[indexEmail].nombre,emails[indexEmail].permiso,emails[indexEmail].avatar);
+      this.props.getCarrito(emails[indexEmail].id)
+      this.props.ingresoLogIn(emails[indexEmail].nombre,emails[indexEmail].permiso,emails[indexEmail].avatar,emails[indexEmail].id);
       alert("Usuario ingresado correctamente,porfavor cerrar ventana de LOG IN")
     }else {
       alert("Email o contraseña incorrectos")
@@ -217,6 +218,9 @@ class Register extends React.Component {
   }
   postUsuario() {
     const { avatar, nombre, email, permiso, contraseña,emailValido } = this.state;
+    if(avatar === ""){
+      this.setState({avatar: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"})
+    }
     this.verificarEmail()
     if (contraseña === this.state.reContraseña && emailValido === true && email.length !== 0) {
       return new Promise((resolve, reject) => {

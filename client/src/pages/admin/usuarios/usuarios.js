@@ -142,9 +142,13 @@ class AñadirUsuario extends React.Component {
     });
   }
   async postProducto() {
+    if(this.state.avatar === ""){
+      this.setState({avatar: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"})
+    }
     let promiseEmail = await this.verificarEmail();
     const { avatar, nombre, email, permiso, contraseña, emailValido } =
       this.state;
+
     if ((emailValido === true || promiseEmail === true) && email.length !== 0) {
       return new Promise((resolve, reject) => {
         axios.post("http://localhost:5000/api/usuarios", {

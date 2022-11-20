@@ -16,25 +16,23 @@ export default class App extends React.Component {
     this.state = {
       categoria: [],
       carrito: [],
-      precioFinal: [],
-      total: 0,
-      precioTotal: "",
       acumuladorCarrito: 0,
-      setPost: null,
       logInNombre: "",
       logInPermiso: "",
       logInAvatar: "",
+      logInId: 0,
       logInEstado: false,
     };
   }
   componentDidMount() {
-    this.getCarrito();
+    this.getCarrito(this.state.logInId);
   }
-  ingresoLogIn(nombre, permiso, avatar) {
+  ingresoLogIn(nombre, permiso, avatar,id) {
     this.setState({
       logInNombre: nombre,
       logInPermiso: permiso,
       logInAvatar: avatar,
+      logInId: id,
       logInEstado: true,
     });
   }
@@ -44,12 +42,13 @@ export default class App extends React.Component {
       logInNombre: "",
       logInPermiso: "",
       logInAvatar: "",
+      logInId: "",
       logInEstado: false,
     });
   }
-  getCarrito() {
+  getCarrito(id) {
     return new Promise((resolve, reject) => {
-      axios.get("http://localhost:5000/api/carrito").then((res) => {
+      axios.get("http://localhost:5000/api/carrito/carritoUSuario?id="+id).then((res) => {
         resolve(this.setState({ carrito: res.data }));
       });
     });
@@ -65,13 +64,6 @@ export default class App extends React.Component {
     categoria.splice(index, 1);
     this.setState({ categoria });
   }
-  eliminarDelCarrito(index) {
-    const { carrito, precioFinal } = this.state;
-    precioFinal.splice(index, 1);
-    carrito.splice(index, 1);
-    this.sumarPrecioFinal();
-    this.setState({ carrito });
-  }
   getProducto(productoId) {
     return new Promise((resolve, reject) => {
       axios
@@ -86,105 +78,46 @@ export default class App extends React.Component {
     });
   }
 
-  getProductoCarrito(id) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(
-          "http://localhost:5000/api/carrito/productoElegido?producto_id=" + id
-        )
-        .then((res) => {
-          let producto = res.data[0];
-          resolve(producto);
-        });
-    });
-  }
-
-  putDataCarrito(id, cantidad) {
-    return new Promise((resolve, reject) => {
-      axios
-        .put("http://localhost:5000/api/carrito", {
-          id: id,
-          cantidad: cantidad,
-        })
-        .then((response) => {
-          resolve(this.state.setPost(response.data));
-        });
-    });
-  }
-  postDataCarrito(id, cantidad) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post("http://localhost:5000/api/carrito", {
-          producto_id: id,
-          cantidad: cantidad,
-        })
-        .then((response) => {
-          resolve(this.state.setPost(response.data));
-        });
-    });
-  }
-  deleteDataCarrito() {
-    axios.delete("http://localhost:5000/api/carrito").then(() => {
-      alert("Post deleted!");
-      this.setPost(null);
-    });
-  }
-  async añadirAlCarrito(productoId) {
-    //funciona mal la parte del carrito ARREGLAR
-    let { carrito, acumuladorCarrito } = this.state;
-    let actualizado = false;
-    let promiseProducto = await this.getProducto(productoId);
-    let idCarrito = await this.getProductoCarrito(productoId);
-    let productoCarrito = { id: productoId, cantidad: 1 };
-    carrito.push(productoCarrito);
-    acumuladorCarrito += 1;
-    this.precioTotal(promiseProducto.precio);
-    carrito.map((productoElegido, index) => {
-      if (
-        productoElegido.id === productoCarrito.id &&
-        carrito.indexOf(productoElegido) != carrito.indexOf(productoCarrito)
-      ) {
-        this.actualizarPrecio(
-          carrito.indexOf(productoElegido),
-          (productoElegido.cantidad += 1)
-        );
-        this.eliminarDelCarrito(carrito.indexOf(productoCarrito));
-        this.putDataCarrito(
-          Number(idCarrito.id),
-          Number(idCarrito.cantidad + 1)
-        );
-        actualizado = true;
+  añadirAlCarrito(productoId){
+    let mapCarrito = this.state.carrito.map((carrito) => {
+      if(carrito.id === productoId) {
+        return(true) //hay undefined si es true
       }
     });
-    if (actualizado === false) {
-      this.postDataCarrito(productoCarrito.id, productoCarrito.cantidad);
-    }
-    this.sumarPrecioFinal();
+    const found = mapCarrito.includes(true);
+    const indexCarrito = mapCarrito.indexOf(mapCarrito.includes(true)); console.log(found);console.log(indexCarrito)
 
-    this.setState({ carrito, acumuladorCarrito });
+    if (found === true) {
+        axios.put("http://localhost:5000/api/carrito?id="+ this.state.carrito[indexCarrito].idCarrito, {
+          cantidad: (this.state.carrito[indexCarrito].cantidad ) + 1,
+        });
+    
+        setTimeout(() => {
+          this.getCarrito(this.state.logInId);
+          alert("producto Añadido");
+        }, 300);
+    }else{
+      axios.post("http://localhost:5000/api/carrito", {
+        producto_id: productoId,
+        cantidad: 1,
+        id_usuario: this.state.logInId,
+      });
+      setTimeout(() => {
+        this.getCarrito(this.state.logInId);
+        alert("Producto añadido");
+      }, 300);
+
+    }
+
   }
-  precioTotal(precio) {
-    let { precioFinal } = this.state;
-    let precioActualizado = precio;
-    precioFinal.push({ precio, precioActualizado });
-    this.setState({ precioFinal });
-  }
-  actualizarPrecio(index, cantidad) {
-    let { precioFinal, carrito } = this.state;
-    precioFinal[index].precioActualizado = precioFinal[index].precio * cantidad;
-    carrito[index].cantidad = cantidad;
-    this.sumarPrecioFinal();
-    this.setState({ precioFinal });
-  }
-  sumarPrecioFinal() {
+  /*sumarPrecioFinal() {
     let { precioFinal, total } = this.state;
     total = precioFinal.reduce(function (acc, obj) {
       return Number(acc) + Number(obj.precioActualizado);
     }, 0);
     this.setState({ total });
-  }
+  }*/
   resetContadorcarrito() {
-    const { acumuladorCarrito } = this.state;
     this.setState({ acumuladorCarrito: 0 });
   }
   render() {
@@ -193,9 +126,10 @@ export default class App extends React.Component {
     return (
       <div className={styles.App}>
         <LogIn
-          ingresoLogIn={(nombre, permiso, avatar) =>
-            this.ingresoLogIn(nombre, permiso, avatar)
+          ingresoLogIn={(nombre, permiso, avatar,id) =>
+            this.ingresoLogIn(nombre, permiso, avatar,id)
           }
+          getCarrito={(id) => this.getCarrito(id)}
         />
         <Navbar
           acumuladorCarrito={acumuladorCarrito}
@@ -226,13 +160,9 @@ export default class App extends React.Component {
             element={
               carrito.length >= 1 ? (
                 <Carrito
-                  eliminarDelCarrito={(index) => this.eliminarDelCarrito(index)}
+                  getCarrito={(id) => this.getCarrito(id)}
+                  logInId={this.state.logInId}
                   carrito={carrito}
-                  total={total}
-                  precioFinal={precioFinal}
-                  actualizarPrecio={(index, cantidad) =>
-                    this.actualizarPrecio(index, cantidad)
-                  }
                 />
               ) : (
                 <CarritoVacio />

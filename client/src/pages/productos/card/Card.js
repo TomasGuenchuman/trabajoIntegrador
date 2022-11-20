@@ -20,8 +20,8 @@ export default class Productos extends React.Component {
     });
     return (
       <div className={styles.Card}>
-        <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-          <img src={imagen} alt={nombre} style={{width: this.props.categoria === "30"? "100px" : "150px"}} height="100%" />
+        <div style={{ flex: 1, display: "flex", justifyContent: "center",alignItems: "center" }}>
+          <img src={imagen} alt={nombre} style={{width: this.props.categoria === "30"? "100px": "",maxWidth: "150px",maxHeight: "100%"}} />
         </div>
         <div className={styles.InfoProducto}>
           <span>

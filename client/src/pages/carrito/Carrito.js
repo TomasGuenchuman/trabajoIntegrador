@@ -12,7 +12,9 @@ export default class Carrito extends React.Component {
     };
   }
 
-
+  componentDidMount(){
+    this.props.getCarrito(this.props.logInId)
+  }
   cantidadDeProductos() {
     let { carrito } = this.props;
     let cantidadToTal = 0;
@@ -55,13 +57,15 @@ export default class Carrito extends React.Component {
               {carrito.map((producto, index) => {
                 return (
                   <CardCarrito
-                    id={producto.producto_id}
                     cantidad={producto.cantidad}
+                    imagen={producto.imagen}
+                    precio={producto.precio}
+                    nombre={producto.nombre}
+                    id={producto.id}
+                    id_usuario={producto.id_usuario}
                     index={index}
-                    eliminarDelCarrito={(index) => eliminarDelCarrito(index)}
-                    actualizarPrecio={(index, cantidad) =>
-                      actualizarPrecio(index, cantidad)
-                    }
+                    idCarrito={producto.idCarrito}
+                    getCarrito={(id) => this.props.getCarrito(id)}
                   />
                 );
               })}
@@ -69,7 +73,7 @@ export default class Carrito extends React.Component {
             <div className={styles.ContenedorSubtotal}>
               <span style={{ fontSize: "1.8rem", marginTop: 10 }}>
                 Subtotal ({this.cantidadDeProductos()} productos):{" "}
-                <b>{formatter.format(total)}</b>
+                <b>{/*formatter.format(total)*/}precio total</b>
               </span>
             </div>
           </div>
@@ -80,7 +84,7 @@ export default class Carrito extends React.Component {
             <div className={styles.ContenedorSubtotalPago}>
               <span style={{ fontSize: "3rem", textAlign: "center" }}>
                 subtotal ({this.cantidadDeProductos()} productos):{" "}
-                <b>{formatter.format(total)}</b>
+                <b>{/*formatter.format(total)*/}precio total</b>
               </span>
             </div>
             <div style={{ display: "flex", flex: 1 }}>
