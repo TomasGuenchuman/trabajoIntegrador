@@ -27,7 +27,7 @@ export default class App extends React.Component {
   componentDidMount() {
     this.getCarrito(this.state.logInId);
   }
-  ingresoLogIn(nombre, permiso, avatar,id) {
+  ingresoLogIn(nombre, permiso, avatar, id) {
     this.setState({
       logInNombre: nombre,
       logInPermiso: permiso,
@@ -48,9 +48,11 @@ export default class App extends React.Component {
   }
   getCarrito(id) {
     return new Promise((resolve, reject) => {
-      axios.get("http://localhost:5000/api/carrito/carritoUSuario?id="+id).then((res) => {
-        resolve(this.setState({ carrito: res.data }));
-      });
+      axios
+        .get("http://localhost:5000/api/carrito/carritoUSuario?id=" + id)
+        .then((res) => {
+          resolve(this.setState({ carrito: res.data }));
+        });
     });
   }
   agregarCategoria(categoriaElegida) {
@@ -76,53 +78,61 @@ export default class App extends React.Component {
           resolve(productoCarrito);
         });
     });
-
   }
 
-  añadirAlCarrito(productoId){
+  async añadirAlCarrito(productoId) {
     let mapCarrito = this.state.carrito.map((carrito) => {
-      if(carrito.id === productoId) {
-        return(true) //hay undefined si es true
+      if (carrito.id === productoId) {
+        return true; //hay undefined si es true
       }
     });
     const found = mapCarrito.includes(true);
-    const indexCarrito = mapCarrito.indexOf(mapCarrito.includes(true)); console.log(found);console.log(indexCarrito)
-    this.contadorcarrito()
+    const indexCarrito = mapCarrito.indexOf(mapCarrito.includes(true));
+    console.log(found);
+    console.log(indexCarrito);
+    this.contadorcarrito();
     if (found === true) {
-      return new Promise((resolve, reject) => {
-        axios.put("http://localhost:5000/api/carrito?id="+ this.state.carrito[indexCarrito].idCarrito, {
-          cantidad: (this.state.carrito[indexCarrito].cantidad ) + 1,
-        });
-    
-        resolve(this.getCarrito(this.state.logInId));
-     
-      });
-    }else{
-      return new Promise((resolve, reject) => {
-    
-        axios.post("http://localhost:5000/api/carrito", {
-          producto_id: productoId,
-          cantidad: 1,
-          id_usuario: this.state.logInId,
-        });
-        resolve(this.getCarrito(this.state.logInId));
-      });
-
+      let put = await this.putCarrito(
+        this.state.carrito[indexCarrito].idCarrito,
+        this.state.carrito[indexCarrito].cantidad
+      );
+      console.log(put);
+    } else {
+      let post = await this.postCarrito(productoId, 1, this.state.logInId);
+      console.log(post);
     }
-
   }
-  /*sumarPrecioFinal() {
-    let { precioFinal, total } = this.state;
-    total = precioFinal.reduce(function (acc, obj) {
-      return Number(acc) + Number(obj.precioActualizado);
-    }, 0);
-    this.setState({ total });
-  }*/
+
+  putCarrito(id, cantidadActual) {
+    return new Promise((resolve, reject) => {
+      axios.put("http://localhost:5000/api/carrito?id=" + id, {
+        cantidad: cantidadActual + 1,
+      });
+      setTimeout(() => {
+        this.getCarrito(this.state.logInId);
+        console.log("Producto actualizado");
+      }, 100);
+    });
+  }
+
+  postCarrito(id, cantidad, id_usuario) {
+    return new Promise((resolve, reject) => {
+      axios.post("http://localhost:5000/api/carrito", {
+        producto_id: id,
+        cantidad: cantidad,
+        id_usuario: id_usuario,
+      });
+      setTimeout(() => {
+        this.getCarrito(this.state.logInId);
+        console.log("Producto añadido");
+      }, 100);
+    });
+  }
   resetContadorcarrito() {
     this.setState({ acumuladorCarrito: 0 });
   }
   contadorcarrito() {
-    this.setState({ acumuladorCarrito: this.state.acumuladorCarrito + 1});
+    this.setState({ acumuladorCarrito: this.state.acumuladorCarrito + 1 });
   }
   render() {
     const { categoria, carrito, precioFinal, total, acumuladorCarrito } =
@@ -130,8 +140,8 @@ export default class App extends React.Component {
     return (
       <div className={styles.App}>
         <LogIn
-          ingresoLogIn={(nombre, permiso, avatar,id) =>
-            this.ingresoLogIn(nombre, permiso, avatar,id)
+          ingresoLogIn={(nombre, permiso, avatar, id) =>
+            this.ingresoLogIn(nombre, permiso, avatar, id)
           }
           getCarrito={(id) => this.getCarrito(id)}
         />

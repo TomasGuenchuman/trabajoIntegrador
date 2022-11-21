@@ -58,14 +58,14 @@ export default class AdminProductos extends React.Component {
     this.setState({ mostrarCard: false });
     setTimeout(() => {
       this.props.getProductos();
-    }, 300);
+    }, 100);
   }
   deleteProducto(id) {
     axios.delete("http://localhost:5000/api/productos?id=" + id);
     setTimeout(() => {
       this.props.getProductos();
       alert("Producto Eliminado");
-    }, 300);
+    }, 100);
   }
   render() {
     const { productos, getProductos } = this.props;

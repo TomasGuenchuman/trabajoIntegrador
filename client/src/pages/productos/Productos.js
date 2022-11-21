@@ -58,10 +58,17 @@ export default class Productos extends React.Component {
     this.props.eliminarCategoria(index);
     this.getProductos();
   }
-  filtro(orden, categoriaId) {
+  async filtro(orden, categoriaId) {
     let ordenProductos = "";
     ordenProductos = orden;
     if (categoriaId >= 1) {
+      await this.getOrdenConCategorias(categoriaId, ordenProductos);
+    } else {
+      await this.getOrdenSinCategoria(ordenProductos);
+    }
+  }
+  getOrdenConCategorias(categoriaId, ordenProductos) {
+    return new Promise((resolve, reject) => {
       axios
         .get(
           "http://localhost:5000/api/productos/filtro?categoriaId=" +
@@ -70,18 +77,22 @@ export default class Productos extends React.Component {
             ordenProductos
         )
         .then((res) => {
-          this.setState({ productos: res.data });
+          resolve(this.setState({ productos: res.data }));
         });
-    } else {
-      return axios
+    });
+  }
+
+  getOrdenSinCategoria(ordenProductos) {
+    return new Promise((resolve, reject) => {
+      axios
         .get(
           "http://localhost:5000/api/productos/filtro?categoriaId=&orden=" +
             ordenProductos
         )
         .then((res) => {
-          this.setState({ productos: res.data });
+          resolve(this.setState({ productos: res.data }));
         });
-    }
+    });
   }
   resetCategoriaId() {
     this.setState({ categoriaId: 0 });

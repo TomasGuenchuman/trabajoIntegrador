@@ -141,7 +141,7 @@ class AñadirUsuario extends React.Component {
       }
     });
   }
-  async postProducto() {
+  async postUsuario() {
     if(this.state.avatar === ""){
       this.setState({avatar: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"})
     }
@@ -240,7 +240,7 @@ class AñadirUsuario extends React.Component {
             color="lightgreen"
             width="100px"
             height="50px"
-            funcion={() => this.postProducto()}
+            funcion={() => this.postUsuario()}
           />
         </div>
       </div>

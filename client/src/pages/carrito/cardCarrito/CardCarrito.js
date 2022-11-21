@@ -34,24 +34,35 @@ export default class CardCarrito extends React.Component {
     }, 500);
   }
   putProducto() {
+    return new Promise((resolve, reject) => {
+      axios.put(
+        "http://localhost:5000/api/carrito?id=" + this.props.idCarrito,
+        {
+          cantidad: this.state.cantidadPost,
+        }
+      );
 
-    axios.put("http://localhost:5000/api/carrito?id="+this.props.idCarrito, {
-      cantidad: this.state.cantidadPost,
+      setTimeout(() => {
+        resolve(
+          this.props.getCarrito(this.props.id_usuario),
+          alert("Cantidad Actualizada")
+        );
+      }, 300);
     });
-
-    setTimeout(() => {
-      this.props.getCarrito(this.props.id_usuario);
-      alert("Cantidad Actualizada");
-    }, 300);
   }
   deleteProducto() {
-
-    axios.delete("http://localhost:5000/api/carrito?id="+this.props.idCarrito, {
+    return new Promise((resolve, reject) => {
+      axios.delete(
+        "http://localhost:5000/api/carrito?id=" + this.props.idCarrito,
+        {}
+      );
+      setTimeout(() => {
+        resolve(
+          this.props.getCarrito(this.props.id_usuario),
+          alert("producto Eliminado")
+        );
+      }, 100);
     });
-    setTimeout(() => {
-      this.props.getCarrito(this.props.id_usuario);
-      alert("producto Eliminado");
-    }, 300);
   }
   render() {
     const editarCantidad = (
@@ -106,7 +117,7 @@ export default class CardCarrito extends React.Component {
             style={{
               margin: 5,
               maxWidth: "140px",
-              maxHeight: "80%"
+              maxHeight: "80%",
             }}
           />
         </div>
@@ -130,6 +141,9 @@ export default class CardCarrito extends React.Component {
               <span>
                 <b>({cantidad})</b>
               </span>
+              <h6 style={{color: "lightslategrey"}}>
+                <b>{formatter.format(cantidad * precio)}</b>
+              </h6>
             </div>
           </div>
 

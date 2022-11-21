@@ -26,14 +26,14 @@ export default class AdminUsuarios extends React.Component {
     this.setState({ mostrarCard: false });
     setTimeout(() => {
       this.props.getUsuarios();
-    }, 300);
+    }, 100);
   }
   deleteIngreso(id) {
     axios.delete("http://localhost:5000/api/usuarios?id=" + id);
     setTimeout(() => {
       this.props.getUsuarios();
       alert("Usuario Eliminado");
-    }, 300);
+    }, 100);
   }
   render() {
     const { usuarios } = this.props;

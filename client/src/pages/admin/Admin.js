@@ -66,7 +66,11 @@ export default class Admin extends React.Component {
               />
             </Link>
           </div>
-          <Link to="/" className={styles.CerrarSesion} onClick={() => this.props.cerrarSesion()}>
+          <Link
+            to="/"
+            className={styles.CerrarSesion}
+            onClick={() => this.props.cerrarSesion()}
+          >
             <Boton
               texto="cerrar sesion"
               height="15%"
