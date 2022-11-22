@@ -3,7 +3,7 @@ var router = express.Router();
 var nodemailer = require("nodemailer");
 
 router.post("/", function (req, res, next) {
-  const { mail, asunto, mensaje } = req.body;
+  const { mail, asunto, mensaje, nombre } = req.body;
   let mailTransporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
@@ -17,7 +17,7 @@ router.post("/", function (req, res, next) {
     from: "emailstpi391@gmail.com",
     to: "tomasschool391@gmail.com",
     subject: asunto,
-    text: mensaje + "mail contacto: "+mail,
+    text: mensaje + " " + "Nombre: " + nombre + " " + "mail contacto: " + mail,
   };
   mailTransporter.sendMail(infoMail, (err) => {
     if (err) {

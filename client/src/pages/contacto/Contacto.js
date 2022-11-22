@@ -4,12 +4,42 @@ import Boton from "../../components/comun/boton/Boton";
 import instagram from "../../assets/instagram.png";
 import twitter from "../../assets/twitter.png";
 import facebook from "../../assets/facebook.png";
+import axios from "axios";
 export default class Contacto extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      nombre: "",
+      email: "",
+      asunto: "",
+      mensaje: "",
+    };
   }
 
+  getNombre(e) {
+    this.setState({ nombre: e });
+  }
+  getEmail(e) {
+    this.setState({ email: e });
+  }
+  getAsunto(e) {
+    this.setState({ asunto: e });
+  }
+  getMensaje(e) {
+    this.setState({ mensaje: e });
+  }
+  enviarEmail() {
+    return new Promise((resolve, reject) => {
+      axios.post("http://localhost:5000/api/nodeMailer", {
+        mail: this.state.email,
+        asunto: this.state.asunto,
+        mensaje: this.state.mensaje,
+        nombre: this.state.nombre,
+      });
+      this.setState({ nombre: "", email: "", asunto: "", mensaje: "" });
+      alert("Mail Enviado");
+    });
+  }
   render() {
     return (
       <div>
@@ -18,18 +48,40 @@ export default class Contacto extends React.Component {
         </h1>
         <div className={styles.Contacto}>
           <form className={styles.Form}>
-            <input type="text" placeholder="Nombre" required />
-            <input type="email" placeholder="Email" required />
-            <input type="text" placeholder="Asunto" required />
+            <input
+              type="text"
+              placeholder="Nombre"
+              onChange={(e) => this.getNombre(e.target.value)}
+              maxLength="30"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => this.getEmail(e.target.value)}
+              maxLength="255"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Asunto"
+              onChange={(e) => this.getAsunto(e.target.value)}
+              maxLength="255"
+              required
+            />
             <span style={{ marginBottom: 10, marginTop: 15, fontSize: 21 }}>
               Mensaje
             </span>
-            <textarea required />
+            <textarea
+              onChange={(e) => this.getMensaje(e.target.value)}
+              required
+            />
             <Boton
               texto="enviar"
               color="lightgray"
               width="80px"
               height="50px"
+              funcion={() => this.enviarEmail()}
             />
           </form>
           <div className={styles.InfoContacto}>
