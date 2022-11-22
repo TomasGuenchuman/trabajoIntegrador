@@ -16,7 +16,17 @@ export default class LogIn extends React.Component {
   render() {
     return (
       <Routes>
-        <Route path="/logIn" element={<IniciarSesion ingresoLogIn={(nombre,permiso,avatar,id) => this.props.ingresoLogIn(nombre,permiso,avatar,id)}  getCarrito={(id) => this.props.getCarrito(id)}/>} />
+        <Route
+          path="/logIn"
+          element={
+            <IniciarSesion
+              ingresoLogIn={(nombre, permiso, avatar, id) =>
+                this.props.ingresoLogIn(nombre, permiso, avatar, id)
+              }
+              getCarrito={(id) => this.props.getCarrito(id)}
+            />
+          }
+        />
         <Route path="/register" element={<Register />} />
       </Routes>
     );
@@ -34,7 +44,7 @@ class IniciarSesion extends React.Component {
     };
   }
   componentDidMount() {
-    this.getEmails()
+    this.getEmails();
   }
   getEmails() {
     return new Promise((resolve, reject) => {
@@ -52,26 +62,36 @@ class IniciarSesion extends React.Component {
     }
     this.setState({ password });
   }
-  verificarEmail(){
-    const {emails} = this.state;
+  verificarEmail() {
+    const { emails } = this.state;
     let mapEmails = [];
     mapEmails = emails.map((email) => {
-      if(email.email === this.state.email && email.contraseña === this.state.contraseña) {
-        return(true) //hay undefined si es true
+      if (
+        email.email === this.state.email &&
+        email.contraseña === this.state.contraseña
+      ) {
+        return true; //hay undefined si es true
       }
     });
     const found = mapEmails.includes(true);
     const indexEmail = mapEmails.indexOf(mapEmails.includes(true));
-    if(found === true) {
-      this.props.getCarrito(emails[indexEmail].id)
-      this.props.ingresoLogIn(emails[indexEmail].nombre,emails[indexEmail].permiso,emails[indexEmail].avatar,emails[indexEmail].id);
-      alert("Usuario ingresado correctamente,porfavor cerrar ventana de LOG IN")
-    }else {
-      alert("Email o contraseña incorrectos")
+    if (found === true) {
+      this.props.getCarrito(emails[indexEmail].id);
+      this.props.ingresoLogIn(
+        emails[indexEmail].nombre,
+        emails[indexEmail].permiso,
+        emails[indexEmail].avatar,
+        emails[indexEmail].id
+      );
+      alert(
+        "Usuario ingresado correctamente,porfavor cerrar ventana de LOG IN"
+      );
+    } else {
+      alert("Email o contraseña incorrectos");
     }
-    console.log(mapEmails)
-    console.log(found)
-    console.log(indexEmail)
+    console.log(mapEmails);
+    console.log(found);
+    console.log(indexEmail);
   }
   getEmail(e) {
     this.setState({ email: e });
@@ -158,7 +178,7 @@ class Register extends React.Component {
     this.state = {
       password: "password",
       rePassword: "password",
-      avatar: "",
+      avatar: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       nombre: "",
       email: "",
       permiso: "user",
@@ -191,6 +211,7 @@ class Register extends React.Component {
     this.setState({ rePassword });
   }
   getAvatar(e) {
+    this.setState({ avatar: "" });
     this.setState({ avatar: e });
   }
   getNombre(e) {
@@ -205,45 +226,53 @@ class Register extends React.Component {
   getReContraseña(e) {
     this.setState({ reContraseña: e });
   }
-  resetDatos(){
+  resetDatos() {
     this.setState({
-      avatar: "",
+      avatar: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       nombre: "",
       email: "",
       contraseña: "",
       reContraseña: "",
       emailValido: false,
-    })
+    });
     this.getEmails();
   }
-  postUsuario() {
-    const { avatar, nombre, email, permiso, contraseña,emailValido } = this.state;
-    if(avatar === ""){
-      this.setState({avatar: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"})
-    }
-    this.verificarEmail()
-    if (contraseña === this.state.reContraseña && emailValido === true && email.length !== 0) {
+  async postUsuario() {
+    const { avatar, nombre, email, permiso, contraseña, emailValido } =
+      this.state;
+
+    let verificarEmail = await this.verificarEmail();
+    console.log(verificarEmail);
+    if (
+      contraseña === this.state.reContraseña &&
+      (emailValido === true || verificarEmail === true) &&
+      email.length !== 0
+    ) {
       return new Promise((resolve, reject) => {
-        axios
-          .post("http://localhost:5000/api/usuarios", {
-            avatar: avatar,
+        setTimeout(() => {
+          axios.post("http://localhost:5000/api/usuarios", {
+            avatar: avatar === ""? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : avatar,
             nombre: nombre,
             email: email,
             permiso: permiso,
             contraseña: contraseña,
-          })
-      alert("Usuario Creado");
-      this.resetDatos()
+          });
+          alert("Usuario Creado");
+          this.resetDatos();
+        }, 100);
       });
-    }else if (contraseña !== this.state.reContraseña) {
-      alert("Contraseña invalida")
-    }else if (emailValido === false || email.search('@') === -1 || email.search('.') === -1) {
-      alert("Mail Invalido")
+    } else if (contraseña !== this.state.reContraseña) {
+      alert("Contraseña invalida");
+    } else if (
+      (emailValido === false || verificarEmail === false ) ||
+      email.search("@") === -1 ||
+      email.search(".") === -1
+    ) {
+      alert("Mail Invalido");
+    } else {
+      alert()
+      alert("error");
     }
-    else {
-      alert("error")
-    }
-    
   }
   getEmails() {
     return new Promise((resolve, reject) => {
@@ -252,24 +281,32 @@ class Register extends React.Component {
       });
     });
   }
-  verificarEmail(){
-    const {emails} = this.state;
-    let mapEmails = [];
-    mapEmails = emails.map((email) => {
-      if(email.email !== this.state.email) {
-        return(true) //hay undefined si es true
+  verificarEmail() {
+    return new Promise((resolve, reject) => {
+      const { emails } = this.state;
+      let mapEmails = [];
+      mapEmails = emails.map((email) => {
+        if (email.email !== this.state.email) {
+          return true; //hay undefined si es true
+        }
+      });
+      const found = mapEmails.some((element) => element === undefined);
+      if (found === false) {
+        this.setState({ emailValido: true });
+        this.getEmails();
+        setTimeout(() => {
+          resolve(true);
+        }, 50);
+      } else {
+        this.setState({ emailValido: false });
+        this.getEmails();
+        setTimeout(() => {
+          resolve(false);
+        }, 50);
       }
+      console.log(mapEmails);
+      console.log(found);
     });
-    const found = mapEmails.some(element => element === undefined);
-    if(found === false) {
-      this.setState({emailValido: true});
-      this.getEmails();
-    }else {
-      this.setState({emailValido: false});
-      this.getEmails();
-    }
-    console.log(mapEmails)
-    console.log(found)
   }
   render() {
     const { password, rePassword } = this.state;
@@ -285,10 +322,36 @@ class Register extends React.Component {
               <h4>Porfavor ingrese sus datos para crear la cuenta</h4>
             </div>
             <form className={styles.Form} style={{ flex: 2 }}>
-              <input type="text" placeholder="Nombre" onChange={(e) => this.getNombre(e.target.value)} maxLength="30" required />
-              <input type="text" placeholder="Link imagen avatar" onChange={(e) => this.getAvatar(e.target.value)} required />
-              <input type="email" placeholder="Email" onChange={(e) => this.getEmail(e.target.value)} maxLength="300" required />
-              <input type={password} placeholder="Contraseña" onChange={(e) => this.getContraseña(e.target.value)} maxLength="30" required />
+              <input
+                type="text"
+                placeholder="Nombre"
+                value={this.state.nombre}
+                onChange={(e) => this.getNombre(e.target.value)}
+                maxLength="30"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Link imagen avatar"
+                onChange={(e) => this.getAvatar(e.target.value)}
+                required
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={this.state.email}
+                onChange={(e) => this.getEmail(e.target.value)}
+                maxLength="300"
+                required
+              />
+              <input
+                type={password}
+                placeholder="Contraseña"
+                value={this.state.contraseña}
+                onChange={(e) => this.getContraseña(e.target.value)}
+                maxLength="30"
+                required
+              />
               <img
                 alt="contraseña"
                 src={password === "password" ? ocultar : mostrar}
@@ -304,6 +367,7 @@ class Register extends React.Component {
               <input
                 type={rePassword}
                 placeholder="Repetir contraseña"
+                value={this.state.reContraseña}
                 onChange={(e) => this.getReContraseña(e.target.value)}
                 maxLength="30"
                 required

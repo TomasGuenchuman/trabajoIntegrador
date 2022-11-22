@@ -43,7 +43,7 @@ export default class Contacto extends React.Component {
   render() {
     return (
       <div>
-        <h1 style={{ textAlign: "center", marginTop: 30, marginBottom: 20 }}>
+        <h1 style={{ textAlign: "center", marginTop: 30, marginBottom: 20 }} >
           Contactanos
         </h1>
         <div className={styles.Contacto}>
@@ -51,6 +51,7 @@ export default class Contacto extends React.Component {
             <input
               type="text"
               placeholder="Nombre"
+              value={this.state.nombre}
               onChange={(e) => this.getNombre(e.target.value)}
               maxLength="30"
               required
@@ -58,6 +59,7 @@ export default class Contacto extends React.Component {
             <input
               type="email"
               placeholder="Email"
+              value={this.state.email}
               onChange={(e) => this.getEmail(e.target.value)}
               maxLength="255"
               required
@@ -65,6 +67,7 @@ export default class Contacto extends React.Component {
             <input
               type="text"
               placeholder="Asunto"
+              value={this.state.asunto}
               onChange={(e) => this.getAsunto(e.target.value)}
               maxLength="255"
               required
@@ -73,6 +76,7 @@ export default class Contacto extends React.Component {
               Mensaje
             </span>
             <textarea
+              value={this.state.mensaje}
               onChange={(e) => this.getMensaje(e.target.value)}
               required
             />

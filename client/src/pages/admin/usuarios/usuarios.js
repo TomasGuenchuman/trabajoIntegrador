@@ -88,7 +88,7 @@ class AñadirUsuario extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      avatar: "",
+      avatar: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       nombre: "",
       email: "",
       permiso: "",
@@ -101,6 +101,7 @@ class AñadirUsuario extends React.Component {
     this.getEmails();
   }
   getAvatar(e) {
+    this.setState({ avatar: "" });
     this.setState({ avatar: e });
   }
   getNombre(e) {
@@ -152,7 +153,7 @@ class AñadirUsuario extends React.Component {
     if ((emailValido === true || promiseEmail === true) && email.length !== 0) {
       return new Promise((resolve, reject) => {
         axios.post("http://localhost:5000/api/usuarios", {
-          avatar: avatar,
+          avatar: avatar === ""? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : avatar,
           nombre: nombre,
           email: email,
           permiso: permiso,

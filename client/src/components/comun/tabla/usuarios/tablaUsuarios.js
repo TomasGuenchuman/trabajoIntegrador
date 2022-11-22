@@ -161,7 +161,7 @@ class CardUsuario extends React.Component {
     const { avatar, nombre, email, permiso } = this.state;
     axios.put("http://localhost:5000/api/usuarios", {
       id: id,
-      avatar: avatar,
+      avatar: avatar === ""? this.props.infoProducto.avatar : this.state.avatar,
       nombre: nombre,
       email: email,
       permiso: permiso,
@@ -183,7 +183,17 @@ class CardUsuario extends React.Component {
             alignItems: "center",
           }}
         >
-          <img alt={infoProducto.nombre} src={infoProducto.avatar} />
+          <div style={{minHeight: "150px"}}>
+            {this.state.avatar === "" || this.state.avatar.length <= 13?<img alt={infoProducto.nombre} src={infoProducto.avatar} style={{maxHeight: 150}}/> :  <img alt={infoProducto.nombre} src={this.state.avatar} style={{maxHeight: 150}}/>}
+           
+          </div>
+          
+          <label>Cabiar avatar del usuario:</label>
+          <input
+            type="text"
+            placeholder="Link de nueva imagen para el avatar del usuario"
+            onChange={(e) => this.getAvatar(e.target.value)}
+          />
           <label>Nombre</label>
           <input
             type="text"
