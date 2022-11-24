@@ -194,7 +194,7 @@ class EliminarCategoria extends React.Component {
             funcion={() => esconderCardCategorias()}
           />
           <Boton
-            texto="Añadir"
+            texto="Eliminar"
             color="lightgreen"
             width="100px"
             height="50px"

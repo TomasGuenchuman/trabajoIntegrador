@@ -50,6 +50,7 @@ export default class AdminProductos extends React.Component {
       categoria: categoriaDescripcion,
       categoriaId: Number(categoria),
     };
+    this.getCategorias()
     this.setState({ infoProducto: productInfo });
     this.setState({ mostrarCard: true });
   }
